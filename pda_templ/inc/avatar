@@ -1,0 +1,9 @@
+[% UNLESS noavatar %]
+[% IF user.thumb_file AND link_to_avatar %]
+<a href="${set.uri.home}avatar/[% user.login | uri_escape %]/#foto"><img src="${set.uri.pic}/users/$user.thumb_file?[% user.thumb_time | timestamp %]" class=avatar width=$user.thumb_width height=$user.thumb_height border=0></a>
+[% ELSIF user.thumb_file %]
+<a href="${set.uri.home}user/[% user.login | uri_escape %]/"><img src="${set.uri.pic}/users/$user.thumb_file?[% user.thumb_time | timestamp %]" class=avatar width=$user.thumb_width height=$user.thumb_height border=0></a>
+[% ELSE %]
+<a href="${set.uri.home}user/[% user.login | uri_escape %]/"><img src="/pic/nofoto.gif" width=80 height=80 class=avatar border=0></a>
+[% END %][% UNLESS nonick %]<br>[% END %][% END %]
+[% UNLESS nonick %][% INCLUDE inc/user %][% END %]

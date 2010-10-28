@@ -1,0 +1,34 @@
+[% INCLUDE inc/header %]
+
+[% IF set.action == 'forget' %]
+
+
+[% IF result %]
+<h1>Пароль выслан на емайл адреса, указанные при регистрации по следующим логинам:</h1>
+<ul>
+[% FOREACH e = result %]
+<li>$e.login</li>
+[% END %]
+</ul>
+[% ELSE %]
+<h1>Пользователь с таким логином или емайлом не зарегистрирован</h1>
+<p>Попробуйте ещё раз.</p>
+[% END %]
+
+
+[% ELSE %]
+
+<h1>Вы ввели неверную комбинацию логина и пароля.</h1>
+
+<form name=login method="post" action="/forget">
+<ul>
+<li>Попробуйте другой пароль, проверьте не нажата-ли клавиша <em>Caps Lock</em></li>
+<li>Если вы забыли свой пароль, введите логин или email, указанный при регистрации и вам вышлют новый пароль: <input name=email value="[% context.login | escape %]" type="text" size=15>&nbsp;<input type="submit" value="Выслать пароль"></li>
+<!--<li>Если вы забыли свой пароль, обратитесь в <a href="mailto:admin@zhazhda.ru">службу поддержки</a>.</li>-->
+<li>Если вы ещё не зарегистрированы - <a href="/sign/">регистрируйтесь</a></li>
+</ul>
+</form>
+
+[% END %]
+
+[% INCLUDE inc/footer %]

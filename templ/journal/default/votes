@@ -1,0 +1,56 @@
+<h2>Номинанты ([% result.topic.is_voters_open %]):</h2>
+
+<table border="0" cellpadding="3" cellspacing="2" class="list">
+
+[% FOREACH v = [0..30] %]
+[% vote = result.votes.$v %]
+
+[% IF vote.name %]
+
+[% IF result.topic.view.vote_time AND result.topic.view.vote_id==vote.id %]
+<tr><td style="background: #eee; font-size: 12px; vertical-align: top">[% vote.name | escape_text %]</td>
+<td>&nbsp;</td>
+<td style="background: #eee"><b>Ваш голос</b>
+[% IF result.topic.is_voters_open %]
+<div>[% vote.votes %] голосов:</div>
+[% FOREACH user = vote.voters %]
+[% INCLUDE inc/user %],
+[% END %]
+[% ELSIF context.user.is_academic %] ([% vote.votes %])[% END %]
+</td></tr>
+[% ELSIF result.topic.is_vote_closed %]
+
+<tr><td style="font-size: 12px; vertical-align: top">[% vote.name | escape_text %]</td><td>&nbsp;</td><td>
+[% IF result.topic.is_voters_open %]
+<div>[% vote.votes %] голосов:</div>
+[% FOREACH user = vote.voters %]
+[% INCLUDE inc/user %],
+[% END %]
+[% ELSE %]
+[% IF context.user.is_academic %] ([% vote.votes %])[% END %]
+[% END %]
+
+</td></tr>
+
+
+[% ELSE %]
+
+<tr><td style="font-size: 12px; vertical-align: top">[% vote.name | escape_text %]</td><td>&nbsp;</td><td>
+[% IF context.user.mobile_checked %]<a href="/do_vote?tid=$result.topic.id&id=$vote.id">[% IF result.topic.view.vote_time %]Переголосовать[% ELSE %]Голосовать[% END %]</a>
+[% IF context.user.is_academic %] ([% vote.votes %])[% END %]
+[% ELSE %]<i style="color: gray"><small>нет возможности голосовать без регистрации</small></i>[% END %]
+
+</td></tr>
+[% END %]
+
+
+[% END %]
+
+[% END %]
+</table>
+
+<p><i>Всего голосов: $result.topic.votes</i></p>
+<p>Чтобы голосовать зарегистрируйтесь и подтвердите номер своего мобильного телефона.</p>
+[% IF result.topic.is_vote_closed %]
+<p style="color: red"><b>Голосование закрыто.</b></p>
+[% END %]

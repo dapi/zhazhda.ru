@@ -1,0 +1,15 @@
+[% USE HTML %]
+<form method="post" action="/profile/mobile_code">
+
+<h2>Введите полученный по SMS код:</h2>
+<p><input name=code value="" size=5 type="text">&nbsp;<input name=ok value="Подтвердить код" type="submit">
+
+<h2>Если вы не получили SMS с кодом</h2>
+<ul>
+<li>Убедитесь, что Вы ввели верный номер (<b>$context.user.mobile</b>);</li>
+<li>Попробуйте <a href="/profile/sms">отправить SMS с кодом снова</a>;</li>
+<li>Если к вам в течении часа не пришел на SMS код подтверждения &mdash; обратитесь в <a href="mailto:danil@zhazhda.ru">службу поддержки</a>.</li>
+</ul>
+<hr/>
+<p>В случае, если вы не подтвердите номер своего мобильного в течении 2-х месяцев, ваша учетная запись будет удалена с сайта, как фальшивая.</p>
+</form>

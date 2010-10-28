@@ -1,0 +1,14 @@
+<div class="gbox">
+<a title="[% file.topic_subject | escape_subject %]" href="/holder/[% file.link_id || file.id %].html#photo"><img class="[% class || 'gallery' %]" src="${set.uri.pic}${file.path}[% file.gallery_file | uri_escape %]" width="$file.gallery_width" height="$file.gallery_height" [% IF file.is_in_gallery %]style="border: 1px solid white" [% ELSIF !file.is_moderated %]style="border: 1px dashed yellow" [% END %] alt=""/></a>
+[% IF show_desc %]
+<div class="desc">
+[% IF short_mode %]
+[% IF file.title %]<b>[% file.title | escape_subject_short %]</b>[% END %]
+[% file.topic_subject | escape_subject_short %]
+[% ELSIF file.title %]
+[% file.title | escape_subject %]
+[% END %]
+</div>
+[% END %]
+[% INCLUDE inc/show_rating item=file %]
+</div>

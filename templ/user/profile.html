@@ -1,0 +1,57 @@
+[% USE HTML %]
+[% INCLUDE inc/header %]
+
+[% INCLUDE user/menu %]
+<br/>
+
+[% IF context.access.admin %]
+<form method="post" action="/edit_user">
+<input name=user_id value="$context.talker.id" type="hidden">
+<table width="100%" class="form">
+<tr><th width="150">Зарегистрирован</th><td>$context.talker.timestamp <small style="color: gray">$context.talker.sign_ip</small></td></tr>
+<tr><th width="150">E-mail</th><td>$context.talker.email</td></tr>
+<tr><th width="150">Мобильный телефон</th><td>[% context.talker.mobile | mobile %]&nbsp;&nbsp;&nbsp;
+<tr><th width="150">Подтверждение мобильного</th>
+<td>[% IF context.talker.mobile_checked %]<span style="color:green">(номер подтвержден)</span>[% ELSE %]<span style="color:red">(номер не подтвержден)</span>[% END %]</td></tr>
+
+<tr><th>Код на мобильном</th><td><b>$context.talker.mobile_code</b></td></tr>
+<tr><th>Баннеров:</th><td>$context.talker.banners</td></tr>
+[% INCLUDE inc/row_field name='banners_limit' text='Ограничение баннеров' value=""context.talker.banners_limit %]
+[% INCLUDE inc/row_field name='top_limit' text='Ограничение верхних тем' value=""context.talker.banners_limit %]
+<tr><td colspan="2">&nbsp;</td></tr>
+[% fields=context.talker  %]
+[% IF context.talker.block_time %]<tr><th>Заблокирован с :</th><td>[% context.talker.block_time %]</td></tr>[% END %]
+[% INCLUDE inc/row_select name='block_type' text='Блокировка' list=[{name=>'Нет блокировки',id=>0},{name=>'Нет возможности писать на главну.',id=>1},{name=>'Полная. Нет входа на сайт.',id=>10},{name=>'Удалить с сайта',id=>11}] %]
+[% INCLUDE inc/row_text_field name='block_comment' text='Комментарий к блокировке' comment='Описание причин блокировки'  style='width:100%' %]
+<tr><td colspan="2"><br/></td></tr>
+[% INCLUDE inc/row_field name='domain' text='Личный домен' comment='Для прямого доступа на личную страницу'  style='width:100%' %]
+[% INCLUDE inc/row_select name='is_academic' text='Академик' comment='Доступ к горячению тем и фотомодерированию' list=[{id=>0,name=>'Нет'},{id=>1,name=>'Да'}] style='width:100%' %]
+<tr><td></td><td style="padding-top: 10px"><input  type="submit" value="Сохранить" type="submit"></tr>
+
+</table>
+</form>
+[% ELSE %]
+<table width="100%" class="form">
+<tr><th width="150">Зарегистрирован</th><td>$context.talker.timestamp [% IF context.access.show_private %]<small style="color: gray">$context.talker.sign_ip</small>[% END %]</td></tr>
+[% IF context.talker.show_private || context.access.show_private %]
+<tr><th width="150">E-mail</th><td>$context.talker.email</td></tr>
+<tr><th width="150">Мобильный телефон</th><td>[% context.talker.mobile | mobile %]&nbsp;&nbsp;&nbsp;
+[% END %]
+<tr><th width="150">Подтверждение мобильного</th>
+<td>[% IF context.talker.mobile_checked %]<span style="color:green">(номер подтвержден)</span>[% ELSE %]<span style="color:red">(номер не подтвержден)</span>[% END %]</td></tr>
+<tr><td colspan="2"><a href="${set.uri.home}user/[% context.talker.login | uri_escape %]/feed/rss.xml">RSS feed</a></td></tr>
+</table>
+
+[% END %]
+
+[% IF context.user %]
+[% IF context.talker.id==context.user.id %]
+<p><a href="/profile/edit_form" class="a" id="e">Изменить личные данные</a></p>
+<p><a href="/profile/" class="a" id="e">Личный профиль</a></p>
+[% END %]
+<!--<div style="padding-top: 10px">
+[%# INCLUDE user/inc/sendmail talker=context.talker show_talker=1 %]
+</div>-->
+[% END %]
+[% right='right/default' %]
+[% INCLUDE inc/footer %]

@@ -1,0 +1,8 @@
+[% IF context.issues.size>1 %]
+<div class="issues">
+<h2 class="issues">Архив</h2>
+[% FOREACH i = context.issues %]
+[% IF loop.index %], [% END %]<span class="issue" [% IF context.issue.id==i.id %]id="s"[% END %]><a href="?issue=$i.id">$i.title</a></span>
+[% END %]
+</div>
+[% END %]

@@ -1,0 +1,25 @@
+[% UNLESS cols %][% cols = 2 %][% END %]
+[% l = 0 %]
+[% IF list.size %]
+<table  cellpadding="0"  class="list_topics>
+
+<tr>
+[% max = 500 %]
+[% FOREACH t = list %]
+
+[% IF loop.index && !(l % cols) %]</tr><tr>[% END %]
+
+[% IF loop.next && (loop.next.subject.length>max || loop.next.list_mode) && !(l % cols) %]
+<td class="t1" [% IF cols>1 %]colspan=$cols[% END %] >[% INCLUDE inc/topic topic=t %]</td>[% l = l + cols %]
+[% ELSIF (t.subject.length>max || t.list_mode) && !(l % 2) %]
+<td class="t1" [% IF cols>1 %]colspan=$cols[% END %] >[% INCLUDE inc/topic topic=t %]</td>[% l = l + cols %]
+[% ELSE %]
+<td width="[% 100 / cols %]%" class="t"[% l % cols %][% l % cols == cols - 1 %]  [% IF loop.last && !(l % cols) %] colspan=$cols [% END %]>[% INCLUDE inc/topic topic=t  %]</td>[% l = l + 1 %]
+[% END %]
+
+
+[% END %]
+</tr>
+
+</table>
+[% END %]

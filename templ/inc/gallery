@@ -1,0 +1,31 @@
+<a id="g"></a>
+[% IF context.pages %]<h2>Всего в галерее $context.all фото.</h2>
+
+<table width="100%"><tr>
+<td align="right">[% PROCESS pages name='pages1' %]</td></tr></table>
+<br/>
+[% END %]
+
+<table width="100%"  cellpadding="0"  >
+<tr><td>
+[% FOREACH file = gallery %]
+[% PROCESS journal/default/show_gallery_image class='b_gallery' %]
+[% END %]
+</td></tr></table>
+
+<br/>
+
+<table width="100%"><tr><th align="left">&nbsp;</th><td align="right">[% PROCESS pages name='pages2' %]</td></table>
+
+
+[% BLOCK pages %]
+[% IF context.pages %]
+<form method="get" action=/gallery/ name=$name  OnChange="document.${name}.submit()">Страница: <select name=page  class="sel">
+[% FOREACH p = [1..context.pages] %]
+<option value="$p" [% IF context.page==p %]selected[% END %]>$p</option>
+[% END %]
+</select>
+<input name=ok type=image style="padding-left: 3px" src="/pic/icon/go.gif" width="13" height="13" >
+</form>
+[% END %]
+[% END %]

@@ -1,0 +1,14 @@
+<form method="get" action=$url name=city>
+<input name=cat value="$context.category.id" type="hidden">
+<table width="100%"  cellpadding="0" >
+<tr><td><h1>$title</h1></td>
+<td align="right" class="sel">Город: <select class="sel" name=city OnChange="document.city.submit()">
+[% FOREACH c = set.cities %]
+<option value=""$c.id [% IF context.city.id==c.id %]selected id="s"[% END %]>$c.name</option>
+[% END %]
+</select>
+<input name=ok type=image style="padding-left: 3px" src="/pic/icon/go.gif" width="13" height="13" >
+</td></tr>
+</table>
+</form>
+<br/>

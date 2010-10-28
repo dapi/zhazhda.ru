@@ -1,0 +1,31 @@
+
+<div class="cats">
+[% cols=0 %]
+<table class="cats"  cellpadding="0"  width="100%"><tr>
+[% FOREACH c = context.journal.category_list %]
+[% cols = cols + 1 %]
+[% IF cols>2 %]</tr><tr>[% cols=1 %][% END %]
+<th width="45%"><span><a href="?cat=$c.id">[% IF context.category.id==c.id OR (!context.category.id AND !c.id) %]<b>$c.name</b>[% ELSE %]$c.name[% END %]&nbsp;</a></span></th>
+<td align="left" width="10" [% IF cols==1 %]style="padding-right: 15px"[% END %]>$c.topics</td>
+[% END %]
+</tr></table>
+</div>
+
+<!--
+
+<div class="categories">
+<br/>
+[% cols=0 %]
+<table  cellpadding="0"  width="100%"><tr>
+[% FOREACH c = context.journal.category_list %]
+[% cols = cols + 1 %]
+[% IF cols>2 %]</tr><tr>[% cols=1 %][% END %]
+<td width="50%"><a href="?cat=$c.id">[% IF context.category.id==c.id OR (!context.category.id AND !c.id) %]<b>$c.name</b> ($c.topics)[% ELSE %]$c.name ($c.topics)[% END %]</a></td>
+[% END %]
+</tr>
+</table>
+<br/>
+</div>
+
+
+-->

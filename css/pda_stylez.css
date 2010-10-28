@@ -1,0 +1,33 @@
+/*@import url(topic.css); */
+
+body,td,th,p {
+        font-family: Verdana;
+        font-size: 80%;
+        color: #000000;
+}
+
+th{  text-align: left; }
+
+p { text-align: justify; }
+
+br { clear: both }
+
+form { padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px }
+
+h1 { text-align: left;
+     padding: 0px 0px 0px 0px; margin: 0px 0px 17px 0px;
+     font: bold 14px Arial;
+     color: black;
+}
+
+.u { color: #999; font-size: 9px }
+
+.exit { font-size: 9px; color: #666 }
+.menu { font-size: 9px }
+.nm_menu { font-size: 9px }
+
+
+form.login * { font: normal 8px Verdana; background-color: #ffffff; }
+
+
+.new { color: red }

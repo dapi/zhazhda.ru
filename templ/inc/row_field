@@ -1,0 +1,5 @@
+[% UNLESS field %][% field=name %][% END %]
+[% IF fields.${field} %][% value = fields.$field %][% END %]
+[% IF context.fields.${field} %][% value = context.fields.$field %][% END %]
+<tr><th width="35%" [% IF context.bad_fields.${field} %]class="bad"[% END %]>$text[% IF comment %]<br/><small style="color: #999">$comment</small>[% END %]</th>
+<td [% IF context.bad_fields.${field} %]class="bad"[% END %] [% IF comment %] style="padding-bottom: 20px"[% END %]><input name=$name [% IF class %]class="$class"[% END %] [% IF style %]style="$style"[% END %] type=[% type || text %] size=[% size || 15 %] value="[% value | escape %]"></td></tr>

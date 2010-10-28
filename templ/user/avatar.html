@@ -1,0 +1,21 @@
+[% USE HTML %]
+[% INCLUDE inc/header %]
+
+[% INCLUDE user/menu %]
+<a id="foto"></a>
+<table  width="100%" bgcolor="black">
+<tr><td colspan="3" align="center" style="padding: 0px 15px 0px 15px;">&nbsp;</td></tr>
+<tr><td align="center" colspan="3">
+
+<a href="${set.uri.home}user/[% context.talker.login | uri_escape %]/"><img src="${set.uri.pic}/users/$context.talker.image_file?[% user.thumb_time | timestamp %]" class="avatar" width="$context.talker.image_width" height="$context.talker.image_height" alt=""/></a>
+
+</td></tr>
+
+<tr><td colspan="3" align="center" style="padding: 0px 15px 0px 15px;">
+[% IF context.access.admin AND 0%]
+<a class="album_text2 href="$set.uri.pic${result.src_uri}">Исходник ([% result.src_size | filesize %])</a>
+[% END %]&nbsp;
+</td></tr>
+</table>
+
+[% INCLUDE inc/footer %]

@@ -1,0 +1,52 @@
+<form method="post" action="[% action || '/edit_topic' %]" name="edit_topic">
+<input name="id" value="$result.topic.id" type="hidden"/>
+<input name="topic_type" value="event" type="hidden"/>
+
+
+[% form=context.form %]
+<table  class="form" align="left">
+[% INCLUDE form/errors %]
+
+[% INCLUDE form/field name='subject' maxlength="50" text='Название мероприятия' style='width:100%' %]
+<tr><th colspan="2"><br/></th></tr>
+[% INCLUDE form/select name='event_date' text='Когда, дата' list=context.dates %]
+[% INCLUDE form/select name='event_time' text='время' default='22:00' list=context.times %]
+
+[% INCLUDE form/select
+name="place_id"
+other="event_place"
+text="Где, место"
+list=context.places
+no_select=1
+ %]
+
+[% INCLUDE form/select name="place_category_id" text="Вид мероприятия"
+ no_select=1
+ list=context.place_categories %]
+
+<tr><th colspan="2"><br/></th></tr>
+<tr><th colspan="2">Описание:</th></tr>
+
+
+[% USE HTML %]
+<tr><td colspan="2">
+<textarea name="text" id="text" rows="5" cols="70"  style="width: 100%; margin-top: 10px; margin-bottom: 10px; " onkeypress="return ctrl_enter(event, this.form, this.form.text);">[% HTML.escape(form.fields.text) %]</textarea><br/>
+</td></tr>
+
+[% IF !form.fields.journal_id  %]
+<tr><th>&nbsp;</th><td style="padding-top: 10px">
+<input name="save" value="Сохранить в черновике.." type="submit"/>  <small>(Ctrl+Enter)</small><br/>
+
+<div style="padding-top: 25px"><input name="publish" value="Опубликовать" type="submit"/>
+
+</div>
+</td></tr>
+[% ELSE %]
+<tr><th>&nbsp;</th><td style="padding-top: 10px"><input name="save" value="Сохранить изменения.." type="submit"/>  <small>(Ctrl+Enter)</small></td></tr>
+[% END %]
+</table>
+
+</form>
+<br/>
+<a href="http://www.zhazhda.ru/topics/65204.html">Правила оформления анонсов и SMS-рассылка.</a>
+<br/>

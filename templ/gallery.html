@@ -1,0 +1,11 @@
+[% INCLUDE inc/header %]
+
+[% IF context.access.gallery %]
+[% m = context.menu.moderate %]
+<a href="[% m.path %]" [% IF m.title %]title="[% m.title %]"[% END %] [% IF context.active==name %]id="a"[% END %] >[% m.menu %]</a>
+[% END %]
+
+
+[% INCLUDE inc/gallery gallery=result.list %]
+
+[% INCLUDE inc/footer %]

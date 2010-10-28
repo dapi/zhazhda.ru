@@ -1,0 +1,8 @@
+[% INCLUDE inc/event %]
+[% INCLUDE inc/topic_subject %]
+<div  class="topic_text">[% topic.text | escape_text %]</div>
+<div class="su">
+[% INCLUDE inc/user user=topic %]
+[% INCLUDE inc/discuss %]
+[% INCLUDE inc/topic_ext %]
+</div>

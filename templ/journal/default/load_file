@@ -1,0 +1,34 @@
+<a name="file"></a>
+<form action="/load_file" method="post"  enctype="multipart/form-data">
+<input name="tid" value="$topic.id" type="hidden"/>
+<input name="r" value="${set.uri.path}" type="hidden"/>
+
+<table class="form" width="100%" cellpadding="0"  style="background: #eee"> 
+<tr><th >Загрузка файлов</th><td colspan="3">
+<ul>Принимаются файлы размером до 50Mb:
+<li>jpeg,jpg,gif,png - масштабируются до 600x600;</li>
+<li>wma,mp3</li>
+<li>rar,zip - для пакетной загрузки</li>
+</ul>
+</td></tr>
+<tr><th>Загрузить файл:</th><td colspan="3"><input name="file" type="file"  style="width:100%;" size="40"/></td></tr>
+<tr><th>Логотип zhazhda.ru:</th><td><select name=put_logo>
+<option value="">ненадо</option>
+<option value=""br>справа внизу</option>
+<option value=""bl>слева внизу</option>
+<option value=""tr>справа вверху</option>
+<option value=""tl>слева вверху</option>
+</select></td>
+<th>Перевернуть фото:</th><td><select name=rotate>
+<option value="">ненадо</option>
+<option value=""90>90</option>
+<option value=""180>180</option>
+<option value=""270>270</option>
+</select></td></tr>
+<tr><th >Описание:</th>
+<td colspan="3">
+<textarea name="title" id="comment" class="photo" cols=30 rows=2 style="width:100%;"></textarea></td>
+</tr>
+<tr><th></th><td colspan="3"><input name="ok" type="submit" value="Загрузить"/></td></tr>
+</table>
+</form>

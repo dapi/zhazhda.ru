@@ -1,0 +1,39 @@
+body,td,th {
+	font-family: Verdana;
+	font-size: 12px;
+	color: #000000;
+}
+
+h1 { font-size: 16px }
+h2 { font-size: 14px }
+
+input { font-size: 11px }
+select { font-size: 11px }
+
+table.banner tr th {
+text-align: right;
+color: #999999;
+font-weight: normal;
+padding-right: 5px;
+border-bottom: 1px dashed #ccc;
+}
+
+table.banner tr td {
+padding-left: 5px;
+border-bottom: 1px dashed #ccc;
+}
+
+
+table.t tr td {
+border-bottom: 1px dashed #ccc;
+padding-right: 15px;
+}
+
+table.t tr th {
+color: #999999;
+text-align: left;
+font-weight: normal;
+border-top: 1px dashed #ccc;
+border-bottom: 1px dashed #ccc;
+padding-right: 15px;
+}

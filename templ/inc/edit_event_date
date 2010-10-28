@@ -1,0 +1,12 @@
+<tr><th width="35%" [% IF context.bad_fields.event_date %]class="bad"[% END %]>$text</th>
+
+<td [% IF context.bad_fields.event_date %]class="bad"[% END %]>[% INCLUDE inc/edit_event_date %]</td></tr>
+
+[% e = context.fields.event_date %]
+<select name=event_date>
+<option value=""''>не установлена</option>
+
+[% FOREACH d = context.dates %]
+<option value="$d" [% IF e==d %]selected[% END %]>[% d | date_afisha %]</option>
+[% END %]
+</select>

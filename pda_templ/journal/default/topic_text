@@ -1,0 +1,82 @@
+<div class=topic_text_page>
+[% IF topic.category %]
+<div style="text-align: right" class=sel>Категория: <b>$topic.category.name</b></div>
+[% END %]
+
+[% IF topic.is_removed %]<div class=error><b>Тема удалена, [% INCLUDE inc/user user_id=topic.remove_user_id %] </b></div>[% END %]
+[% UNLESS topic.journal_id %]<div class=error><b>Тема в черновике</b></div>[% END %]
+
+<table border=0 cellpadding=0 cellspacing=0 width="100%" style="padding-top: 15px;">
+<tr><td><a class=topic_subject [% IF topic.is_red %] style='color: red' [% END %] href="/topics/${topic.id}.html#new">[% topic.subject | escape_subject %]</a></td>
+<td align=right valign=top>[% PROCESS topic_control %]</td></tr></table>
+
+<div class=topic_when>[% topic.create_time | date_time %]</div>
+
+<table border=0 cellspacing="0" cellpadding="0" width="100%" style="padding-top: 10px">
+<tr>
+<td width="80" valign=top style="padding-right: 10px;">[% INCLUDE inc/avatar user=topic %]
+<div class=av>
+<!--<div class=l><img src="/pic/icon/good.gif" width="13" height="13" align="absmiddle"/>&nbsp;<a href="/friend?id=$topic.user_id" title="Отметить автора">Молодец</a></div>-->
+[% INCLUDE inc/black uid=topic.user_id %]
+<!--<div class=l><img src="/pic/icon/subscribe.gif" width="14" height="14" align="absmiddle"/>&nbsp;<a href="/subscribe?id=$topic.id" title="В этом случае вам будет сообщаться об обновлении темы">Подписаться</a></div>-->
+</div>
+</td>
+<td width="*" valign=top class=topic_text>[% topic.text | escape_text %]</td></tr>
+
+
+[% IF context.user OR no_comment %]
+<tr><td colspan=2 class=tv>
+
+[% IF no_comment %]
+[% IF topic.journal_id %]<div style="float: left;" class=anav><a class=a id=l href="/topics/${result.topic.id}.html#new">Все комментарии к теме..</a></div>[% END %]
+[% ELSIF topic.access.can_comment  AND !context.edit_comment %]
+<div style="float: left; padding-top: 3px"><a href="javascript:toggleCommentForm('')" id=o class=c>Комментировать тему..</a></div>
+[% END %]
+
+[% IF context.user %]
+<div style="float: right;">
+<!--<span class=l><img src="/pic/icon/good.gif" width="13" height="13" align="absmiddle"/>&nbsp;<a href="/subscribe?id=$topic.id" title="В этом случае вы никогда больше не увидите тем и комментариев этого автора">Хрошая тема</a></span>
+<span class=l><img src="/pic/icon/bad.gif" width="13" height="13" align="absmiddle"/>&nbsp;<a href="/subscribe?id=$topic.id" title="В этом случае вы никогда больше не увидите тем и комментариев этого автора">Убрать тему с глаз</a></span>-->
+[% INCLUDE inc/down %]
+</div>
+[% END %]
+</td></tr>
+[% END %]
+</table>
+<!--<div class=l style="float: right"><img src="/pic/icon/download.gif" width="13" height="13" align="absmiddle"/>&nbsp;<a title="Подргузить в тему фото, музыку или видео" href="/topics/${topic.id}.html?file=1#file">Подгрузить в тему файл..</a></div><br>-->
+
+
+[% IF context.load_file %]
+<br>
+[% INCLUDE journal/default/load_file topic=topic %]
+<div class=ls><a class=a id=l href="/topics/${topic.id}.html">вернуться в тему..</a></div>
+[% END %]
+
+</div>
+
+[% BLOCK topic_control %]
+[% IF topic.access.has_any_admin%]
+<span class=control>[
+[% IF topic.access.can_delete %]<a onclick="return confirm('Действительно удалить эту тему со всех журналов?');" href="/delete_topic?id=$topic.id" title="Удалить всю тему">dd</a>, [% END %]
+<!--[% IF topic.access.can_upload %]<a title="Подргузить в тему фото, музыку или видео" href="/topics/${topic.id}.html?file=1#file">f</a>, [% END %]-->
+[% IF topic.access.can_edit %]<a href="/edit_topic_form?id=$topic.id" title="Редактировать тему..">e</a>, <a title="Исправить кодировку" href="/change_charset?id=$topic.id">c</a>[% END %]
+]</span>
+[% END %]
+
+[% IF topic.access.can_change_topic_status AND topic.journal_id %]<br>
+<span class=control>[
+<a href="/topic_journal_form?jid=$context.journal.id&id=$topic.id" title="Как отображать тему в журнале">j</a>,
+<!--[% IF context.access.admin %]<a href="/move_topic?jid=$context.journal.id&id=$topic.id" title="Перемещение по журналам">mj</a>,[% END %]-->
+[% IF context.journal.access.can_change_topic_status %]
+[% IF topic.is_on_top %]<a href="/change_topic_status?jid=$context.journal.id&id=$topic.id&is_on_top=0" title="Убрать с вурху">-t</a>[% ELSE %]<a href="/change_topic_status?jid=$context.journal.id&id=$topic.id&is_on_top=1" title="Поставить на верх">+t</a>[% END %],
+<!--[% IF topic.is_hot %]<a href="/change_topic_status?jid=$context.journal.id&id=$topic.id&is_hot=0" title="Снять горячку">-h</a>[% ELSE %]<a href="/change_topic_status?jid=$context.journal.id&id=$topic.id&is_hot=1" title="Разгорячить">+h</a>[% END %],
+[% IF topic.is_cold %]<a href="/change_topic_status?jid=$context.journal.id&id=$topic.id&is_cold=0" title="Снять охлаждение">-c</a>[% ELSE %]<a href="/change_topic_status?jid=$context.journal.id&id=$topic.id&is_cold=1" title="Охладить">+c</a>[% END %],-->
+[% IF topic.is_bold %]<a href="/change_topic_status?jid=$context.journal.id&id=$topic.id&is_bold=0" title="Убрать жирность темы">-b</a>[% ELSE %]<a href="/change_topic_status?jid=$context.journal.id&id=$topic.id&is_bold=1" title="Сделать тему жирной">+b</a>[% END %],
+[% IF topic.is_red %]<a href="/change_topic_status?jid=$context.journal.id&id=$topic.id&is_red=0" title="Убрать красноту темы">-r</a>[% ELSE %]<a href="/change_topic_status?jid=$context.journal.id&id=$topic.id&is_red=1" title="Сделать тему красной">+r</a>[% END %]
+<!--[% IF topic.is_sticky %]<a href="/change_topic_status?jid=$context.journal.id&id=$topic.id&is_sticky=0" title="Отклеить тему">-s</a>[% ELSE %]<a href="/change_topic_status?jid=$context.journal.id&id=$topic.id&is_sticky=1" title="Приклеить тему">+s</a>[% END %],-->
+[% END %]
+<!--[% IF topic.show_text %]<a href="/change_topic_status?jid=$context.journal.id&id=$topic.id&show_text=0" title="Не показывать короткий текст">-st</a>[% ELSE %]<a href="/change_topic_status?jid=$context.journal.id&id=$topic.id&show_text=1" title="Показывать короткий текст">+st</a>[% END %],-->
+]</span>
+[% END %]
+
+[% END %]

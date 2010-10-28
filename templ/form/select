@@ -1,0 +1,38 @@
+[% USE HTML %]
+[% UNLESS field %][% field=name %][% END %]
+[% UNLESS value %][% value = form.fields.$field %][% END %]
+[% IF other %]
+[% oid="${other}_id" %]
+[% ELSIF other_id %]
+[% oid=other_id %]
+[% END %]
+
+[% IF text %]
+<tr><th  [% IF form.bad_fields.${field} %]class="bad"[% END %]>$text[% IF comment %]<br/><small style="color: #999">$comment</small>[% END %]
+</th>
+<td [% IF form.bad_fields.${field} OR (other AND form.bad_fields.${other}) %]class="bad"[% END %] >
+[% PROCESS select %]
+</td></tr>
+
+[% ELSE %]
+<span [% IF form.bad_fields.${field} OR (other AND form.bad_fields.${other}) %]class="bad"[% END %]>
+[% PROCESS select %]
+</span>
+
+[% END %]
+
+
+[% BLOCK select %]
+<select name="$name" [% IF multiple %]multiple="multiple"[% END %] [% IF size %]size="$size"[% END %] [% IF other OR other_id %] onchange="javascript:if (this.value=='') { showElement('$oid'); } else { hideElement('$oid'); }"[% END %]>
+[% IF (no_select==1 AND !form.fields.$field) OR no_select==2 %]
+<option value="no" [% IF (!value AND !form.fields) OR value=='no' OR NOT value.defined %] selected="selected" [% END %]>не выбрано</option>
+[% END %]
+[% FOREACH o = list %]
+<option value="$o.id" [% IF o.id==value OR (!value AND default AND o.id==default) %]selected="selected"[% END %]  [% IF o.style %]style="$o.style"[% END %]>$o.name</option>
+[% END %]
+[% IF other OR other_id %]
+<option value="" [% IF !value AND form.fields %] selected="selected" [% END %]>другое -&gt;</option>
+[% END %]
+</select>
+[% IF other %]<input id="$oid" [% IF value OR !form.fields %] style="display:none" [% END %] name="$other" value="[% HTML.escape(form.fields.$other) %]"  type="text" size="[% other_size || 20 %]"/>[% END %]
+[% END %]

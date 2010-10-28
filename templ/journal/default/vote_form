@@ -1,0 +1,36 @@
+[% USE HTML %]
+<form method="post" action="[% action || "/edit_topic" %]" name="topic">
+<input name="id" value="$result.topic.id" type="hidden"/>
+<input name="topic_type" value="vote" type="hidden"/>
+
+[% form=context.form %]
+[% type='vote' %]
+
+<table  class="form" align="left" width="100%">
+[% INCLUDE form/errors %]
+[% INCLUDE form/field name='subject' text='Тема' style='width:100%' %]
+<tr><td colspan="2">Текст:<br/>
+<textarea name="text" id="text" rows="10" cols="70"  style="width: 100%; margin-top: 10px; margin-bottom: 10px; " onkeypress="return ctrl_enter(event, this.form, this.form.text);">[% HTML.escape(form.fields.text) %]</textarea>
+</td></tr>
+
+<tr><td colspan="2">Номинанты:<br/></td></tr>
+
+[% FOREACH v = [0..30] %]
+[% vote = context.votes.$v %]
+[% INCLUDE form/field name="vote$v" text="Номинант #$v" style='width:100%' field_value=vote %]
+[% END %]
+
+
+[% IF !form.fields.journal_id %]
+<tr><th>&nbsp;</th><td style="padding-top: 10px">
+<input name="save" value="Сохранить в черновике.." type="submit"/>  <small>(Ctrl+Enter)</small><br/>
+
+<div style="padding-top: 25px"><input name="publish" value="Опубликовать" type="submit"/></div>
+</td></tr>
+[% ELSE %]
+<tr><th>&nbsp;</th><td style="padding-top: 10px"><input name="save" value="Сохранить изменения.." type="submit"/>  <small>(Ctrl+Enter)</small></td></tr>
+[% END %]
+</table>
+
+</form>
+<br/>

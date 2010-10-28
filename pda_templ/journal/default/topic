@@ -1,0 +1,3 @@
+[% INCLUDE inc/user u=topic %]
+[% INCLUDE inc/topic_subject %]
+<br>

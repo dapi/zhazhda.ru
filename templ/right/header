@@ -1,0 +1,10 @@
+[% INCLUDE inc/banner banner=context.banners.right01 position="right01" %]
+<br>
+[% INCLUDE inc/banner banner=context.banners.right02 %]
+
+[% IF no_afisha %]
+<br/>
+[% ELSE %]
+[% PROCESS inc/podcast_news %]
+[% END %]
+<br/>

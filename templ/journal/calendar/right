@@ -1,0 +1,30 @@
+
+
+<td width="*"  rowspan="2" bgcolor="[% right_color || 'black' %]">
+
+<table width="100%"  cellpadding="0"  height="100%">
+<!-- width max 321 -->
+<tr><td height="124" style="background: url(/pic/stakan/cola/top.jpg) no-repeat; padding-left: 45px"><img src=/pic/space.gif width="130" height="20"></td></tr>
+<tr><td height="100%" style="background: url(/pic/stakan/cola/medium.jpg) repeat-y; padding-left: 23px; color: white"  align="left">
+
+[% category_id="0" %]
+<div class="places">
+[% FOREACH place = context.city_places %]
+[% UNLESS category_id==place.category_id %]
+[% IF loop.index %]</ul>[% END %]
+<ul><div class="header"><b>$place.category_name</b></div>
+[% category_id="place".category_id %]
+[% END %]
+<li><a href="/afisha/?place_id=$place.id" [% UNLESS place.is_moderated %]style="color: red"[% END %]>[% IF context.place.id==place.id %]<b>$place.place_name</b>[% ELSE %]$place.place_name[% END %]</a></li>
+[% END %]
+</ul>
+
+</div>
+
+<!--<a href="/gallery/" style='color: white' title="Жаждовская Галерея">Другие фото..</a>-->
+
+</td></tr>
+<tr><td height="94" style="background: url(/pic/stakan/cola/bottom.jpg) no-repeat"><img src=/pic/space.gif width="130" height="94"></td></tr>
+</table>
+
+</td>

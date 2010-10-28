@@ -1,0 +1,25 @@
+<div class="topic_box">
+
+
+[%# IF topic.youtubes %]
+[%# PROCESS journal/default/topic_youtube %]
+
+[% IF topic.fotos %]
+
+[% PROCESS journal/default/topic_gallery %]
+
+[% ELSE %]
+[% INCLUDE inc/event %]
+[% INCLUDE inc/topic_subject %]
+<div class="su">
+[% INCLUDE inc/user user=topic %]
+[% INCLUDE inc/discuss %]
+[% INCLUDE inc/topic_ext %]
+</div>
+[% END %]
+
+
+</div>
+<br/>
+
+

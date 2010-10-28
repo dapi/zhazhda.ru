@@ -1,0 +1,69 @@
+<html>
+<head>
+<link rel="StyleSheet" href="/css/banners.css" type="text/css">
+</head>
+<body>
+
+<a href="/"><img  src="/pic/birka.gif" width="135" height="78"></a>
+<br/>
+[% UNLESS context.report %]
+<table width="600"  class="t">
+<tr><td><a href="/banners/">&lt;&lt; список всех баннеров</a></td>
+<td align="right"><a href="/banners/view?id=$result.id&amp;report=1"><img src="/pic/icon/print.gif" width="19" height="18" > отчёт</a></td></tr>
+</table>
+[% END %]
+<h1>Баннер $result.id</h1>
+[% INCLUDE inc/banner banner=result %]
+<br/><br/>
+<table class="banner" >
+<tr><th align="right">Файл:</th><td><b>$result.file</b>, $result.type (${result.width}x${result.height}) [% UNLESS context.report %][% IF result.is_active %]<a href="${set.uri.home}banners/deactivate?banner_id=$result.id">отменить все площадки</a>[% ELSIF result.is_removed %]<b>удален</b>[% ELSE %]<a href="${set.uri.home}banners/del?id=$result.id">удалить</a>[% END %][% END %]</td></tr>
+<tr><th>Размер:</th><td>$result.size байт</td></tr>
+<tr><th>Владелец:</th><td>[% IF result.user %][% INCLUDE inc/user user=result.user %] (Баннеров установлено $result.user.banners из $result.user.banners_limit)[% ELSE %]не установлен[% END %]</td></tr>
+<tr><th>Дата начала показа:</th><td>[% result.date_from || 'не установлена' %]</td></tr>
+<tr><th>Дата окончания:</th><td>[% result.date_to || 'не установлена' %]</td></tr>
+[% IF result.counter && !result.is_active %]
+<tr><th>Последний раз:</th><td>$result.last_time</td></tr>
+[% END %]
+
+<tr><th>Всего показов:</th><td>[% result.all_counters ||  result.counter %]</td></tr>
+<!--<tr><th>Ранг:</th><td>$result.rank</td></tr>-->
+[% IF result.link %]
+<tr><th>Ссылка:</th><td>$result.link</td></tr>
+[% END %]
+[% IF result.comment %]
+<tr><th>Комментарий:</th><td>$result.comment</td></tr>
+[% END %]
+</table>
+
+<h2>Активные площадки ($result.display.size)</h2>
+<form action="${set.uri.home}banners/activate" method="get">
+<input name=id value="$result.id" type="hidden">
+<table class="t" cellpadding="4">
+<tr><th>Позиция</th><th>Показов</th><th>Дата начала</th><th>Дата окончания</th><th>Действие</th></tr>
+[% FOREACH d = result.display %]
+<tr><td>[% d.position %]</small></td><td>$d.counter</td><td>$d.create_time</td><td>[% d.date_to || 'не установлена' %]</td><td>[% UNLESS context.report %]<a href="${set.uri.home}banners/deactivate?id=$d.id">отменить</a>[% END %]</td></tr>
+[% END %]
+[% UNLESS context.report %]
+<tr><td><select name=position>[% FOREACH p = context.posible %]<option value="$p.name">$p.name (${p.width}x[% p.height || '*' %], [% p.size / 1000 %]Kb)</option>[% END %]</select></td>
+<td colspan="2" align="right"><small style="color:gray">пример 2006-08-01</small></td>
+<td><input name=date_to type="text" size=12></td>
+<td><input name=ok type="submit" value="Добавить"></td>
+</tr>
+[% END %]
+</table>
+</form>
+
+
+[% IF result.log.size %]
+<h2>История показов</h2>
+<table class="t" >
+<tr><th>Площадка</th><th>Начало</th><th>Окончание</th><th>Количество</th></tr>
+[% FOREACH l = result.log %]
+<tr><td>$l.position</td><td>$l.date_from</td><td>$l.date_to</td><td>$l.counter</td></tr>
+[% END %]
+</table>
+[% END %]
+
+
+</body>
+</html>

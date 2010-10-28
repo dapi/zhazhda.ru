@@ -1,0 +1,8 @@
+[% USE Gravatar(default => 'http://zhazhda.ru/pic/nofoto.gif') %]
+[% UNLESS noavatar %]
+<a href="${set.uri.home}user/[% user.login | uri_escape %]/">
+<img src="[% Gravatar( email => (user.email || 'nomail'), size=>80 ) %]" width="80" height="80" class="avatar" alt="" />
+</a>
+[% UNLESS nonick %]<br/>[% END %]
+[% END %]
+[% UNLESS nonick %][% INCLUDE inc/user %][% END %]

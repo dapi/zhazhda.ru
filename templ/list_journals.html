@@ -1,0 +1,12 @@
+[% INCLUDE inc/header %]
+
+<h1>Журналы</h1>
+<table class="list" cellpadding="0"  >
+<tr><th>Журнал</th><th>Тем</th></tr>
+[% FOREACH h = result.journals %]
+<tr><td>[% INCLUDE inc/journal journal=h %]</td><td>$h.topic_counter</td></tr>
+[% END %]
+</table>
+
+
+[% INCLUDE inc/footer %]

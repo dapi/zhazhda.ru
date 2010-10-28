@@ -1,0 +1,15 @@
+[% INCLUDE inc/header %]
+
+<h1>Журналы пользователей</h1>
+
+<div style="line-height: 26px">
+[% FOREACH user = result.list %]
+[% UNLESS user.login=='zhazhda' %]
+<span style="padding-right: 10px;">
+  <a href="/user/[% user.login | uri_escape %]/" title="Тем $user.topics, комментариев $user.comments"
+     class="topic" style="white-space: nowrap;">$user.login <span style="color: gray">($user.topics)</span></a>
+  </span>
+[% END %][% END %]
+</div>
+
+[% INCLUDE inc/footer %]

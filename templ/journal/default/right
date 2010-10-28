@@ -1,0 +1,2 @@
+[% IF result.topic.access.can_upload %]<a title="Подргузить в тему фото, музыку или видео" href="/topics/${result.topic.id}.html?file=1#file">Подгрузить файл..</a>[% END %]
+[% INCLUDE right/gallery %]

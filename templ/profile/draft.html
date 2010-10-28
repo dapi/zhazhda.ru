@@ -1,0 +1,33 @@
+[% USE HTML %]
+[% INCLUDE inc/header %]
+
+<div class="journal">
+
+<h1>Черновик ($result.list.all.size)</h1>
+[% IF result.list.all.size %]
+[% PROCESS list list = result.list.all %]
+[% ELSE %]
+<div class="info" style="padding-top: 15px">пусто.</div>
+[% END %]
+
+</div>
+
+[% INCLUDE inc/footer %]
+
+
+[% BLOCK list %]
+
+<table   cellpadding="0" class="list" width="100%">
+[% FOREACH t = list %]
+[% t.list_mode=0 %]
+[% j = result.journals.${t.draft_journal_id} %]
+<tr>
+<td class="t1" width="20" ><small style="color: gray;white-space: nowrap;">[% t.create_time | date_time %]</small></td>
+<!--<td class="t1" align="left"   style="white-space: nowrap;">[% INCLUDE inc/journal journal=j %]</td>-->
+<td class="t1"  width="*">
+[% INCLUDE inc/topic_subject class="draft_topic" topic=t %]</td>
+<td width="150" class="t1" style="white-space: nowrap;" ><a class="admin" href="/edit_topic_form?id=$t.id">редактировать</a>, <a class="admin" onclick="return confirm('Действительно удалить всю тему?');" href="/delete_topic?id=$t.id" title="Удалить всю тему">удалить</a></td>
+</tr>
+[% END %]
+</table>
+[% END %]

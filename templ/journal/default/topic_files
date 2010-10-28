@@ -1,0 +1,38 @@
+[% IF result.files.rated.size %]
+
+[% FOREACH file = result.files.rated %]
+<div class="gallery_box">
+[% PROCESS journal/default/show_gallery_image show_desc=1 number=loop.index %]
+</div>
+[% END %]
+
+<br class="cb"/>
+
+[% END %]
+
+
+
+<div class="gallery_other">
+[% PROCESS thumbs list = result.files.other.0 %]
+</div>
+
+<div class="gallery_other">
+[% PROCESS thumbs list = result.files.other.1 %]
+</div>
+
+<div class="gallery_other">
+[% PROCESS thumbs list = result.files.other.2 %]
+</div>
+
+<br class="cb"/>
+
+
+
+[% BLOCK thumbs %]
+
+[% FOREACH file = list %]
+<div class="gthumb"><a title="[% file.topic_subject | escape_subject %]" href="/holder/[% file.link_id || file.id %].html#photo"><img  alt="" src="${set.uri.pic}${file.path}[% file.thumb_file | uri_escape %]" width="$file.thumb_width" height="$file.thumb_height" class="gallery"/></a></div>
+[% END %]
+
+[% END %]
+

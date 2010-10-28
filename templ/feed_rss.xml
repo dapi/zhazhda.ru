@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss  version="2.0">
+  <channel>
+<atom:link href="$result.link" rel="self" type="application/rss+xml" />
+<title>[% result.title | unicode_escape %]</title>
+<link>$result.link</link>
+<language>ru-ru</language>
+<generator>zhazhda.ru</generator>
+<copyright>Copyright 2008. Danil Pismenny. ORIONET.</copyright>
+<ttl>1200</ttl>
+
+[% FOREACH topic = result.topics.all %]
+
+    <item>
+      <guid isPermaLink="true">http://zhazhda.ru/topics/${topic.id}.html</guid>
+      <title>[% topic.subject | unicode_escape %]</title>
+      <comments>http://zhazhda.ru/topics/${topic.id}.html#comments</comments>
+      <link>http://zhazhda.ru/topics/${topic.id}.html</link>
+      <pubDate>[% topic.create_time| http_date %]</pubDate>
+      <description>[% topic.text | escape_text | unicode_escape %]</description>
+    </item>
+
+[% END %]
+    
+  </channel>
+    </rss>

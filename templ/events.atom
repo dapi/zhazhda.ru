@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<feed xmlns="http://www.w3.org/2005/Atom"
+      xmlns:ev="http://purl.org/rss/1.0/modules/event/"
+      xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <id>tag:zhazhda.ru,2010:1</id>
+      <link href="${result.link}" rel="self" type="application/atom+xml" />
+      <title type="text">События и мероприятия канала zhazhda.ru</title>
+     <!--<link href="http://example.org/"/>-->
+     
+     <updated>[% 1 | atom_today %]</updated>
+     <author>
+       <name>Danil Pismenny</name>
+     </author>
+
+
+
+[% FOREACH topic = result.topics.all %]
+     <entry>
+     <title><![CDATA[[% topic.event_date | date_afisha2 | unicode_escape2 %][% IF topic.event_time AND topic.event_time!='00:00' %] в [% topic.event_time %][% END %]. [% topic.subject | unicode_escape2 %] [[% topic.event_place | unicode_escape2 %]]]]></title>
+<link href="http://zhazhda.ru/topics/${topic.id}.html"></link>    
+       <id>tag:zhazhda.ru,2010:${topic.id}</id>
+       <published>[% topic.create_time | atom_datetime %]</published>
+        <updated>[% topic.create_time | atom_datetime %]</updated>
+
+ <summary type="html"><![CDATA[[% topic.subject | unicode_escape2 %]<br/>
+Вид мероприятия: [% result.cats.${topic.place_category_id}.name  | unicode_escape2  %]<br/>
+<a href="http://zhazhda.ru/topics/${topic.id}.html">Подробнее..</a>]]>
+</summary>
+       <content type="html"><![CDATA[[% topic.text | unicode_escape2 %]]]></content>
+
+    <ev:startdate>[% topic.event_date %]T[% topic.event_time!='00:00' ? "${topic.event_time}:00+03:00" : '00:00:00+00:00' %]</ev:startdate>
+    <!-- <ev:enddate>2010-01-18T17:00:00+00:00</ev:enddate> -->
+    <ev:location><![CDATA[[% topic.event_place | unicode_escape2 %]]]></ev:location>
+  <ev:organizer><![CDATA[[% topic.event_place | unicode_escape2 %]]]></ev:organizer>
+
+ <ev:type>[% result.cats.${topic.place_category_id}.name  | unicode_escape2  %]</ev:type>
+ <ev:going>[% topic.igos_counter %]</ev:going>
+ <ev:rating>[% topic.rating %]</ev:rating>
+ <ev:raters>[% topic.raters %]</ev:raters>
+
+ <dc:subject><![CDATA[[% topic.subject | unicode_escape2 %]]]></dc:subject>
+ 
+     </entry>
+
+[% END %]
+    
+</feed>
+

@@ -1,0 +1,12 @@
+[% USE HTML %]
+[% INCLUDE inc/header %]
+
+[% INCLUDE user/menu %]
+[% IF context.talker.podcast_type %]
+<h2>Личный подкаст: $context.talker.podcast_name</h2>
+<p>$context.talker.podcast_comment</p>
+<p>RSS-Адрес подкаста: <a href="${set.uri.home}user/[% context.talker.login | uri_escape %]/podcast/rss.xml"><img  src="/pic/icon/rss_25x25.gif" width="25" height="25" hspace="8"  hspace="5">${set.uri.home}user/[% context.talker.login | uri_escape %]/podcast/rss.xml</a>
+[% ELSE %]
+<h2>Данный пользователь не ведет личного подкаста.</h2>
+[% END %]
+[% INCLUDE inc/footer %]

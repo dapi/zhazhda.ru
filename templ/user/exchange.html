@@ -1,0 +1,60 @@
+[% INCLUDE inc/header %]
+
+<!--
+<div style="padding-bottom: 20px">
+<table width="100%"  cellpadding="0" >
+<tr><td width="33%" align="left"><div class="anav"><img src="/pic/icon/back_glyth.gif" width="13" height="10" />&nbsp;<a  href="/">На главную</a></div></td>
+<td align="center"><div class="anav">[% IF context.user.new_mail %]<img src="/pic/icon/nm.gif" width="10" height="8" />[% ELSE %]<img src="/pic/icon/m.gif" width="13" height="10" />[% END %]&nbsp;<a href="/mail/">Переписка с другими</a></div></td>
+<td align="right">[% UNLESS result.talker.id==1 %]<div class="anav"><img src="/pic/icon/empty.gif" width="11" height="12" />&nbsp;<a class="a" onclick="return confirm('Действительно уничтожить все личную переписку с этим человеком?');" href="/user/[% result.talker.login | uri_escape %]/clear_mail">Удалить эту переписку</a>[% END %]</div>
+</td></tr></table>
+</div>
+
+<br/>
+<div style="padding-bottom: 20px">
+<div style="float: left;"><b>Личная переписка с</b> [% INCLUDE inc/user user=result.talker %]</div>
+
+</div>-->
+
+[% INCLUDE user/menu %]
+
+[% timeout=30 %]
+
+<script>
+s = '';
+setTimeout('reload()', [% timeout * 1000 %]);
+function reload()
+ {
+      window.frames['messages_show'].document.location.reload();
+setTimeout('reload()', [% timeout * 1000 %]);
+ }
+//-->
+</script>
+
+<br/>
+
+<a id="m"></a>
+<form method="post" action="/user/[% result.talker.login | uri_escape %]/mail" target="messages_show">
+<table width="100%"  cellpadding="0" style="padding-bottom: 5px">
+<tr>
+<td style="vertical-align: top"><span style='color: gray'>Собеседник был $result.talker.lasttime</span></td>
+<td>[% UNLESS result.talker.id==1 %]<div class="anav"><img src="/pic/icon/empty.gif" width="11" height="12" alt=""/>&nbsp;<a class="a" onclick="return confirm('Действительно уничтожить все личную переписку с этим человеком?');" href="/user/[% result.talker.login | uri_escape %]/clear_mail">Удалить эту переписку</a>[% END %]</div></td>
+<td width="*" align="right">Страницы: <select name="page" onchange="javascript:window.frames['messages_show'].document.location.href='/user/[% result.talker.login | uri_escape %]/messages?page='+this.value">
+[% FOREACH p = [1..result.pages] %]
+<option value="$p" [% IF result.page==p %]selected="selected" [% END %]>$p</option>
+[% END %]
+</select>
+</td><td align="right" width="30"><a onClick="reload(); return false;" href="#"><img src="/pic/icon/refresh.gif" width="16" height="16"  alt="Обновить. Автоматическое обновление каждые $timeout секунд."/></a></td>
+</tr>
+</table>
+</form>
+
+<table width="100%"  cellpadding="0">
+<tr><td>
+<iframe id="messages_show" name="messages_show" width="100%" height="300" src="/user/[% result.talker.login | uri_escape %]/messages" >Ваш браузер не поддерживае личные сообщения.</iframe>
+</td></tr>
+<tr><td><br/>Новое сообщение:<br/>[% INCLUDE user/inc/sendmail talker=result.talker %]</td></tr>
+</table>
+
+
+
+[% INCLUDE inc/footer %]

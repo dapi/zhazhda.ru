@@ -1,0 +1,12 @@
+[% USE HTML %]
+[% INCLUDE inc/header %]
+<h1>Ваши журналы:</h1>
+
+<table class="list" width="100%" cellpadding="0" >
+[% FOREACH journal = result.journals %]
+<tr><td>[% INCLUDE inc/journal  %]</td>
+<td align="right"><a class="admin" href="/archive/?id=$journal.id">Выпуски</a> | <a class="admin" href="/edit_journal_form?jid=$journal.id">Управление</a> | <a class="admin" href="/members?jid=$journal.id">Избранные</a></td>
+[% END %]
+</table>
+
+[% INCLUDE inc/footer %]

@@ -1,0 +1,104 @@
+[% USE HTML %]
+<a id="m"></a>
+[% context.new_count=0 %]
+[% IF childs.size %]
+<div class="comments_tree">
+[% PROCESS tree tree=childs %]
+</div>
+<br/>
+[% END %]
+
+
+[% BLOCK tree %]
+
+[% FOREACH message = tree %]
+<div style="padding-top: [% IF loop.index %]10px;[% ELSE %]0px[% END %]">
+<a id="m$message.id"></a>
+
+[% IF message.level<=2 %][% dot_color='#999' %][% ELSIF message.level<=4 %][% dot_color='#aaa' %][% ELSIF message.level<=6 %][% dot_color='#bbb' %][% ELSIF message.level<=8 %][% dot_color='#ccc' %][% ELSE %][% dot_color='#ddd' %][% END %]
+
+[% IF context.edit_comment==message.id %]
+[% PROCESS edit_comment %]
+[% ELSIF context.blacklist.hash.${message.user_id} %]
+[% PROCESS hide_comment %]
+[% ELSE %]
+[% PROCESS show_comment %]
+[% END %]
+
+[% IF message.childs.size %]
+<div style="border-left: 1px dashed $dot_color; ">
+[% padding=15-message.level %][% IF padding<5 %][% padding=5 %][% END %]
+<div style="padding-left: [% padding %]px; padding-top: 0px; ">
+[% PROCESS tree tree=message.childs %]
+</div></div>
+[% END %]
+</div>
+[% END %]
+
+[% END %]
+
+[% BLOCK edit_comment %]
+<table  cellpadding="0"   [% IF message.next OR message.childs.size  %]style="padding-bottom: 7px;"[% END %]>
+<tr><td class="message_avatar" width="80" style="padding-right: 12px; border-left: 1px solid $dot_color;">[% INCLUDE inc/avatar user=message noavatar=1 %]
+<div class="message_when">[% message.create_time | date_time %]</div>
+<br/><div class="control">[<span style='color: green'>редактирование</span>]</div></td>
+[% IF message.file AND no_file_id!=message.file.id %]<td width="50" [% PROCESS message_body_class %] >[% PROCESS journal/default/show_thumb_image file=message.file %]</td>[% END %]
+<td  [% PROCESS message_body_class %]>
+<form name="edit_comment" method="post" action="/edit_comment" >
+<input name="id" value="$message.id" type="hidden"/>
+<input name="tid" value="$result.topic.id" type="hidden"/>
+<textarea name="text" id="comment" cols="70" rows="8" style="width:100%" onkeypress="return ctrl_enter(event, this.form, this.form.text);">[% HTML.escape(message.text) %]</textarea>
+<input type="submit" name="ok" value="Пусть знают!"/>
+<input type="reset" value="Передумал.."/></form>
+</td></tr>
+[% IF result.topic.access.can_comment AND !context.edit_comment %]<tr><td style="padding-top: 5px" [% IF message.file %]colspan=e[% ELSE %]colspan="2"[% END %]><a href="javascript:toggleCommentForm($message.id)" id="o$message.id" class="c">Комментировать</a></td></tr>[% END %]
+</table>
+
+<div id="a$message.id"></div>
+[% END %]
+
+[% BLOCK show_comment2 %]
+<div>[% message.text | escape_text %]</div>
+[% END %]
+
+[% BLOCK show_comment %]
+[% IF message.is_new AND !context.new_count %]<a id="new"></a>[% context.new_count=context.new_count+1 %][% END %]
+<table  cellpadding="0"  width="100%"  [% IF message.next OR message.childs.size  %]style="padding-bottom: 7px;"[% END %]>
+<tr><td class="message_avatar" width="80" style="padding-right: 12px; border-left: 1px solid $dot_color;">[% INCLUDE inc/avatar user=message noavatar=1 %]
+<div class="message_when">[% message.create_time | date_time %]</div>
+[% IF message.access.has_any %]
+<div class="control">[
+[% IF message.access.can_delete_thread %]<a onclick="return confirm('Действительно удалить эту ветку комментариев?');" href="/delete_comment?deep=1&amp;tid=$result.topic.id&amp;id=$message.id" title="Удалить комментарий и всю его ветку">dd</a>,[% END %]
+[% IF message.access.can_delete %]<a onclick="return confirm('Действительно удалить этот комментарий?');" href="/delete_comment?tid=$result.topic.id&amp;id=$message.id" title="Удалить комментарий, а ветку оставить">d</a>,[% END %]
+[% IF message.access.can_edit %]<a href="/topics/${result.topic.id}.html?edit=$message.id#m$message.id" title="Редактировать комментарий..">e</a>[% END %]
+]</div>
+[% END %]
+</td>
+[% IF message.file AND no_file_id!=message.file.id %]<td width="50" [% PROCESS message_body_class %] >[% PROCESS journal/default/show_thumb_image file=message.file %]</td>[% END %]
+<td   [% PROCESS message_body_class %]>[% message.text | escape_text %]</td></tr>
+<tr><td style="padding-top: 5px" [% IF message.file %]colspan="3"[% ELSE %]colspan="2"[% END %]>[% IF result.topic.access.can_comment %]<div style="float:left"><a href="javascript:toggleCommentForm($message.id)" id="o$message.id" class="c">Комментировать..</a></div>[% END %]
+<div style="float:right">
+[% IF context.user.id==message.next_new.parent_user_id %]
+<a href="#m$message.next_new.id" title="Следующий свежий ответ.."><img src="/pic/icon/down_green.gif" width="13" height="10" alt="" /></a>
+[% ELSIF message.next_new  %]
+<a href="#m$message.next_new.id" title="Следующий новый комментарий.."><img src="/pic/icon/down_red.gif" width="13" height="10" alt="" /></a>
+[% ELSE %]
+[% INCLUDE inc/down %]
+[% END %]
+</div></td></tr>
+</table>
+
+<div id="a$message.id"></div>
+
+[% END %]
+
+[% BLOCK message_body_class %]
+class="[% IF context.user.id==message.user_id %]message_body_owner[% ELSIF context.user.id==message.parent_user_id %]message_body_answer[% ELSE %]message_body[% END %] [% IF message.is_new  %] new[% END %]"
+[% END %]
+
+
+[% BLOCK hide_comment %]
+<table  cellpadding="0"   [% IF message.next OR message.childs.size  %]style="padding-bottom: 7px;"[% END %]>
+<tr><td class="message_avatar" width="80" style="padding-right: 12px; border-left: 1px solid $dot_color; color: gray"><small>комментарий скрыт..</small></td></tr>
+</table>
+[% END %]

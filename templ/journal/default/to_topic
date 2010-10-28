@@ -1,0 +1,6 @@
+[% UNLESS result.topic.journal_id %]
+<div class="lbox">
+<div class="link"><a class="biggreen" href="/edit_topic_form?id=$result.topic.id&amp;topic_type=topic">Сделать из этого анонса просто тему</a></div>
+<div class="desc">Жмите сюда, если вы из анонса желатете сделать просто тему для обсуждения.</div>
+</div>
+[% END %]

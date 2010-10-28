@@ -1,0 +1,40 @@
+[% USE HTML %]
+<?xml version="1.0" encoding="koi8-r"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="en">
+<head>
+<link rel="StyleSheet" href="/css/stylez.css" type="text/css"/>
+</head>
+
+<body style="width: auto; min-width: 400px;">
+<br/>
+[% IF result.mails.size %]
+
+<table class="mails" width="550">
+[% FOREACH message = result.mails %]
+
+
+[% IF message.is_inbox %]
+<tr><td rowspan="2"  class="talker" align="right">[% INCLUDE inc/user user=message.talker %]</td>
+<td class="time">[% message.createtime | date_time %]</td></tr>
+<tr><td [% IF message.is_shown %] class="mail"[% ELSE %]class="new_mail"[% END %]>
+[% ELSE %]
+<tr><td rowspan="2"  class="talker" align="right">[% INCLUDE inc/user user=context.user %]</td>
+<td class="time">[% message.createtime | date_time %]</td></tr>
+<tr><td class="out_mail">
+[% END %]
+[% message.message | escape_text %]
+</td></tr>
+
+
+[% END %]
+</table>
+<br/>
+[% ELSE %]
+<center style="padding-top: 50px">Пока нет сообщений..</center>
+[% END %]
+
+
+</body></html>

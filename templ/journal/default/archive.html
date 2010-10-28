@@ -1,0 +1,12 @@
+[% INCLUDE inc/header %]
+<div class="journal">
+<h1>Архив</h1>
+
+<table class="list">
+<tr><th>Номер</th><th>Период</th><th>Тем</th><th></th></tr>
+[% FOREACH i = context.issues %]
+<tr><th>$i.number</th><td [% IF context.journal.current_issue_id==i.id %] style="font-weight: bold"[% END %]>$i.first_date - $i.last_date</td><td>$i.topics</td><td>[% INCLUDE inc/journal journal=context.journal issue=i.id name="Смотреть.." %]</td></tr>
+[% END %]
+</table>
+
+[% INCLUDE inc/footer gallery=context.gallery no_journal_link=1 %]

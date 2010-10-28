@@ -1,0 +1,37 @@
+<table   cellpadding="0" class="list">
+<tr><th>Человек</th><th>Писем</th><th>Последнее</th><th>Был</th></tr>
+[% FOREACH n = mails %]
+<tr>
+<td>[% INCLUDE inc/user user=n.talker %]</td>
+<td>
+<span>[% IF n.new_mail %]<img src="/pic/icon/nm.gif" width="10" height="8" alt=""/>[% ELSE %]<img src="/pic/icon/m.gif" width="13" height="11" alt=""/>[% END %]</span>
+<a class="a" href="/user/[% n.login | uri_escape %]/mail#m">[% IF n.new_mail %]<b>$n.new_mail</b> новых писем[% ELSE %]<b>$n.incomings</b> принято, <b>$n.outcomings</b> отправлено[% END %]</a>
+
+</td>
+<td><small>[% n.last_incoming | date_time %]</small>&nbsp;</td>
+<td><small>[% n.talker.lasttime | date_time %]</small>&nbsp;</td>
+</tr>
+[% END %]
+</table>
+
+[% BLOCK aaa %]
+<table  cellpadding="1" >
+[% FOREACH m = mails %]
+[% u = m.login | uri_escape %]
+[% url="${set.uri.home}mails/$u/" %]
+<tr>
+<td>[% m.talker_id - user %]</td>
+<td><a href=$url><img src=${set.uri.pic}grayletter.gif width="13" height="11" alt=""/></a></td>
+<td><a href=$url>всего $m.count_str</a>[% IF m.new_count %],[% END %]</td>
+[% IF m.new_count %]<td>
+<a href=$url><img src="${set.uri.pic}newletter.gif" width="13" height="11" alt="Новые сообщения"/></a></td>
+<td><a href=$url><b>$m.new_count_str</b> $m.createtime.human</a></td>
+[% ELSE %]
+<td>(<a href=$url>$m.createtime.human</a>)</td>
+[% END %]
+<td>| <a href=$url>заходил $m.lasttime.human</a></td>
+<td>[% IF m.photos %]<a href=$url><img src="${set.uri.pic}grayletter.gif" width="13" height="11" alt=""/></a>[% ELSE %]&nbsp;[% END %]</td>
+</tr>
+[% END %]
+</table>
+[% END %]

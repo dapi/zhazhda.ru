@@ -1,0 +1,24 @@
+[% INCLUDE inc/header %]
+<div class="afisha_header>
+
+[% INCLUDE inc/header_city url='/cal/' title='Календарь' %]
+
+
+
+<table width="100%"  cellpadding="0" >
+<tr>
+[% FOREACH d = context.week %]
+<td>$d</td>
+[% END %]
+</tr>
+</table>
+
+
+<br/>
+<a class="a" id="t" href="/afisha/new_topic">Сообщить о мероприятии..</a>
+</div>
+
+
+
+[% UNLESS right %][% right='journal/calendar/right' %][% END %]
+[% INCLUDE inc/footer gallery=context.gallery %]

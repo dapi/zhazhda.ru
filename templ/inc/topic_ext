@@ -1,0 +1,2 @@
+[% IF topic.event %]<img class="i" src="/pic/icon/event.gif" width="11" height="12"  alt=""/>[% END %][% IF topic.images %]<img class="i" src="/pic/icon/photic.gif" width="13" height="11" alt=""/>[% END %][% IF topic.movies OR topic.youtubes %]<img class="i" src="/pic/icon/movie.gif" width="13" height="11" alt=""/>[% END %][% IF topic.music %]<img class="i" src="/pic/icon/music.gif" width="14" height="13" alt=""/>[% END %][% IF topic.is_auction %]<img class="i" src="/pic/icon/auction.gif" width="12" height="12"  alt=""/>[% END %]
+[% INCLUDE inc/topic_ext_rating %]

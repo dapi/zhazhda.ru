@@ -1,0 +1,46 @@
+[% IF result.topic.access.can_upload %]<a title="Подргузить в тему фото, музыку или видео" href="/topics/${result.topic.id}.html?file=1#file">Подгрузить файл..</a>[% END %]
+<div class="[% class || 'gallery_list' %]">
+
+[% IF context.videos %]
+<div class="ah">Последнее видео:</div>
+<div style="padding-bottom: 10px">
+[% FOREACH v=context.videos %]
+
+<div style="padding-bottom: 5px; padding-top: 5px; max-width: 250px">
+<a href="$v.local_link">
+<div style="width: 130px; height: 100px; float: left;">
+<div style="z-index: 1; position: relative"><img class="video_thumb" src="$v.image_src" width="$v.image_width" height="$v.image_height"/></div>
+<div style="z-index: 2; position: relative; left: [% v.image_width / 2 - 13 %]px; top: -[% v.image_height - v.image_height / 2 + 16 + 3 %]px;"><img src="/pic/play.png" width="32" height="32" border="0"/></div>
+</div>
+<div style="float: left; padding-left: 7px; width: 110px; color: #ccc">$v.title</div>
+</a>
+<br class="cb"/>
+</div>
+[% END %]
+
+<br class="cb"/>
+<div class="ah"><a href="/video/">Другое видео..</a></div>
+
+</div>
+
+[% END %]       
+
+
+[% IF context.top_gallery.size %]
+<div class="ah">Лучшие фото недели</div>
+[% FOREACH file = context.top_gallery %]
+<div class="gallery_box">
+[% PROCESS journal/default/show_gallery_image short_mode=1 %]
+</div>
+[% END %]
+<br/><br/><br/>[% END %]
+
+<div class="ah"><a href="/foto/">Случайные фото</a></div>
+[% FOREACH file = context.gallery %]
+<div class="gallery_box">
+[% PROCESS journal/default/show_gallery_image show_desc=1 short_mode=1 %]
+</div>
+[% END %]
+</div>
+<br/>
+<div class="ah"><a href="/foto/">Другие фото..</a></div>

@@ -1,0 +1,17 @@
+[% USE HTML %]
+[% INCLUDE inc/header %]
+
+<h1>Удаление места $result.name</h1>
+
+
+<form method="post" action="/places/delete">
+<input name=charset value="русский" type="hidden">
+<input name=id value="$result.id" type="hidden">
+<table width="580"  class="form" align="left">
+[% INCLUDE inc/row_select name='new_place_id' text="Новое место" comment="На какоме место заменить все ссылки со старого?" list=context.places %]
+<tr><td></td><td colspan="2" style="padding-top: 10px"><input name=ok value="Установить новое и удалить старое" type="submit"></td></tr>
+</table>
+
+</form>
+
+[% INCLUDE inc/footer %]

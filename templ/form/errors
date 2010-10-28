@@ -1,0 +1,28 @@
+[% IF form.errors.size %]
+<tr><td colspan="2" class="error">
+<b>Форма не принята!</b><br/>
+<p>Не все поля правильно заполнены. Проверьте поля выделенные красным цветом.</p>
+<ul>
+[% FOREACH e = form.errors %]
+
+[% IF e.rule=='registered' AND e.field=='login' %]
+<li>Такой логин уже используетя на сайте, попробуйте другой.</li>
+[% ELSIF e.rule=='registered' AND e.field=='email' %]
+<li>Такой email уже используетя на сайте, попробуйте другой.</li>
+[% ELSIF e.rule=='registered' AND e.field=='mobile' %]
+<li>Пользователь с таким номером мобильного телефона уже зарегистрирован на сайте.</li>
+[% ELSIF e.rule=='toomanyuppercase'  %]
+<li>Слишком много заглавных букв в теме. Решил таким образом выделиться?</li>
+[% ELSE %]
+[%# $e.field/$e.rule %]
+[% END %]
+[% END %]
+</ul>
+
+[% IF 0 %]
+[% FOREACH e = form.errors %]
+<li>$e.field $e.rule</li>
+[% END %]
+[% END %]
+</td></tr>
+[% END %]

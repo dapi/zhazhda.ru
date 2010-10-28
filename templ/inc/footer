@@ -1,0 +1,87 @@
+<br style="clear: both;"/>
+
+[% IF context.journal AND !no_journal_link %]
+<table cellpadding="0" cellspacing="0" style="padding-top: 20px" width="100%">
+<tr><td>
+
+[% IF context.next_topic %]
+<div class="nm_menu" style="padding-top: 0px"><a title="Следующая свежая тема: $context.next_topic.subject" href="[% "/topics/${context.next_topic.id}.html#new" %]">Следующая свежая тема..</a></div>
+[% END %]
+[% IF context.new_mail %]
+<div class="nm_menu" style="padding-top: 0px"><a href="/mail/?new=1" class=nm_menu style="color: red; font-weight: bold">Личная переписка..</a></div>
+[% END %]
+
+<div class="menu" style="padding-top: 10px"><a href="/">На главную..</a></div>
+<!-- журнала: </span>[% INCLUDE inc/journal journal=context.journal %]-->
+
+</td>
+<td align="right">[% INCLUDE inc/up %]</td></tr>
+</table>
+[% END %]
+
+<br/>
+<div style="border-top: 1px dashed gray; padding-top: 10px">
+<div style="float: left; color: gray; width: 40%"><small>Сайт находится на стадии тестирования. В случае обнаружения ошибок, багов и прочих неприятностей, просим, без стеснения, <a href="mailto:admin@zhazhda.ru">сообщать</a>.</small></div>
+<div style="float: right">[% INCLUDE inc/up %]</div>
+</div>
+
+
+
+
+
+</div> <!-- close main block -->
+
+<div id="rightbar">
+[% IF right %]
+[% INCLUDE right/header no_afisha=1 %]
+[% INCLUDE $right %]
+
+[% ELSE %]
+[% INCLUDE right/header %]
+[% INCLUDE right/gallery %]
+
+[% END %]
+</div>
+
+<br style="clear: both;"/>
+
+
+<table width="100%">
+<tr>
+<td  class="left" style="padding-left: 20px">[%# INCLUDE inc/loggers %]</td>
+<td height="1">
+
+
+<!-- ПАРТНЕРЫ НАЧАЛО -->
+<table   width="80%"  align="center">
+<tr>
+<td  align="center"><a href="/awards/" ><img src="/pic/friends/awards.gif" alt="" /></a></td>
+<td  align="center"><a href="http://software4.ru" ><img src="/pic/friends/kuba.gif" alt="" /></a></td>
+<td  align="center"><a href="http://ed.orionet.ru" ><img src="/pic/friends/estdesign.gif" alt="" /></a></td>
+<td  align="center"><a href="http://orionet.ru" ><img src="/pic/friends/orionet.gif" alt="" /></a></td>
+</tr>
+</table>
+<!-- ПАРТНЕРЫ КОНЕЦ -->
+</td></tr></table>
+<!--<p>your ip is: $set.uri.remote_ip</p>-->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8145521-2");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+
+<!-- WebVisor -->
+<script type="text/javascript" id="__visorCode"></script>
+<script type="text/javascript">
+    var __visorInit = new Function('', 'if (typeof window["__visor"] != "undefined") __visor.init(14994);');
+    setTimeout('document.getElementById("__visorCode").src="//c1.web-visor.com/c.js";',10);
+</script>
+<noscript><img src="//c1.web-visor.com/noscript?sid=14994" alt="" 
+style="position:absolute;width:1px;height:1px;left:-999px;top:-999px;"></noscript>
+<!-- WebVisor -->
+</body></html>

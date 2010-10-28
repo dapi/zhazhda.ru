@@ -1,0 +1,20 @@
+[% INCLUDE inc/header %]
+<h1>Личная переписка</h1>
+
+
+[% IF result.new.size %]
+[% INCLUDE user/inc/mail_list mails=result.new %]
+[% ELSE %]
+<div class="info">Новых писем нет.</div>
+[% END %]
+<br/>
+[% INCLUDE user/inc/sendmail %]
+<br/>
+<h1>Архив личной переписки</h1>
+
+[% IF result.archive.size %]
+[% INCLUDE user/inc/mail_list mails=result.archive %]
+[% END %]
+
+
+[% INCLUDE inc/footer %]

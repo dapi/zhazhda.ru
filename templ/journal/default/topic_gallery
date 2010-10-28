@@ -1,0 +1,14 @@
+<div class="topic_images">
+[% INCLUDE inc/topic_subject %]
+<div>
+[% FOREACH file = topic.fotos %]
+<a title="[% (file.comment || file.topic_subject) | escape_subject %]" href="/holder/[% file.link_id || file.id %].html#photo"><img [% UNLESS lool.last %]style="margin-right: 10px"[% END %] class="gallery" src="${set.uri.pic}${file.path}[% file.thumb_file | uri_escape %]" width="$file.thumb_width" height="$file.thumb_height" align="left" alt=""/></a>
+[% END %]
+</div>
+<br style="clear: both"/>
+<div class="su">
+[% INCLUDE inc/user user=topic %]
+[% INCLUDE inc/discuss %]
+[% INCLUDE inc/topic_ext %]
+</div>
+</div>

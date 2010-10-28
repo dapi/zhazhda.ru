@@ -1,0 +1,6 @@
+
+[% FOREACH file = result.images %]
+<div class="gallery_box">
+[% PROCESS journal/default/show_gallery_image show_desc=1 %]
+</div>
+[% END %]

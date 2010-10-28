@@ -1,0 +1,9 @@
+[% INCLUDE inc/header %]
+
+[% INCLUDE journal/default/topic_status %]
+
+[% INCLUDE journal/default/select_topic_type topic_type='gallery' title='Вы редактируете:' path="/edit_topic_form?id=${result.topic.id}&amp;" user=result.topic %]
+
+[% INCLUDE journal/default/gallery_form action="/edit_topic"  %]
+
+[% INCLUDE inc/footer right='journal/default/right.topic' %]

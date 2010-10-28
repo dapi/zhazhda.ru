@@ -1,0 +1,77 @@
+[% USE HTML %]
+[% INCLUDE inc/header %]
+<h1>Ваш профайл.</h1>
+
+<table width="100%">
+
+<tr><td  width="100" style="padding-right: 10px;  vertical-align: top">
+[% PROCESS inc/avatar user=context.user %]
+</td><td >
+<table width="100%" class="form">
+<tr><th width="150">Настоящее имя</th><td>$context.user.name</td></tr>
+<tr><th width="150">E-mail</th><td>$context.user.email</td></tr>
+<tr><th width="150">Мобильный телефон</th><td>[% context.user.mobile | mobile %]&nbsp;&nbsp;&nbsp;
+[% IF context.user.mobile_checked %]<span style="color:green">(номер подтвержден)</span>[% ELSE %]<span style="color:red">(номер не подтвержден)</span>[% END %]</td></tr>
+<tr><th width="150">Почтовый адрес</th><td>$context.user.address</td></tr>
+<tr><td colspan="2" style="padding-top: 5px">[% IF context.user.show_private %]<b>Ваши личные данные видят другие пользователи.</b>[% ELSE %]Ваши личные данные (телефон и емайл) другие пользователи не видят.[% END %]</td></tr>
+<tr><th width="150" style="vertical-align: top">Комментарий</th><td>[% context.user.comment | escape_text %]</td></tr>
+<tr><td>&nbsp;</td><td style="padding-top: 10px"><a href="/profile/edit_form" class="a" id="e">Личные данные и настройка</a><br/>
+
+<a href="/profile/change_password" class="a" id="e">Сменить пароль</a></td></tr>
+</table>
+
+
+</td></tr></table>
+
+<a id="mobile"></a>
+[% IF context.user.mobile_checked %]
+[% IF context.mobile_code=='good' %]
+<h2 style="color: green">Всё в порядке. Номер Вашего мобильного телефона подтвержден.</h2>
+[% END %]
+[% ELSIF !context.user.mobile %]
+<h2 style="color: red">Номер мобильного телефона не указан!</h2>
+<p>Создавать свои журналы, темы, комментировать и голосовать возможно только после указания номера мобильного телефона.</p>
+<p><a href="/profile/edit">Указать номер мобильного телефона</a></p>
+[% ELSE %]
+[% IF context.mobile_code=='bad' %]
+<h2 style="color: red">Введенный Вами код &mdash; неверен!</h2>
+[% ELSIF context.mobile_code=='sended' %]
+<h2 style="color: green">На Ваш мобильный телефон выслан SMS-кой код подтверждения.</h2>
+[% ELSIF context.mobile_code=='problem' %]
+<h2 style="color: red">Сервер не смог отправить SMS на номер Вашего мобильного телефона!</h2>
+<p>Возможно Вы ввели неверный номер телефона, попробуйте ввести верный или обратитесь в <a href="/support/">службу поддержки</a>.</p>
+[% ELSE %]
+<h2 style="color: red">Внимание! Номер мобильного телефона ещё не подтвержден!</h2>
+[% END %]
+
+[% INCLUDE profile/mobile_code %]
+[% END %]
+
+[%#
+<h2>Загрузить аватар</h2>
+
+<form method="post" action="/profile/load_avatar"  enctype="multipart/form-data">
+
+<table width="100%" class="form">
+<tr><th>Файл для загрузки (jpg, gif, png)</th>
+<td><input name="file" type="file"/></td></tr>
+<tr><td></td><td colspan="2" style="padding-top: 10px"><input name="ok" value="Загрузить" type="submit"/></td></tr>
+</table>
+
+</form>
+
+%]
+
+<a href="http://www.zhazhda.ru/topics/71333.html">Инструкция по загрузке аватара</a>
+
+[% IF context.blacklist.list.size %]
+<h2>Ваш Черный Список.</h2>
+
+<table   cellpadding="0" class="list">
+[% FOREACH user = context.blacklist.list %]
+<tr><td>[% INCLUDE inc/user %]</td><td><a class="a" href="/unblack?id=$user.id" title="Удалить бедолагу из Черного Списка">удалить</a></td></tr>
+[% END %]
+</table>
+[% END %]
+
+[% INCLUDE inc/footer %]

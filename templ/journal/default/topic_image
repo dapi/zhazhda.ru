@@ -1,0 +1,15 @@
+[% USE Gravatar(default => 'http://zhazhda.ru/pic/nofoto.gif') %]
+<a href="[% url || "/topics/${topic.id}.html#new" %]" >
+[% IF image_mode==1 AND topic.file_thumb_file %]
+<img src="${set.uri.pic}${topic.file_path}[% topic.file_thumb_file | uri_escape %]" width="$topic.file_thumb_width" height="$topic.file_thumb_height" align="left" class="subject_image"/>
+[% ELSIF image_mode==2 AND topic.file_gallery_file %]
+<img src="${set.uri.pic}${topic.file_path}[% topic.file_gallery_file | uri_escape %]" width="$topic.file_gallery_width" height="$topic.file_gallery_height"  align="left" class="subject_image"/>
+[% ELSIF image_mode %]
+[% user=topic %]
+[% IF user.email %]
+<img src="[% Gravatar( email => (user.email || 'noemail'), size=>80 ) | html %]" width="80" height="80" class="subject_image" alt="" align="left"/>
+[% ELSE %]
+<img src="/pic/nofoto.gif" width="80" height="80" class="subject_image" alt="" align="left"/>
+[% END %]
+[% END %]
+</a>

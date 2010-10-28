@@ -1,0 +1,36 @@
+[% IF position %]
+[% banner=context.banners.$position %]
+[% END %]
+
+[% IF banner.type=='flash' %]
+
+[% IF position=='splash' %]
+<div class="flash">
+<object type="application/x-shockwave-flash" data="$banner.uri">
+ <param name="menu" value="false"/>
+ <param name="movie" value="$banner.uri" />
+</object>
+</div>
+[% ELSE %]
+<div class="flash">
+<object type="application/x-shockwave-flash" data="$banner.uri" width="$banner.width" height="$banner.height">
+ <param name="menu" value="false"/>
+ <param name="movie" value="$banner.uri" />
+<!--<img src="banner.gif" width="288" height="128" alt="banner" />-->
+</object>
+</div>
+[% END %]
+
+[% ELSIF banner.link %]
+[% IF position=='top' %]
+<div class="flash"><a href="http://zhazhda.ru/redir?l=[% banner.link | uri_escape %]"><img src="$banner.uri" alt="" width="$banner.width" height="$banner.height"/></a></div>
+[% ELSE %]
+<div><a href="http://zhazhda.ru/redir?l=[% banner.link | uri_escape %]"><img src="$banner.uri" alt="" width="$banner.width" height="$banner.height"/></a></div>
+[% END %]
+[% ELSIF banner %]
+[% IF position=='top' %]
+<div class="flash"><img src="$banner.uri" alt="" width="$banner.width" height="$banner.height"/></div>
+[% ELSE %]
+<div><img src="$banner.uri" alt="" width="$banner.width" height="$banner.height"/></div>
+[% END %]
+[% END %]

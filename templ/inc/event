@@ -1,0 +1,3 @@
+[% IF topic.topic_type=='event' AND topic.place_category_id!=8 %]
+<div class="event_subject [% IF topic.event_date==context.today %]today[% ELSIF topic.event_past %]past[% END %]">[% topic.event_date | date_afisha %][% IF topic.event_time %] × [% topic.event_time %][% END %]</div>
+[% END %]

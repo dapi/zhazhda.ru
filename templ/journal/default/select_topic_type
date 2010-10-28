@@ -1,0 +1,30 @@
+<h1>[% title || 'Вы хотите создать:' %]</h1>
+
+<div style="padding-bottom: 20px; clear: both;">
+<div style="float: left; min-width: 100px; width: 20%">[% INCLUDE inc/avatar  %]</div>
+<div style="float: left; width: 80%;">
+[% PROCESS topic_type ttype='basic' name='Тему для обсуждения' %]
+[% PROCESS topic_type ttype='event' name='Анонс мероприятия или события' %]
+[% PROCESS topic_type ttype='gallery' name='Фото-отчёт прошедшего мероприятия' %]
+[% IF context.access.admin %]
+[% PROCESS topic_type ttype='vote' name='Голосование' %]
+[% END %]
+</div>
+</div>
+<br class="cb"/>
+<br class="cb"/>
+
+
+[% BLOCK topic_type %]
+
+[% IF topic_type==ttype %]
+<div class="topic_type selected">$name</div>
+[% ELSE %]
+<div class="topic_type">
+<a href="${path}topic_type=[% ttype || 'basic' %]">$name</a>
+
+
+</div>
+[% END %]
+
+[% END %]

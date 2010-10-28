@@ -1,0 +1,94 @@
+[% INCLUDE inc/header %]
+<div class="topic_page">
+<div style="float: left;"><a class="a r" href="/user/[% result.topic.login | uri_escape %]/#list">Другие темы автора..</a></div>
+<div style="float: right;">[% INCLUDE inc/down %]</div>
+<br style="clear: both"/>
+[% IF result.topic.is_hot %]<font color="red">(тема разгорячена)</font>[% ELSIF result.topic.is_cold %]<font color="blue">(тему остужена)</font>[% END %]
+[% IF result.topic.is_on_top %]<font color="red">(topper: [% INCLUDE inc/user user=result.topic.topper %])</font>[% END %]
+[% PROCESS journal/default/topic_text topic=result.topic %]
+<div id="a"></div>
+
+[% list_mode = result.topic.comment_list_mode || context.journal.comment_list_mode %]
+[% IF list_mode==2 %]
+[% PROCESS journal/default/comments_list childs=result.comments %]
+[% ELSE %]
+[% PROCESS journal/default/comments_tree childs=result.comments %]
+[% END %]
+
+[% INCLUDE journal/default/comment_form tid=result.topic.id %]
+<br class="cb"/>
+<a id="down"></a>
+
+[% IF result.comments.size AND topic.access.can_comment AND !context.edit_comment %]
+<div style="padding-top: 3px">
+<div style="float: left;"><a href="javascript:toggleCommentForm('0')" id="o" class="c">Комментировать тему..</a></div>
+</div>
+<br class="cb"/>
+<div id="a0"></div>
+
+[% END %]
+
+
+
+<table  cellpadding="0"  style="padding-top: 40px" width="100%">
+<tr><td  width="50%" valign="top">
+<div style="padding-bottom: 15px">
+[% IF context.user %][% IF topic.view.is_subscribed %]<span class="l"><img src="/pic/icon/unsubscribe.gif" width="14" height="14" alt="" />&nbsp;<a href="/unsubscribe?id=$topic.id" title="Не получать больше извещения об обновлении этой темы">Отписаться..</a></span>[% ELSE %]<span class="l"><img src="/pic/icon/subscribe.gif" width="14" height="14" alt="" />&nbsp;<a href="/subscribe?id=$topic.id" title="В этом случае вам будет сообщаться об обновлении темы">Подписаться на тему</a></span>[% END %][% END %]
+</div>
+<div>
+[% IF result.topic.subscribers_list.size %]
+<small style="color: gray">Подписались ($result.topic.subscribers):</small> [% FOREACH u = result.topic.subscribers_list %]
+<span>[% IF loop.index %], [% END %][% INCLUDE inc/user user=u %]</span>[% END %]
+[% END %]
+</div>
+</td>
+
+<td  align="left" width="50%"  valign="top">
+
+<a id="rating"></a>
+
+ 
+<div style="padding-bottom: 5px" >
+  <div class="l">
+[% IF topic.user_id==context.user.id  OR !topic.access.can_rate OR !topic.journal_id OR topic.view.rating==5 %]
+<img alt="" src="/pic/icon/up_green.gif" width="13" height="10"/>Поднять ($result.topic.uppers.size голосов)
+[% ELSE %]
+<a class="a"  href="/rate_topic?topic_id=$result.topic.id&amp;rate=5"><img alt="" src="/pic/icon/up_green.gif" width="13" height="10"/>Поднять ($result.topic.uppers.size голосов)</a>
+[% END %]
+</div>
+[% IF context.user.is_admin %]
+[% FOREACH user = topic.uppers %]
+[% INCLUDE inc/user %]
+[% END %]
+[% END %]
+</div>
+
+<div style="padding-bottom: 15px" >
+ <div  class="l" >
+[% IF topic.user_id==context.user.id  OR !topic.access.can_rate OR !topic.journal_id OR topic.view.rating==1 %]
+<img alt="" src="/pic/icon/down_red.gif" width="13" height="10"/>Опустить ($result.topic.downers.size голосов)
+[% ELSE %]
+<a class="a" style="color: red" href="/rate_topic?topic_id=$result.topic.id&amp;rate=1"><img alt="" src="/pic/icon/down_red.gif" width="13" height="10"/>Опустить ($result.topic.downers.size голосов)</a>
+[% END %]
+</div>
+[% IF context.user.is_admin %]
+[% FOREACH user = topic.downers %]
+[% INCLUDE inc/user %]
+[% END %]
+[% END %]
+</div>
+
+[%#topic.view.rating %]
+<div>Рейтинг темы: <b>$topic.rating из 5</b></div>
+<div>Проголосовало: $topic.raters человек</div>
+<small>[% IF topic.raters<context.journal.min_raters %](для консилиума не хватает [% context.journal.min_raters - topic.raters %] человек)[% END %]</small>
+</td></tr>
+
+
+</table>
+
+<div style="padding-top: 7px"><small style="color: gray">Просмотров: $result.topic.views</small></div>
+
+</div>
+[% UNLESS right %][% right='journal/default/right.topic' %][% END %]
+[% INCLUDE inc/footer  %]

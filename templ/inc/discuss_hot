@@ -1,0 +1,4 @@
+<div class="[% class || "comments" %]" title="Всего $topic.comments комментариев[% IF topic.new_comments %], $topic.new_comments новых[% END %][% IF topic.new_answers %], $topic.new_answers ответов[% END %]">
+<a href="[% url || "/topics/${topic.id}.html#new" %]"><span class="nw">
+[% IF details %]Подробнее.. [% END %]
+[% IF topic.comments %]Комментариев: $topic.comments[% IF topic.new_comments %]/<span id="new">+$topic.new_comments</span>[% ELSIF topic.new_files %]/<span id="new"><b>+</b></span>[% END %][% IF topic.new_answers %]/<span class="new_answers">+$topic.new_answers</span>[% END %][% ELSE %]Комментарии..[% END %], голосов: $topic.raters</a>[% INCLUDE inc/topic_ext_rating %]</span></div>

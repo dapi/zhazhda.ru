@@ -1,0 +1,30 @@
+<td width="20%"  rowspan="2" bgcolor="[% right_color || 'black' %]">
+
+<table width="100%"  cellpadding="0"  height="100%">
+<!-- width max 321 -->
+<tr><td height="124" style="background: url(/pic/stakan/ice/top.jpg) no-repeat; padding-left: 45px"><img src=/pic/space.gif width="130" height="195"></td></tr>
+<tr><td height="100%" style="background: url(/pic/stakan/ice/medium.jpg) repeat-y; padding-left: 35px; color: white"  align="left">
+
+
+
+[% IF result.topic.gallery_type %]
+<p>Включён режит <i>галлерея</i></p>
+[% ELSE %]
+[% IF result.dir %]
+
+<table  cellpadding="0"  class="files">
+[% FOREACH file = result.dir.files %]
+[% INCLUDE journal/default/gallery_file number=loop.index %]
+[% END %]
+</table>
+
+
+[% END %]
+
+[% END %]
+
+</td></tr>
+<tr><td height="88" style="background: url(/pic/stakan/ice/bottom.jpg) no-repeat"><img src=/pic/space.gif width="130" height="88"></td></tr>
+</table>
+
+</td>

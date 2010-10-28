@@ -1,0 +1,37 @@
+<html><head>
+<title>Жажда Жизни[% IF context.title %]: $context.title[% END %]</title>
+<link rel="SHORTCUT ICON" href="/pic/zhazhda.ico">
+
+<link rel="StyleSheet" href="http://zhazhda.orionet.ru/css/pda_stylez.css" type="text/css">
+</head>
+
+<body bgcolor="white"><a name=top></a>
+
+<a href="/"><h1 style="color: white; background: red;">zhazhda.ru</h1></a>
+
+[% IF context.user %]
+Привет, [% INCLUDE inc/user user=context.user %]!
+<br>
+[%# PROCESS lm name="profile" %]
+[%# PROCESS lm name="answers"  %]
+[%# PROCESS lm name="mail" %]
+[%# PROCESS lm name="new_topic" journal=1 %]
+[%# PROCESS lm name='draft' %]
+[% PROCESS lm name="exit" class="exit" %]
+[% ELSE %]
+
+<form class=login method=post action="/login" name="LOGIN">
+<input name=login size=5 type="text" value=""><input size=5 name=password type="password"/><input type=submit class=submit value="Вдохнуть" name="go" /> <!--<a href="/sign_form" id=exit>Pегистрация</a>-->
+</form>
+[% END %]
+
+<br>
+
+[% BLOCK lm %]
+[% m = context.menu.${name} %]
+<div class=[% class || m.class || 'menu' %]>
+[% IF m %]<a href="[% IF m.use_journal %]/$context.journal.link[% END %][% m.path %][% IF journal %]?jid=[% context.journal.id || 1 %][% END %]" [% IF m.title %]title="[% m.title %]"[% END %] [% IF context.active==name %]id=a[% END %] [% IF color %]style='color: $color'[% END %]>[% m.menu %]</a>
+[% ELSE %]<b>?$name?</b>[% END %]
+</div>[% color='' class='' %]
+[% journal='' %]
+[% END %]

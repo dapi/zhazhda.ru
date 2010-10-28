@@ -1,0 +1,21 @@
+<a name="igos"></a>
+<div style="padding: 10px; border: 1px solid #cccccc; border-left: 4px solid red; background: #dddddd; font-size: 8px;line-height: 17px;">
+
+На эту вечеринку идут
+[% IF topic.igos.size %]  ($topic.igos.size):<br/>
+[% FOREACH u = topic.igos %]
+<span>[% IF loop.index %], [% END %][% INCLUDE inc/user user=u %]</span>
+[% END %]
+
+[% ELSE %]:<br/>[% END %]
+
+
+[% IF topic.is_user_go %]
+&nbsp;<span class="l"><a class="a" id="u" href="/igo_topic_no?topic_id=$result.topic.id">Не иду :(</a><br/></span>
+[% ELSE %]
+&nbsp;<span class="l"><a class="a" id="u" href="/igo_topic?topic_id=$result.topic.id">Я иду!</a><br/></span>
+[% END %]
+
+
+</div>
+

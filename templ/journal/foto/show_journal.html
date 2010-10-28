@@ -1,0 +1,12 @@
+[% INCLUDE inc/header %]
+
+<div class="topic_list" style="background: black">
+<h1 style="color: white">Фото-отчёты</h1>
+[% FOREACH topic = result.topics.all %]
+[% INCLUDE journal/default/topic_gallery %]
+[% END %]
+</div>
+
+
+[% INCLUDE inc/footer gallery=context.gallery no_journal_link=1 %]
+

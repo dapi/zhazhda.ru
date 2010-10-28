@@ -1,0 +1,1 @@
+<a  title="[% file.title | escape_subject %]" href="/holder/[% file.id ||  file.id %].html#photo"><img  src="${set.uri.pic}${file.path}[% file.thumb_file | uri_escape %]" width="$file.thumb_width" height="$file.thumb_height" alt="[% file.title | escape_subject %]"/></a>

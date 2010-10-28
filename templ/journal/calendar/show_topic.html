@@ -1,0 +1,103 @@
+<div style="float: left;">[% INCLUDE inc/journal journal=context.journal %]</div>
+
+<div class="anav">
+[% IF set.uri.back %]<img src="/pic/icon/back_glyth.gif" width="13" height="10" />&nbsp;<a href="$set.uri.back">Вернуться назад</a><br/>[% END %]
+<img src="/pic/icon/down_glyth.gif" width="13" height="10" />&nbsp;<a href="#down">Вниз</a>
+</div>
+
+
+<br style="clear: both"/>
+
+<h1 class="topic">$result.topic.subject</h1>
+
+
+
+<div class="topic_when>[% INCLUDE inc/user user=result.topic %]&nbsp;[% result.topic.create_time | date_time %]</div>
+
+<table   width="100%">
+<tr>
+<td width="80"  style="padding-right: 15px">
+[% INCLUDE inc/avatar user=result.topic nonick=1 %]
+</td>
+<td width="*"  class="topic_text>[% result.topic.text | escape_text %]</td>
+</tr>
+</table>
+
+<div align="right" class="topic_value>
+<span class="ls">Тема:<a href="">зачот</a>&nbsp;|&nbsp;<a href="">в топку</a></span>
+<span class="ls">Автор:<a href="">пирожок</a>&nbsp;|&nbsp;<a href="">в игнор</a></span>
+</div>
+
+
+[% PROCESS add_comment message.id='' %]
+
+[% PROCESS show_childs childs=result.comments %]
+
+
+<script language="JavaScript">
+document.onkeydown=function(e){
+if (e) event=e
+if ((event.keyCode==13)&&(event.ctrlKey)){
+     document.forms.login.submit.click();
+     document.forms.login.submit.value="Поехали...";
+     document.forms.login.submit.disabled="true";
+}}
+</script>
+
+<div style="display:none">
+<div class="comment_form id="comment_template">
+<a href='javascript:void(0)' style='text-align:left' onclick='javascript:hideCommentForm(id)'>Ваш ответ:</a><br/>
+<table   width="100%" style="padding-top: 14px">
+<tr>
+<td width="80"  style="padding-right: 15px">
+[% INCLUDE inc/avatar user=result.topic %]
+</td>
+<td width="*" >
+<form name=login method="get" action="/topic/add_comment">
+<input id="pid" name=parent_id value=""'' type="hidden"> <!-- должен идти первым -->
+<input name=jid value="$result.topic.journal_id" type="hidden">
+<input name=tid value="$result.topic.id" type="hidden">
+
+<textarea id="text" id="comment" cols=70 rows=5 style='width:100%' onkeydown="function(e)"></textarea>
+<input name=ok type="submit" value="Пусть знают"> (Ctrl+Enter)</form>
+</td>
+</tr>
+</table>
+
+
+
+
+</div>
+</div>
+
+<a id="down"></a>
+
+
+
+
+
+
+
+[% BLOCK message %]
+
+<a id="m"$message.id></a>
+<table  cellpadding="0">
+<tr><td colspan="2">[% INCLUDE inc/avatar user=message noavatar=1 %] <span class="topic_when">[% message.create_time | date_time %]</span></td></tr>
+<tr><td width="80" style="padding: 5px 5px 5px 0px">[% INCLUDE inc/avatar user=message nonick=1 %]<br/></td>
+<td  style="padding: 5px 0px 5px 5px">[% message.text | escape_text %]</td></tr>
+</table>
+
+[% PROCESS add_comment %]
+
+<div style="padding-left: 20px">
+[% PROCESS show_childs childs=message.childs %]
+</div>
+[% END %]
+
+[% BLOCK add_comment %]<div id="a"$message.id class="comment">/ <a href="javascript:void(0)" id="o"$message.id onClick="javascript:toggleCommentForm($message.id)" class="c">Комментировать</a>&nbsp;&nbsp;&nbsp;/ <a href=""  class="com_open">Открыть</a></div>[% END %]
+
+
+
+[% BLOCK show_childs %]
+[% FOREACH m = childs %][% PROCESS message message=m %][% END %]
+[% END %]

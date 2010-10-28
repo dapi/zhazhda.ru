@@ -1,0 +1,19 @@
+[% USE HTML %]
+[% INCLUDE inc/header %]
+
+[% INCLUDE user/menu noprofile=1 %]
+<a id="list"></a>
+<br/>
+<ul>
+
+[% FOREACH topic = result.list.all %]
+<li class="uj">
+[% INCLUDE inc/topic_subject %]
+[% INCLUDE inc/topic_ext %]
+[% INCLUDE inc/discuss %]
+</li>
+[% END %]
+</ul>
+
+[% right='right/default' %]
+[% INCLUDE inc/footer %]

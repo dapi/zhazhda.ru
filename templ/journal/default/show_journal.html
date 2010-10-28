@@ -1,0 +1,155 @@
+[% INCLUDE inc/header %]
+
+
+[% PROCESS list_hot_topic_cols cols=result.topics.top.cols image_mode=2 %]
+
+<h2 style="padding-top: 0px; margin-top: 0px"><a href="/afisha/"  style="color: red">Афиша</a></h2>
+<div style="background: #ddd; padding: 15px 10px 10px 10px; margin-bottom: 35px">
+<table border="0" width="100%" cellpadding="3" cellspacing="0">
+<!-- class="event_s [% IF topic.event_date==context.today %]today[% ELSIF topic.event_past %]past[% END %]" -->
+[% FOREACH topic=result.afisha.all %]
+<tr>
+<!--<td>[% topic.event_date  %][% IF topic.event_time %] в [% topic.event_time %][% END %]</td>-->
+<td width="100" style="color: #999; vertical-align: top" >[% topic.event_date | date_afisha2 %]</td>
+<td><img src="/pic/icon/tr.gif" width="4" height="7"/></td>
+[% style='' %]
+[% IF topic.is_bold %][% style="font-weight: bold;" %][% END %]
+[% IF topic.is_red %][% style = "$style color: red;" %][% END %]
+<td><a class="small_event" href="/topics/${topic.id}.html" [% IF style %]style="$style"[% END %]>$topic.subject</a> <span style="color: #999">($topic.event_place)[% IF topic.igos_counter %] <span title="Идет $topic.igos_counter жаждовцев" style="color: #900">$topic.igos_counter идут</span>[% END %]</span></td>
+</tr>
+[% END %]
+</table>
+<br/>
+<a href="/afisha/">Другие анонсы..</a>
+<br/>
+</div>
+
+
+
+[% IF result.topics.hot.gallery.size %]
+<h1 style="text-align: right; color: black; padding-top: 0px; margin-top: 0px">Горячие <a href="/foto/">фотоотчёты</a></h1>
+[% PROCESS list_galleries %]
+[% END %]
+
+[% IF context.banners.middle  %]
+<div style="padding-top: 15px; padding-bottom: 0px">
+<center>[% INCLUDE inc/banner banner=context.banners.middle %]</center>
+</div>
+[% END %]
+
+
+
+[% IF 0 %]
+<div style="padding-top: 15px; padding-bottom: 0px">
+<center>
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-3061668845606703";
+/* 468x60, created 6/8/10 */
+google_ad_slot = "6201537468";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</center>
+</div>
+
+[% END %]
+
+
+[% IF result.topics.hot.all.size %]
+<h2 class="day" style="color: red; ">Кипяток</h2>
+[% PROCESS list_hot_topic_cols cols=result.topics.hot.cols image_mode=1 %]
+[% END %]
+
+<br/>
+
+[% INCLUDE inc/webzabor %]
+
+
+<br/>
+<div class="lt">
+[% PROCESS show_by_days %]
+</div>
+
+<br/><br/>
+
+
+[% IF result.topics.cold.all.size %]
+<h2 class="day" style="color: blue">Холодок</h2>
+<small>Читать не рекомендуется.</small>
+[% PROCESS list_topics list=result.topics.cold.all %]
+[% END %]
+
+<!--
+<div style="padding-top: 20px">
+<div style="float: left"><a class="a" id="l" href="/?issue=$context.prev_issue.id">Предыдущий выпуск [% context.prev_issue.title %]..</a></div>
+<div style="float: right"><a class="a" id="r" href="/archive/?jid=$context.journal.id">Другие выпуски..</a></div>
+</div>
+-->
+
+
+[% INCLUDE inc/footer gallery=context.gallery no_journal_link=1 %]
+
+[% BLOCK show_by_days %]
+
+[% FOREACH day = result.topics.days %]
+[% it = day.day | is_today %]
+[% IF day.all.size %]
+<div class="day" [% IF it %]style="color: red"[% END %]>[% day.day | date_afisha %]</div>
+<br/>
+[% PROCESS list_topics list=day.all image_mode=0 %]
+[% END %]
+
+[% END %]
+
+[% END %]
+
+
+
+[% BLOCK list_topics %]
+<div class="topic_list">
+[% FOREACH topic = list %]
+[% INCLUDE journal/default/topic %]
+[% END %]
+</div>
+[% END %]
+
+
+
+[% BLOCK list_hot_topic_cols %]
+<div class="top_topics">
+<table  cellpadding="0"  width="100%">
+<tr>
+<td  width="[% w1 || '50%' %]" style="padding-right: 10px;vertical-align: top; ">
+[% FOREACH topic = cols.0 %]
+[% INCLUDE journal/default/hot_topic %]
+[% END %]
+</td>
+<td  width="[% w2 || '50%' %]" style="padding-left: 10px;vertical-align: top; ">
+[% FOREACH topic = cols.1 %]
+[% INCLUDE journal/default/hot_topic %]
+[% END %]
+</td>
+</tr></table>
+</div>
+<br class="cb"/>
+[% END %]
+
+
+
+[% BLOCK list_galleries %]
+<div class="topic_list">
+[% FOREACH topic = result.topics.hot.gallery %]
+[% INCLUDE journal/default/topic_gallery %]
+[% END %]
+</div>
+<br class="cb"/>
+[% END %]
+
+
+

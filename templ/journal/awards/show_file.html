@@ -1,0 +1,26 @@
+<a id="photo"></a>
+<div class="anav" style="float: left;">Журнал: <a href="/$context.journal.home_link">$context.journal.name</a></div>
+<div class="anav" style="float: right;"><img src="/pic/icon/down_glyth.gif" width="13" height="10" />&nbsp;<a href="#down">Вниз</a></div>
+<br style="clear: both">
+<div style="padding-top: 10px">[% IF context.backurl %]<span class="anav"><img src="/pic/icon/back_glyth.gif" width="13" height="10" />&nbsp;Вернуться в тему </span>[% PROCESS inc/topic topic=result.topic url=context.backurl %][% ELSE %]<span class="anav">Тема: </span>[% PROCESS inc/topic topic=result.topic %][% END %]</div>
+
+<h1 class="topic">[% result.file.title | escape_subject %]</h1>
+
+[% IF result.type=='image' %]
+<table  width="100%" cellpadding="0"   style="padding: 30px 0px 30px 0px">
+[% IF result.title %]<tr><td align="center" style="padding-left: 15px; padding-right: 15px; padding-bottom: 20px; color: white">$result.title</td></tr>[% END %]
+<tr><td align="center">
+
+[% IF result.next %]
+<a href="/holder/${result.next.id}.html#photo" title='Перейти на следующую..'><img src="$set.uri.pic/${result.uri}" width="$r"esult.media_width height="$result.media_height" ></a>
+[% ELSIF result.start %]
+<a href="/holder/${result.start.id}.html#photo" title='Начать просмотр с начала..'><img src="$set.uri.pic/${result.uri}" width="$r"esult.media_width height="$result.media_height" ></a>
+[% ELSE %]
+<img src="$set.uri.pic/${result.uri}" width="$r"esult.media_width height="$result.media_height" >
+[% END %]
+
+</td></tr>
+</table>
+[% END %]
+
+<a id="down"></a>

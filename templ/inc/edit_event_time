@@ -1,0 +1,7 @@
+[% e = context.fields.event_time %]
+<select name=event_time>
+<option value=""''>нет</option>
+[% FOREACH d = context.times %]
+<option value="$d" [% IF e==d OR e=="$d:00" %]selected[% END %]>[% d %]</option>
+[% END %]
+</select>

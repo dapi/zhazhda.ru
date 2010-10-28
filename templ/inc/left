@@ -1,0 +1,184 @@
+<a href="/"><img id="logo" src="/pic/logo168x70.gif" width="168" height="70" alt="ZHAZHDA.RU. Как мы скажем, так и будет."/></a>
+<br/>
+<img src="/pic/space.gif" alt="" width="135" height="27"/><br/>
+
+
+
+[% IF context.user %]
+[% UNLESS context.user.mobile_checked OR context.profiling OR context.user.level %]
+<div class="info_block">
+<div style="color: red">Внимание! Номер Вашего мобильного не подтверждён.</div>
+<div style="padding-top: 15px">Без подтверждения номера мобильного телефона вы не сможете создавать темы, комментировать и голосовать.</div>
+<div style="padding-top: 15px"><a href="/profile/">Подробнее..</a></div>
+</div>
+[% END %]
+<div class="login_block">
+Привет, [% INCLUDE inc/user user=context.user %]!
+</div>
+<div class="private_block">
+<div class="b">
+[% PROCESS inc/lm name="profile" %]
+[%# IF context.user.id %][%# PROCESS inc/lm name="my_journals" %][%# END %]
+[% PROCESS inc/lm name="answers"  %]
+[% PROCESS inc/lm name="mail" %]
+</div>
+
+<div class="b">
+[% PROCESS inc/lm name='draft' %]
+</div>
+[% IF context.access.banner || context.access.banner_admin %]<div class="b">[% PROCESS inc/lm name='banners' %]</div>[% END %]
+<div class="b">
+[% PROCESS inc/lm name="exit" class="exit" %]
+</div>
+</div>
+
+
+<div class="new_topic_menu">
+<div class="link"  [% IF context.active=='new_topic' %]id="a"[% END %]><a href="/new_topic" title="Разместить на сайте информацио о мероприятии, фотоотчёт или просто тему для обсуждения">Создать тему..</a></div>
+<div class="desc">Разместите свой анонс, фотоотчёт или тему для обсуждения</div>
+</div>
+
+
+
+[% ELSE %]
+
+<div class="login_block">
+<div id="login" style="display:none; padding-bottom: 10px;">
+<form method="post" action="/login" class="login" name="LOGIN">
+<input name="login" type="text" value="Логин" onfocus="if (this.value=='Логин') this.value=''" onblur="if (this.value=='') this.value='Логин'" />
+<br/>
+<input name="password" type="password"/><br/>
+<input type="submit" class="submit" value="Вдохнуть" name="go" /></form>
+</div>
+
+<div id="in" style="padding-bottom: 10px">
+<a href="javascript:open_login()">Вдох</a>
+</div>
+
+[% UNLESS context.signing %]
+<a href="/sign">Pегистрация</a>
+[% END %]
+
+</div>
+[% IF context.signing %]
+<div class="info_block">Вы в процессе регистрации на сайте.</div>
+[% END %]
+[% END %]
+
+
+<div class="ad_block" style="padding-top: 0px">
+[% PROCESS banner place='left01' %]
+</div>
+
+
+<div class="online_block">
+<div class="n">На сайте ($context.online.list.size):</div>
+<div>
+[% FOREACH user = context.online.list %]
+[% INCLUDE inc/user %]
+[% END %]
+</div>
+</div>
+
+
+<div class="ad_block">
+<script type="text/javascript"><!--
+yandex_partner_id = 57335;
+yandex_site_bg_color = 'FFFFFF';
+yandex_site_charset = 'koi8-r';
+yandex_ad_format = 'direct';
+yandex_font_size = 1;
+yandex_direct_type = 'vertical';
+yandex_direct_border_type = 'ad';
+yandex_direct_limit = 3;
+yandex_direct_header_bg_color = 'FEEAC7';
+yandex_direct_bg_color = 'FFF9F0';
+yandex_direct_border_color = 'FBE5C0';
+yandex_direct_title_color = '0000CC';
+yandex_direct_url_color = '006600';
+yandex_direct_all_color = '0000CC';
+yandex_direct_text_color = '000000';
+yandex_direct_hover_color = '0066FF';
+document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/system/context.js"></sc'+'ript>');
+//--></script>
+</div>
+
+
+<br/>
+
+
+[% IF context.journal.id!=7 %]
+<div class="ad_block">
+
+[% PROCESS banner place='left02' %]
+[% PROCESS banner place='left03' %]
+[% PROCESS banner place='left04' %]
+</div>
+[% END %]
+
+
+
+<div class="login_block">
+
+<!--
+<div style="padding-bottom: 5px"><a href="http://yandex.ru/"><img src="http://old-company.yandex.ru/i/50x23.gif" width="50" height="23"/></a></div>
+<form name="web" method="get" class="login" action="http://yandex.ru/sitesearch">
+<input type="text" name="text" size="10" value="Искать на сайте"  onfocus="if (this.value=='Искать на сайте') this.value=''" onblur="if (this.value=='') this.value='Искать на сайте'" maxlength="160" /><br/>
+<input type="submit" value="Найти!" />
+<input type="hidden" name="clid" value="39177" />
+<input type="hidden" name="site" value="$set.uri.home" />
+<input type="hidden" name="server_name" value="Жажда Жизни" />
+<input type="hidden" name="referrer1" value="${set.uri.home}$set.uri.path">
+<input type="hidden" name="referrer2" value="zhahzda.ru">
+</form>
+-->
+<a href="http://www.yandex.ru/advanced.html?site=zhazhda.ru">Поиск по сайту</a>
+
+</div>
+
+
+
+<div class="block">
+[%# PROCESS inc/lm name='places' %]
+[%# PROCESS inc/lm name='gallery' %]
+
+[%# PROCESS inc/lm name='todo' %]
+
+</div>
+
+
+<div class="ad_block">
+[% PROCESS banner place='left05' %]
+[% PROCESS banner place='left06' %]
+[% PROCESS banner place='left07' %]
+</div>
+
+<div class="ad_block">
+[% PROCESS banner place='left08' %]
+[% PROCESS banner place='left09' %]
+[% PROCESS banner place='left10' %]
+</div>
+
+<div class="ad_block">
+[% PROCESS banner place='left11' %]
+[% PROCESS banner place='left12' %]
+</div>
+
+
+
+
+
+[% BLOCK lm %]
+[% m = context.menu.${name} %]
+<span class="[% class || m.class || 'menu' %]">
+[% IF m %]
+<a href="[% IF m.use_journal %]/$context.journal.link[% END %][% m.path %][% IF journal %]?jid=[% context.journal.id || 1 %][% END %]" [% IF m.title %]title="[% m.title %]"[% END %] [% IF context.active==name %]id="a"[% END %] [% IF color %]style='color: $color'[% END %]>[% m.menu %]</a>
+[% ELSE %]<b>?$name?</b>[% END %]
+</span>[% color='' class='' %]
+[% journal='' %]
+[% END %]
+
+
+[% BLOCK banner %]
+[% IF context.banners.$place %]<div class="ad_banner">[% INCLUDE inc/banner banner=context.banners.$place %]</div>[% END %]
+[% END %]

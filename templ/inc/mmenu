@@ -1,0 +1,43 @@
+<div class="mmenu_block">
+<div class="mmenu">
+<a href="/"  [% IF context.active=='journal' %]id="s"[% END %]>/ Главная</a>
+</div>
+
+<!--
+<div class="mmenu">
+<a href="/new/">/ Новое</a>
+</div>
+-->
+
+
+
+<div class="mmenu">
+<a href="/afisha/" [% IF context.active=='afisha' %]id="s"[% END %]>/ Афиша</a>
+</div>
+
+<div class="mmenu">
+<a href="/foto/" [% IF context.active=='foto' %]id="s"[% END %]>/ Галерея</a>
+</div>
+
+<!--
+<div class="mmenu">
+<a href="/users/" [% IF context.active=='users' %]id="s"[% END %]>/ Журналы</a>
+</div>
+-->
+
+<div class="mmenu">
+<a href="/podcast/" [% IF context.active=='podcast' %]id="s"[% END %]>/ Подкасты</a>
+</div>
+
+<div class="mmenu">
+<a href="/video/" style="color: red" [% IF context.active=='podcast' %]id="s"[% END %]>/ Видео</a>
+</div>
+
+<!-- <div class="mmenu"> -->
+<!-- <a href="http://zhazhda.ru/newyear/" style="color: red">/ Новый год</a> -->
+<!-- </div> -->
+
+
+
+</div>
+

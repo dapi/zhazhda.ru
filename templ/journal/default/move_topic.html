@@ -1,0 +1,30 @@
+[% USE HTML %]
+[% INCLUDE inc/header %]
+<div class="topic_page">
+<h1>Перемещение темы по журналам</h1>
+<form method="get" action="/move_topic" name="topic_journal">
+<input name=id value="$result.topic.id" type="hidden">
+<input name=jid value="$context.journal.id" type="hidden">
+<input name=charset value="русский" type="hidden">
+
+<table width="580"  class="form" align="left">
+<tr><th width="37%">Тема</th><td><b>$result.topic.subject</b></td></tr>
+<tr><th width="37%">Родной журнал</th><td><b>$context.journal.name</b></td></tr>
+<tr><th width="37%" >Поместить тему в журналы:</th>
+<td>
+<table  cellpadding="1" >
+[% FOREACH j = result.journals %]
+[% UNLESS j.id==context.journal.id %]
+<tr><td>[% IF j.linked %]<b>$j.name</b>[% ELSE %]$j.name[% END %]</td><td><input name=journal_$j.id type=checkbox [% IF j.linked %]checked[% END %]></td></tr>
+[% END %]
+[% END %]
+</table>
+</td>
+</tr>
+<tr><td></td><td colspan="2" style="padding-top: 10px"><input type="submit" value="OK" type="submit"></td></tr>
+</table>
+
+</form>
+</div>
+
+[% INCLUDE inc/footer right='journal/default/right.topic' %]

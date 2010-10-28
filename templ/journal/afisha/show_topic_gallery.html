@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="koi8-r"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=koi8-r"/>
+<title>Жажда Жизни[% IF context.title %]: $context.title[% END %]</title>
+<link rel="SHORTCUT ICON" href="/pic/zhazhda.ico"/>
+
+<style type="text/css">
+
+body    {
+        margin: 0px 0px 0px 10px;
+        padding: 0px 0px 0px 10px;
+position: absolute;  
+height: auto; 
+width: 250px;
+background: #cccccc;
+}
+
+* { 
+font-family: Helvetica, Arial, san serif;
+font-size: 12px;
+font-style: normal;
+font-weight: normal;
+text-transform: normal;
+/*letter-spacing: -3px;*/
+line-height: 1.2em; 
+}
+
+.u { 
+             white-space: nowrap;
+             background: url('/pic/icon/u.png') no-repeat 0px 3px;
+             padding-left: 11px;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-right: 0px;
+        text-decoration: none;
+        border-bottom: 1px dashed #333;
+ }
+
+</style>
+<!--<base href="$set.uri.home"/>  target=_blank-->
+</head>
+
+<body>
+
+
+<a name="igos"></a>
+<div style="padding: 10px; border: 1px solid #cccccc; border-left: 4px solid red;">
+
+<div style="padding-bottom: 5px"><span style="font-size: 13px">На эту вечеринку идут ($result.topic.igos.size):</span></div>
+[% IF result.topic.igos.size %] 
+[% FOREACH u = result.topic.igos %]
+[% IF loop.index %], [% END %]<span class="u">$u.login</span>
+[% END %]
+[% END %]
+
+[% IF context.user %]
+<div style="padding-top: 15px">
+[% UNLESS result.topic.is_user_go %]
+<a class="a" id="u" href="/igo_topic?topic_id=$result.topic.id&gallery=1">Я иду!</a>
+[% END %]
+</div>
+[% END %]
+
+</div>
+
+
+<div style="padding-top: 15px; padding-bottom: 5px;"><b>Комментарии:</b></div>
+
+[% from=1 %]
+[% to = result.comments.max %]
+[% IF to-from>5 %][% from = to - 5 %][% END %]
+[% FOREACH i = [from..to] %]
+[% m = result.comments.$i %]
+<div style="padding-bottom: 6px"><span class="u">$m.login</span> - $m.text <span style="color: #999; font-size: 9px;">[% m.create_time | date_time %]</span></div>
+[% END %]
+
+[% IF context.user %]
+<div style="padding-top: 15px; ">Комментарий:</div>
+<form name="comment" method="post" action="/add_comment">
+
+<input name="tid" value="$result.topic.id" type="hidden"/>
+<input name="gallery" value="1" type="hidden"/>
+<textarea name="text" id="comment" cols="70" rows="3" style="width:200px"></textarea>
+<input type="submit" name="ok" value="Пусть знают!"/>
+</form>
+[% ELSE %]
+<!--<div style="padding-top: 7px"><a target="_top" href="${set.uri.home}topics/${result.topic.id}.html?addcomment=1">Комментировать..</a></div>-->
+[% END %]
+
+<div style="padding-top: 15px"><small style="color: gray">Просмотров: $result.topic.views</small></div>
+<div><a target="_top" href="${set.uri.home}topics/${result.topic.id}.html">Все комментарии на zhazhda.ru</a></div>
+
+
+</body>
+</html>

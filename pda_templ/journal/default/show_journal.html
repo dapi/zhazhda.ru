@@ -1,0 +1,67 @@
+[% INCLUDE inc/header %]
+<div class=journal>
+
+[% IF context.issue AND context.issue.id!=context.journal.current_issue_id %]
+<div style="float: right">Выпуск: ${context.issue.title}. <a href="/archive/?jid=$context.journal.id" class=a>Архив..</a></div>
+<br>
+[% END %]
+
+[% PROCESS list_table_topics cols=result.topics.top.cols %]
+
+[% IF result.topics.hot.all.size %]
+<h2 style="color: red">Кипяток:</h2>
+[% PROCESS list_table_topics cols=result.topics.hot.cols %]
+[% END %]
+
+[% IF context.journal.topic_list_mode==1 %]
+[% PROCESS list_table_topics cols=result.topics.other.cols %]
+[% ELSE %]
+[% PROCESS show_by_days %]
+[% END %]
+
+[% IF result.topics.cold.all.size %]
+<h2 style="color: blue">Холодок:</h2>
+<small>Читать не рекомендуется.</small>
+[% PROCESS list_table_topics cols=result.topics.cold.cols %]
+[% END %]
+
+
+<div style="padding-top: 20px">
+<div style="float: left"><a class=a id=l href="/?issue=$context.prev_issue.id">Предыдущий выпуск [% context.prev_issue.title %]..</a></div>
+<div style="float: right"><a class=a id=r href="/archive/?jid=$context.journal.id">Другие выпуски..</a></div>
+</div><br>
+
+[% UNLESS right %][% right='journal/default/right' %][% END %]
+[% INCLUDE inc/footer gallery=context.gallery no_journal_link=1 %]
+
+
+[% BLOCK show_by_days %]
+
+[% FOREACH day = result.topics.days %]
+[% it = day.day | is_today %]
+<h2 class=day [% IF it %]style="color: red"[% END %]>[% day.day | date_afisha %]</h2>
+[% IF day.all.size>1 %]
+[% PROCESS list_table_topics cols=day.cols %]
+[% ELSE %]
+[% PROCESS list_topics list=day.all %]
+[% END %]
+
+[% END %]
+
+[% END %]
+
+
+[% BLOCK list_topics %]
+[% FOREACH topic = list %]
+<div class=tc>[% INCLUDE journal/default/topic %]</div>
+[% END %]
+[% END %]
+
+[% BLOCK list_table_topics %]
+[% FOREACH topic = cols.0 %]
+<div class=tc>[% INCLUDE journal/default/topic %]</div>
+[% END %]
+[% FOREACH topic = cols.1 %]
+<div class=tc>[% INCLUDE journal/default/topic %]</div>
+[% END %]
+[% END %]

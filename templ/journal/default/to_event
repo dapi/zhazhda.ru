@@ -1,0 +1,6 @@
+[% UNLESS result.topic.journal_id %]
+<div class="lbox">
+<div class="link"><a class="biggreen" href="/edit_topic_form?id=$result.topic.id&amp;topic_type=event">Сделать из этой темы Анонс</a></div>
+<div class="desc">Жмите сюда, если вы желаете опубливать анонс мероприятия в Афише.</div>
+</div>
+[% END %]

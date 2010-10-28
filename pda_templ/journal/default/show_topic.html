@@ -1,0 +1,76 @@
+[% INCLUDE inc/header %]
+<div class=topic_page>
+<div style="float: left;">[% IF result.topic.issue %]Выпуск [% INCLUDE inc/journal class="a" journal=context.journal issue=result.topic.issue.id name=result.topic.issue.title %]&nbsp;[% END %][% INCLUDE inc/journal class="a" id="r" journal=context.journal name="Другие темы журнала.." %]
+[% IF result.topic.is_hot %](тема разгорячена)[% ELSIF result.topic.is_cold %](тему остужена)[% END %]
+</div>
+<div style="float: right;">[% INCLUDE inc/down %]</div>
+<br style="clear: both">
+
+[% PROCESS journal/default/topic_text topic=result.topic %]
+<div id=a></div>
+
+[% list_mode = result.topic.comment_list_mode || context.journal.comment_list_mode %]
+[% IF list_mode==2 %]
+[% PROCESS journal/default/comments_list childs=result.comments %]
+[% ELSE %]
+[% PROCESS journal/default/comments_tree childs=result.comments %]
+[% END %]
+
+[%# INCLUDE journal/default/comment_form tid=result.topic.id %]
+<br>
+<a name=down></a>
+
+[% IF result.comments.size AND topic.access.can_comment AND !context.edit_comment %]
+<!--<div style="padding-top: 3px">
+<div style="float: left;"><a href="javascript:toggleCommentForm('0')" id=o class=c>Комментировать тему..</a></div>
+</div>
+<br>
+<div id=a0></div>
+-->
+[% END %]
+
+
+
+<table border=0 cellpadding=0 cellspacing=0 style="padding-top: 40px" width="100%">
+<tr><td valign=top width="50%">[% IF context.user %][% IF topic.view.is_subscribed %]<span class=l><img src="/pic/icon/unsubscribe.gif" width="14" height="14" align="absmiddle"/>&nbsp;<a href="/unsubscribe?id=$topic.id" title="Не получать больше извещения об обновлении этой темы">Отписаться..</a></span>[% ELSE %]<span class=l><img src="/pic/icon/subscribe.gif" width="14" height="14" align="absmiddle"/>&nbsp;<a href="/subscribe?id=$topic.id" title="В этом случае вам будет сообщаться об обновлении темы">Подписаться на тему</a></span>[% END %][% END %]</td>
+
+<td valign=top align=left width="50%">
+<a name=rating></a>
+[% IF topic.user_id==context.user.id %]
+<p style="text-align: left">Автор темы не может её рейтинговать.</p>
+[% ELSIF topic.access.can_rate %]
+[% IF topic.view.rating %]Ваш рейтинг темы:[% ELSE %]Рейтинговать тему:[% END %]<br>
+<span class=l><a class=a id=u href="/rate_topic?topic_id=$result.topic.id&rate=5" [% IF topic.view.rating==5 %] style="font-weight: bold"[% END %]>Тема классная, поднять её на верх.</a><br>
+<a class=a id=d href="/rate_topic?topic_id=$result.topic.id&rate=1" [% IF topic.view.rating==1 %] style="font-weight: bold"[% END %]>Тема отстой, опустить её в низ.</a></span>
+[% ELSE %]
+<p style="text-align: left">Для того чтобы рейтинговать тему - зарегистрируйтесь и подтвердите номер мобильного телефона.</p>
+[% END %]
+</td></tr>
+
+<tr><td valign=top style="padding-top: 10px">[% IF result.topic.subscribers_list.size %]
+<small style="color: gray">Подписались ($result.topic.subscribers):</small> [% FOREACH u = result.topic.subscribers_list %]
+<span>[% IF loop.index %], [% END %][% INCLUDE inc/user user=u %]</span>[% END %]
+[% END %]
+</td><td valign=top style="padding-top: 10px">
+[% IF topic.raters %]
+Общий рейтинг (1-5): <b>$topic.rating</b><br><br>
+
+<img src=/pic/icon/up_glyth.gif width=13 height=10><small style="color: gray">Поднять тему ($result.topic.uppers.size):</small>
+[% FOREACH u = result.topic.uppers %]
+<span>[% IF loop.index %], [% END %][% INCLUDE inc/user user=u %]</span>[% END %]<br><br>
+
+<img src=/pic/icon/down_glyth.gif width=13 height=10><small style="color: gray">Опустить тему ($result.topic.downers.size):</small> [% FOREACH u = result.topic.downers %]
+<span>[% IF loop.index %], [% END %][% INCLUDE inc/user user=u %]</span>[% END %]<br><br>
+<small style="color: gray">Всего: <b>$topic.raters</b> человек.<br>[% IF topic.raters<context.journal.min_raters %](для консилиума не хватает [% context.journal.min_raters - topic.raters %] человек)[% END %]</small>
+
+[% ELSE %]
+<small style="color: gray">Рейтинга нет.</small>
+[% END %]
+</td></tr>
+</table>
+
+<div style="padding-top: 7px"><small style="color: gray">Просмотров: $result.topic.views</small></div>
+
+</div>
+[% UNLESS right %][% right='journal/default/right.topic' %][% END %]
+[% INCLUDE inc/footer  %]

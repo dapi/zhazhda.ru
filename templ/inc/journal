@@ -1,0 +1,1 @@
+<a href="[% IF set.host==journal.host %]/$journal.path?a=1[% ELSE %]http://$journal.host/$journal.path?ssid=$context.user.session[% END %][% IF issue %]&issue=$issue[% END %]" class="[% class || 'j' %]"  title='$journal.desc' [% IF id %]id=$id[% END %]>[% name || journal.name %]</a>

@@ -1,0 +1,30 @@
+[% USE HTML %]
+[% INCLUDE inc/header %]
+
+<h1>Изменение данных</h1>
+
+[% IF context.errors %]
+<div class="error"><p><b>Форма заполнена неверно:</b></p><ul>
+[% IF context.errors.name %]<li>Номер телефона введен неверно.<br/>Необходимо вводить полный федеральный номер, например +7-123-456-78-90;</li>[% END %]
+[% IF context.errors.address %]<li>Сервер не смог отправить на указанный Вами номер мобильного телефона SMS&ndash;сообщение. Проверьте правильнось написания номера или обратитесь к администратору &#8212; <a href="mailto:admin@zhazhda.ru">admin@zhazhda.ru</a>;</li>[% END %]
+</div>
+[% END %]
+
+
+<form method="post" action="/places/edit">
+<input name=charset value="русский" type="hidden">
+<input name=id value="$result.id" type="hidden">
+<table width="580"  class="form" align="left">
+
+[% INCLUDE inc/row_field name='name' text='Наименование' style='width:100%' %]
+[% INCLUDE inc/row_field name='address' text='Адрес'  style='width:100%' %]
+[% INCLUDE inc/row_text_field name='comment' text='Ваш комментарий' style='width:100%' %]
+<tr><td colspan="2"><br/></td></tr>
+[% INCLUDE inc/row_select name='category_id' text="Категория" list=context.category_list %]
+[% INCLUDE inc/row_select name='city_id' text="Город" list=context.city_list %]
+<tr><td></td><td colspan="2" style="padding-top: 10px"><input  type="submit" value="OK" type="submit"></td></tr>
+</table>
+
+</form>
+
+[% INCLUDE inc/footer %]

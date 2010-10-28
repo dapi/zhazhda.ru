@@ -1,0 +1,42 @@
+[% INCLUDE inc/header %]
+<h1>PODCAST-ы</h1>
+<a class="a" href="/topics/61352.html#new">Подробнее о подкастах..</a>
+<br/>
+<br/>
+<table class="list"  cellpadding="0"  >
+<tr><td><img align="left" src="/pic/icon/rss.gif" width="16" height="16"><div><a href="http://zhazhda.ru/podcast/rss.xml"><b>Общий подкаст</b></a></div>
+<div>Сюда падает все, что закачивается на Жажду.</div></td></tr>
+[% FOREACH p = result.podcasts %]
+[% IF p.podcast_files %]
+<tr><td><img align="left" src="/pic/icon/rss.gif" width="16" height="16"><div><a href="${set.uri.home}user/[% p.login | uri_escape %]/podcast/rss.xml"><b>[% p.podcast_name || p.login %]</b></a> ($p.podcast_files)</div>
+<div>$p.podcast_comment</div></td></tr>
+[% END %]
+[% END %]
+</table>
+[%# PROCESS list_music %]
+
+[% UNLESS right %][% right='journal/default/right.topic' %][% END %]
+[% INCLUDE inc/footer  %]
+
+
+[% BLOCK list_music %]
+
+[% IF context.user %]
+<table   cellpadding="0" class="list">
+<tr><th>Композиция</th><th>Тема</th></tr>
+[% FOREACH item = result.items %]
+<tr>
+<td ><img  src="/pic/icon/music.gif" width="14" height="13" ><span style="color:gray">${item.file_id}</span>&nbsp;
+<a class="a" href="http://zhazhda.ru/files/topics/${item.topic_id}/[% item.file | uri_escape %]">[% item.media_title || item.title %] / $item.media_track</a>&nbsp;<small>([% item.size | filesize %])</small><br/>
+<small>[% item.ts | human %]</small>
+</td>
+<td >[% INCLUDE inc/user user=item %] <a class="topic" href="/topics/${item.topic_id}.html#new">$item.subject</a></td>
+</tr>
+[% END %]
+</table>
+
+[% ELSE %]
+<p>некотороя информация на этой странице доступна только зарегистрированным пользователям.
+[% END %]
+
+[% END %]

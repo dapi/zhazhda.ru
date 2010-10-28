@@ -1,0 +1,71 @@
+[% USE HTML %]
+[% INCLUDE inc/header %]
+
+<div class="topic_page">
+<div style="float: left;"><span class="anav">Другие темы журнала: </span>[% INCLUDE inc/journal journal=context.journal %]</div>
+<div style="float: right;">[% INCLUDE inc/down %]</div>
+<br style="clear: both"/>
+
+[% PROCESS journal/default/topic_text topic=result.topic show_subject_link=1 no_comment=1 %]
+
+<a id="photo"></a>
+
+[% IF result.type=='image' %]
+<table  width="100%" cellpadding="0" class="fotopage" >
+<tr><td colspan="3" align="center" style="padding: 0px 15px 0px 15px;">&nbsp;</td></tr>
+<tr><td align="center" colspan="3">
+
+[% IF result.next %]
+<a href="/edit_file?id=$result.next.id#photo" title='Перейти на следующую..'><img src="$set.uri.pic${result.uri}" width="$result.media_width" height="$result.media_height" alt="" /></a>
+[% ELSIF result.start %]
+<a href="/edit_file?id=$result.start.id#photo" title='Начать просмотр с начала..'><img src="$set.uri.pic${result.uri}" width="$result.media_width" height="$result.media_height" alt="" /></a>
+[% ELSE %]
+<img src="$set.uri.pic${result.uri}" width="$result.media_width" height="$result.media_height" alt="" />
+[% END %]
+
+</td></tr>
+<tr>
+<td align="left" style="padding: 15px 10px 15px 15px; white-space: nowrap;"  width="120">
+[% IF result.prev %]
+<img src="/pic/icon/back_glyth.gif" width="13" height="10" alt=""/>
+<a href="/edit_file?id=$result.prev.id#photo" class="album_text">предыдущая ($result.prev_count)</a>
+[% ELSIF result.last %]
+<img src="/pic/icon/back_glyth.gif" width="13" height="10" alt=""/>
+<a href="/edit_file?id=$result.last.id#photo" class="album_text">последняя</a>
+[% END %]
+</td>
+<td align="center" style="padding: 15px 5px 15px 5px; color: #eee" width="*" class="image_title">
+[% IF result.title %]<i>$result.title</i><br/><div class="photo_topic_subject" style="padding-top: 5px;">Из темы: [% ELSE %]<div class="photo_topic_subject">[% END %]
+<a class="album_text"  href="/topics/${result.topic.id}.html#new">[% result.topic.subject | escape_subject %]</a>
+<div></td>
+<td align="right" style="padding: 15px 15px 15px 5px; white-space: nowrap;"  width="120">
+[% IF result.next %]
+<a href="/edit_file?id=$result.next.id#photo" class="album_text">следующая ($result.next_count)</a>
+<img src="/pic/icon/forward_glyth.gif" width="13" height="10" alt="absmiddle"/>
+[% ELSIF result.start %]
+
+<a href="/edit_file?id=$result.start.id#photo" class="album_text">с начала</a>
+<img src="/pic/icon/forward_glyth.gif" width="13" height="10" alt="absmiddle"/>
+[% END %]
+</td>
+</tr>
+
+<tr>
+<td colspan="3">
+<form name=comment method="get" action="/edit_file_post">
+<input name=id value="$result.id" type="hidden">
+<textarea name="title" id="comment" cols=70 rows=8 style='width:100%' onkeypress="return ctrl_enter(event, this.form, this.form.title);">[% HTML.escape(result.title) %]</textarea>
+<input type="submit" name=ok value="OK">
+<input type=reset value="Передумал..">
+</form>
+</td>
+</tr>
+</table>
+[% END %]
+
+
+<a id="down"></a>
+
+
+
+[% INCLUDE inc/footer %]

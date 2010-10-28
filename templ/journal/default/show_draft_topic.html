@@ -1,0 +1,19 @@
+[% INCLUDE inc/header %]
+<div class="topic_page">
+
+[% PROCESS journal %]
+<br/>
+
+[% PROCESS journal/default/topic_text topic=result.topic no_comment=1 %]
+<a class="a" id="r" href="/publish_topic?id=$result.topic.id">Опубликовать тему</a>
+<br/><br/>
+[% PROCESS journal %]
+[% UNLESS right %][% right='journal/default/right.topic' %][% END %]
+</div>
+
+[% INCLUDE inc/footer  %]
+
+
+[% BLOCK journal %]
+<a class="a" id="l" href="/draft/">Вернуться в черновик..</a>
+[% END %]

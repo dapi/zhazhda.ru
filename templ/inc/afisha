@@ -1,0 +1,30 @@
+
+<div class="afisha">
+<div class="ah"><a href="/afisha/">Афиша</a></div>
+[% IF context.afisha.today.size %]
+<div class="t" id="today">[% context.today | date_afisha %]:</div>
+[% FOREACH t=context.afisha.today %][% PROCESS show_event %][% END %]
+[% END %]
+
+[% IF context.afisha.tomorrow.size %]
+<div class="t">[% context.tomorrow | date_afisha %]:</div>
+[% FOREACH t=context.afisha.tomorrow %][% PROCESS show_event %][% END %]
+[% END %]
+
+[% IF !context.afisha.today.size AND !context.afisha.tomorrow.size %]
+<!--<div class="t">Скоро:</div>-->
+[% FOREACH t=context.afisha.soon %][% PROCESS show_event show_date=1 %][% END %]
+[% END %]
+
+</div>
+
+
+[% BLOCK show_event %]
+
+<div class="a">
+<div class="p"><a href="${set.uri.home}topics/${t.id}.html">$t.event_place / <b>$t.subject</b></a></div>
+<div class="e">[% IF show_date %][% t.event_date | date_afisha %], [% ELSE %][% IF t.event_time %]в $t.event_time[% END %][% END %].
+[%# INCLUDE inc/discuss topic=t %]
+</div></div>
+
+[% END %]

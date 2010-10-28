@@ -1,0 +1,25 @@
+[% INCLUDE inc/header %]
+<h1>Подписка на рассылку</h1>
+[% IF context.user AND context.user.mobile_checked %]
+
+<form method="post" action="/sub">
+
+[% form=context.form %]
+
+<table  class="form" align="left" width="100%">
+[% INCLUDE form/errors %]
+[% INCLUDE form/select name='sms'
+text='Рассылка анонсов на SMS'
+comment='Выберите периодичность рассылки' 
+list=[{id=>0,name=>'Не рассылать'},{id=>1,name=>'Раз в день, если есть новости.'},{id=>2,name=>'Два раза в неделю. Понедельник и четверг.'}]
+style='width:100%' %]
+<tr><td></td><td>
+<input name=save value="Сохранить изменения в подписке" type="submit">
+</td></tr>
+</table>
+<br/>
+<p>Рассылка будет осуществляться с укуазанной вами периодичностью в <b>20:00</b> по московскому времени, на указанный вами при регистрации мобильный телефон: <b>$context.user.mobile</b>.</p>
+[% ELSE %]
+<p>Подписка на SMS-рассылку анонсируемых мероприятий доступна только <a href="/sign">зарегистрированным</a> пользователям, <a href="/profile">подтвердившим</a> свои мобильные телефоны.</p>
+[% END %]
+[% INCLUDE inc/footer %]

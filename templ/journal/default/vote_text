@@ -1,0 +1,28 @@
+[%# текст темы - голосования %]
+<h1 class="topic">ZHAZHDA AWARDS: <a [% UNLESS show_subject_link %]class="topic_subject[% END %] href="/${context.journal.link}${result.topic.id}.html#new"  style="color: red">[% topic.subject | escape_subject %]</a> [% PROCESS topic_control %]</h1>
+<p style="color: gray"><small>Напоминаем, что результаты голосования и награждение победителей Zhazha Awards состоится 3-го марта в 21-00 в ресторане "Центральный".</small></p>
+
+<!--
+[% INCLUDE inc/user user=topic %] <span class="topic_when>[% topic.create_time | date_time %]</span>
+<table    width="100%" style="padding-bottom: 0px; padding-top: 15px">
+<tr><td  class="topic_text>[% topic.text | escape_text %]</td></tr>
+<tr><td class="topic_value>
+<div style="float: left"><span class="ls">Автора:<a href=""><b>в ЧС</b></a>&nbsp;|&nbsp;<a href=""><b>в друзья</b></a></span></div>
+<div style="float: right"><span class="ls">Тема:<a href="">зачот</a>&nbsp;|&nbsp;<a href="">в топку</a></span></div>
+<br style="clear: both"/>
+</td></tr>
+</table>
+-->
+
+[% BLOCK topic_control %]
+[% IF context.access.admin AND 0 %]
+<span class="control" style="padding-left: 10px;">
+[
+[% FOREACH k = ['d','e','t','h','r','b'] %]
+[% IF loop.index %], [% END %]
+<a href="?$k" title="$k asdsa">$k</a>
+[% END %]
+]
+</span>
+[% END %]
+[% END %]

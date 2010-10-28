@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="koi8-r"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=koi8-r"/>
+<title>Жажда Жизни[% IF context.title %]: $context.title[% END %]</title>
+<link rel="SHORTCUT ICON" href="/pic/zhazhda.ico"/>
+<style type="text/css">
+
+body    {
+        margin: 0px;
+        padding: 0px 0px 0px 10px;
+position: absolute;  
+height: auto; 
+width: 250px;
+
+}
+
+* { 
+font-family: Helvetica, Arial, san serif;
+font-size: 12px;
+font-style: normal;
+font-weight: normal;
+text-transform: normal;
+/*letter-spacing: -3px;*/
+line-height: 1.2em; 
+}
+
+.u { 
+             white-space: nowrap;
+             background: url('/pic/icon/u.png') no-repeat 0px 3px;
+             padding-left: 11px;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-right: 0px;
+        text-decoration: none;
+        border-bottom: 1px dashed #333;
+ }
+
+
+</style>
+</head>
+
+<body>
+
+
+[% IF context.user %]
+<div class="login_block">
+Привет, <span class="u">$context.user.login</span>
+</div>
+
+[% ELSE %]
+<div class="login_block">
+<div id="login">
+<form method="post" action="/login" class="login" name="LOGIN">
+<input name="login" type="text" value="Логин" onfocus="if (this.value=='Логин') this.value=''" onblur="if (this.value=='') this.value='Логин'" />
+<br/>
+<input name="password" type="password"/><br/>
+<input type="submit" class="submit" value="Вдохнуть" name="go" /></form>
+</div>
+</div>
+[% END %]
+</body>
+</html>

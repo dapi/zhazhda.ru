@@ -1,0 +1,36 @@
+<script type="text/javascript" src="/js/ajaxsn.js"></script>
+
+<script language="JavaScript">
+function checksubm2(parrametr) {
+    t = document.forms[parrametr];
+    t.ok.disabled = (t.message.value == "");
+}
+
+
+</script>
+<form method="post" id="mail" action="${set.uri.home}mail_post" name="mess" autocomplete="off">
+
+[% IF talker %]<input name="uid" value="$talker.id" type="hidden"/>[% END %]
+
+<table  class="post" width="100%" cellpadding="0" >
+
+[% IF !talker || show_talker %]
+<tr><td  style="padding-bottom: 5px">
+
+Личное сообщение для&nbsp;[% IF show_talker %][% INCLUDE inc/user user=talker %][% ELSE %]<input name="talker" value="$context.no_such_talker" class="u" type="text" size="15" onkeypress="checkmail()" onkeyup="checkmail()" onblur="checkmail()"/>
+[% IF context.no_such_talker %]&nbsp;<span class="err">- нет такого пользователя на Жажде, вспоминайте лучше!</span>[% END %][% END %]
+
+</td>
+<td align="right" style="padding-bottom: 5px">[% IF show_talker %]<img src="/pic/icon/m.gif" width="13" height="10" alt="m" />&nbsp;<a class="a" href="/user/[% context.talker.login | uri_escape %]/mail">Архив переписки..</a>[% END %]</td>
+</tr>
+[% END %]
+
+<tr><td colspan="2">
+<textarea name="message" id="message" cols="70" rows="4" style="width:100%;" onkeydown="checksubm('mess')" onkeypress="return ctrl_enter(event, this.form, this.form.message);checksubm2('mess')" onkeyup="checksubm2('mess')" onblur="checksubm2('mess')"></textarea>
+</td></tr>
+<tr><td colspan="2"><input name="ok" value="Отправить" type="submit"/> <small>(Ctrl+Enter)</small></td></tr>
+</table>
+</form>
+<script  language="JavaScript1.2">
+checksubm2('mess');
+</script>

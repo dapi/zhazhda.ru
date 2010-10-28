@@ -1,0 +1,6 @@
+[% USE HTML %]
+[% UNLESS field %][% field=name %][% END %]
+[% IF fields.${field} %][% value = fields.$field %][% END %]
+[% IF context.fields.${field} %][% value = context.fields.$field %][% END %]
+<tr><th [% IF context.bad_fields.${field} %]style="color: red"[% END %]  class="test">$text[% IF comment %]<br/><small style="color: #999">$comment</small>[% END %]</th>
+<td><textarea [% IF style %]style="$style"[% END %] name=$field cols=40 rows=[% rows || '3' %]>[% HTML.escape(value) %]</textarea></td></tr>

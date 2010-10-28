@@ -1,0 +1,50 @@
+[% USE HTML %]
+[% menu=[
+{title=>'Профиль',link=>'/profile',name=>'user_profile',header=>'Профиль'},
+{title=>'Темы',link=>'/#list',name=>'user_home',header=>'Авторские темы'},
+{title=>'Переписка',link=>'/mail#m',name=>'talker',header=>'Личная переписка'},
+{title=>'Галерея',link=>'/foto#g',name=>'user_foto',header=>'Галерея'},
+{title=>'Подкаст',link=>'/podcast',name=>'user_podcast',header=>'Podcast'}
+]
+%]
+<h1>Личная страница ${context.talker.login}.</h1>
+<table width="100%">
+<tr><td  width="100" style="padding-right: 10px; vertical-align: top">
+[% PROCESS inc/avatar user=context.talker link_to_avatar=1 %]<br/>
+[% IF context.online.ids.${context.talker.id} %]<br/>
+<img src="/pic/online3.gif" width="53" height="12" alt=""/>
+[% END %]
+</td><td valign="top">
+
+<table  cellpadding="0" >
+<tr>
+[% FOREACH l = menu %]
+[% IF loop.index %]<td style="padding-right: 5px">|</td>[% END %]
+<td style="padding-right: 5px">
+<a [% IF l.name=='talker' AND context.new_talker_mails %]class="newmail"[% END %] href='/user/[% context.talker.login | uri_escape %]$l.link' [% IF context.active==l.name %]id="a"[% header=l.header %][% END %]>$l.title</a>
+</td>
+[% END %]
+</tr></table>
+
+[% UNLESS noprofile %]
+<table width="100%" class="form" style="padding-top: 10px">
+<tr><th >Последний раз был</th><td >$context.talker.lasttime [% IF context.access.show_private %]<small style="color: gray">$context.talker.last_ip<br/>$context.talker.user_agent</small>[% END %]</td></tr>
+<tr><th>Подтверждение мобильного</th>
+<td>[% IF context.talker.mobile_checked %]<span style="color:green">(номер подтвержден)</span>[% ELSE %]<span style="color:red">(номер не подтвержден)</span>[% IF context.access.admin %]<b>$context.talker.mobile_code</b>[% END %][% END %]</td></tr>
+[% IF context.talker.blacked %]
+<tr><th>В Черном Списке у</th><td><b>$context.talker.blacked</b><br/>[% FOREACH user = result.blacks %]
+[% INCLUDE inc/user %]
+[% END %]
+</td></tr>
+[% END %]
+<tr><th width="150">Тем/Комментариев:</th><td><i>$context.talker.topics/$context.talker.comments</i></td></tr>
+<tr><th width="150">Карма:</th><td><i>[% context.talker.karma %]</i></td></tr>
+<tr><th width="150" style="vertical-align: top">О себе:</th><td><i>[% context.talker.comment | escape_text %]</i></td></tr>
+<tr><td colspan="2"><a href="${set.uri.home}user/[% context.talker.login | uri_escape %]/feed/rss.xml">RSS feed</a></td></tr>
+</table>
+
+ [% INCLUDE inc/black uid=context.talker.id %]
+
+[% END %]
+</td></tr></table>
+<!--<h2>$header</h2>-->

@@ -1,0 +1,48 @@
+[% USE HTML %]
+[% INCLUDE inc/header %]
+
+<h1>Изменение личных данных</h1>
+
+[% IF context.errors %]
+<div class="error"><p><b>Форма заполнена неверно:</b></p><ul>
+[% IF context.errors.mobile %]<li>Номер телефона введен неверно.<br/>Необходимо вводить полный федеральный номер, например +7-123-456-78-90;</li>[% END %]
+[% IF context.errors.mobile2 %]<li>Сервер не смог отправить на указанный Вами номер мобильного телефона SMS&ndash;сообщение. Проверьте правильнось написания номера или обратитесь к администратору &#8212; <a href="mailto:admin@zhazhda.ru">admin@zhazhda.ru</a>;</li>[% END %]
+[% IF context.errors.mobile_exists %]<li>Указанный Вами номер мобильного телефона уже используется другим пользователем. Обратитесь к администратору &#8212; <a href="mailto:admin@zhazhda.ru">admin@zhazhda.ru</a>;</li>[% END %]
+[% IF context.errors.email %]<li>Указан неверный email-адрес;</li>[% END %]
+</div>
+[% END %]
+
+<form method="post" action="/profile/edit">
+<table width="580"  class="form" align="left">
+
+[% INCLUDE inc/row_field name='name' text='Настоящее имя' style='width:100%' %]
+[% INCLUDE inc/row_field name='email' text='E-mail'  style='width:100%' %]
+[% INCLUDE inc/row_field name='mobile' text='Мобильный телефон' comment='федеральный номер,<br/>например +7-123-456-78-90'  style='width:100%' %]
+[% INCLUDE inc/row_text_field name='address' text='Почтовый адрес доставки' comment='Индекc, Город, Улица, Дом, Квартира'  style='width:100%' %]
+<tr><td colspan="2"><br/></td></tr>
+[% INCLUDE inc/row_text_field name='comment' text='Немного о себе' comment='Информация, котрую вы хотите дать о себе.<br/>Будет видна всем пользователям, в Вашем профайле.'  style='width:100%' %]
+<tr><td colspan="2"><br/></td></tr>
+[% INCLUDE inc/row_checkbox name='show_private' text='Личные данные открыты' comment='Если Вы желаете, чтобы никто не увидел номер вашего мобильного и емайл, уберите галочку.' %]
+[%# INCLUDE inc/row_select name='web_community' text='Основной ареал обитания' list=context.community_list %]
+<tr><td colspan="2"><br/></td></tr>
+[% INCLUDE inc/row_checkbox name='use_smile' text='Показывать смайлы графические?' %]
+[% INCLUDE inc/row_checkbox name='autoplay' text='Автоматически играть музыку?' %]
+<tr><td colspan="2"><br/></td></tr>
+[% INCLUDE inc/row_select name='podcast_type' text='Вид подкаста' list=[{name=>'Нет подкаста',id=>'0'},{name=>'В подкаст попадают все загружаемые mp3.',id=>'1'}] %]
+[% INCLUDE inc/row_field name='podcast_name' text='Наименование подкаста'  style='width:100%' %]
+[% INCLUDE inc/row_text_field name='podcast_comment' text='Описание подкаста'  style='width:100%' %]
+<tr><td colspan="2"><br/></td></tr>
+<tr><td></td><td colspan="2" style="padding-top: 10px"><input  name="submit" value="Сохранить изменения" type="submit"/></td></tr>
+</table>
+
+</form>
+<br/>
+[% IF result.user.mobile %]
+[% ELSE %]
+<p style="color: red">Пожалуйста, введите Ваш действительный номер мобильного телефона, иначе Вы не сможете участвовать в голосованиях, создавать темы и комментировать их.</p>
+[% END %]
+
+
+<p>Пожалуйста, не обманывайте нас с номером мобильного телефона и адресом e-mail &#8212; регистрация не будет действительной, до тех пор, пока мы не убедимся в их подлинности.</p>
+
+[% INCLUDE inc/footer %]

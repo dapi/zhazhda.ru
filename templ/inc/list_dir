@@ -1,0 +1,26 @@
+[% UNLESS files %][% files = dir.files %][% END %]
+<table  cellpadding="0"  class="list_dir>
+[% FOREACH s = dir.subs %]
+<tr class="subdir" colspan="2"><td>$s.name</td></tr>
+[% PROCESS dir d = s.childs %]
+[% END %]
+[% PROCESS dir d = files %]
+</table>
+
+
+[% BLOCK dir %]
+[% FOREACH f = d %]
+
+[% IF f.comment %]
+<tr class="file"1>
+<td><a href="$f.uri">$f.name</a></td>
+<td width="100"><a class="dl" href="$f.uri">загрузить</a>&nbsp;<span class="size">([% f.size | filesize %])</span>[% IF context.user.is_admin %]&nbsp;<a href="?del=$f.id" class="admin">del</a>[% END %]</td></tr>
+<tr class="file"2><td colspan="2"><small><i>$f.comment</i></small></td></tr>
+[% ELSE %]
+<tr class="file">
+<td><a href="$f.uri">$f.name</a></td>
+<td width="100"><a class="dl" href="$f.uri">загрузить</a>&nbsp;<span class="size">([% f.size | filesize %])</span>[% IF context.user.is_admin %]&nbsp;<a href="?del=$f.id" class="admin">del</a>[% END %]</td></tr>
+[% END %]
+
+[% END %]
+[% END %]

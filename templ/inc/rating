@@ -1,0 +1,41 @@
+[% IF !context.user OR !context.user.mobile_checked%]
+[% INCLUDE inc/show_rating %]
+<div>Голосовать могут только зарегистрированные пользователи, подтвердившие свой мобильный номер.</div>
+[% ELSIF item.user_rate OR item.user_id==context.user.id %]
+[% INCLUDE inc/show_rating %]
+[% ELSE %]
+	<div   id="ratingAndStatsDiv">
+			<div id="ratingDiv"> 
+
+	  		<form style="display:none;" name="ratingForm" action="/rating" method="GET">
+			<input type="hidden" name="id" value="$item.id"/>
+		<input type="hidden" name="rating" id="rating" value=""/>
+	</form>
+
+		<script language="javascript">
+
+			messages = new Array("Плохо", "Так себе", "Нормально", "Хорошо", "Отлично!");
+		ratingComponent = new UTRating('ratingWrapper', 5, 'ratingComponent', 'ratingForm', 'ratingMessage', '', messages, [% item.rating || 0%]);
+		</script>
+
+	<div id="ratingWrapper">
+		<div class="nowrap">
+			<div class="statLabel floatL">Рейтинг фото:</div> 
+<a href="#" onclick="ratingComponent.setStars(1); return false;" onmouseover="ratingComponent.showStars(1);" onmouseout="ratingComponent.clearStars();"><img src="/pic/space.gif" id="star__1" class="rating icn_star_empty" style="border: 0px" alt=""/></a><a href="#" onclick="ratingComponent.setStars(2); return false;" onmouseover="ratingComponent.showStars(2);" onmouseout="ratingComponent.clearStars();"><img src="/pic/space.gif" id="star__2" class="rating icn_star_empty" style="border: 0px" alt=""/></a><a href="#" onclick="ratingComponent.setStars(3); return false;" onmouseover="ratingComponent.showStars(3);" onmouseout="ratingComponent.clearStars();"><img src="/pic/space.gif" id="star__3" class="rating icn_star_empty" style="border: 0px" alt=""/></a><a href="#" onclick="ratingComponent.setStars(4); return false;" onmouseover="ratingComponent.showStars(4);" onmouseout="ratingComponent.clearStars();"><img src="/pic/space.gif" id="star__4" class="rating icn_star_empty" style="border: 0px" alt=""/></a><a href="#" onclick="ratingComponent.setStars(5); return false;" onmouseover="ratingComponent.showStars(5);" onmouseout="ratingComponent.clearStars();"><img src="/pic/space.gif" id="star__5" class="rating icn_star_empty" style="border: 0px" alt=""/></a>		
+</div>
+
+		<div class="clearL"></div>
+		
+		<div id="ratingMessage" class="alignR">
+			<div id="defaultRatingMessage">
+							<span class="smallText">Голосов $item.raters</span>
+
+			</div>
+		</div>
+
+	</div>
+
+
+</div>
+</div>
+[% END %]

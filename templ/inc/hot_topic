@@ -1,0 +1,17 @@
+[% IF topic.image_mode AND topic.is_on_top %]
+
+<a href="[% url || "/topics/${topic.id}.html#new" %]" [% IF topic.is_new %] id="new" [% END %] class="hot_topic" [% IF topic.is_hide %] style="color:#cccccc" [% ELSIF topic.is_red %] style="color:red" [% END %] >[% IF topic.is_bold %]<b>[% topic.subject | escape_subject %]</b>[% ELSE %][% topic.subject | escape_subject %][% END %][% IF topic.event %]<img class="i" src="/pic/icon/event.gif" width="11" height="12"/>[% END %][% IF topic.images %]<img class="i" src="/pic/icon/photic.gif" width="13" height="11"/>[% END %][% IF topic.movies %]<img class="i" src="/pic/icon/movie.gif" width="13" height="11"/>[% END %][% IF topic.music %]<img class="i" src="/pic/icon/music.gif" width="14" height="13"/>[% END %][% IF topic.is_auction %]<img class="i" src="/pic/icon/auction.gif" width="12" height="12"/>[% END %]</a>
+<div style="padding-top: 10px">
+<a href="[% url || "/topics/${topic.id}.html#new" %]" >[% IF topic.image_mode==1 %]<img src="${set.uri.pic}${topic.path}[% topic.thumb_file | uri_escape %]" width="$topic.thumb_width" height="$topic.thumb_height" align="left" class="hot_subject_image"/>[% ELSE %]<img src="${set.uri.pic}${topic.path}[% topic.gallery_file | uri_escape %]" width="$topic.gallery_width" height="$topic.gallery_height" align="left" class="hot_subject_image"/>[% END %]</a>
+[% IF topic.show_text %]<div class="short_text_hot>[% IF topic.show_text==1 %][% topic.short_text | escape_subject %]&hellip;[% ELSE %][% topic.text | escape_subject %][% END %]</div>[% END %]
+<div style="padding-top: 10px">[% INCLUDE inc/discuss %]</div>
+</div>
+[% ELSIF topic.image_mode %]
+<div style="padding-top: 5px"><a href="[% url || "/topics/${topic.id}.html#new" %]" >[% IF topic.image_mode==1 %]<img src="${set.uri.pic}${topic.path}[% topic.thumb_file | uri_escape %]" width="$topic.thumb_width" height="$topic.thumb_height" align="left" alt="" class="subject_image"/>[% ELSE %]<img src="${set.uri.pic}${topic.path}[% topic.gallery_file | uri_escape %]" alt="" width="$topic.gallery_width" height="$topic.gallery_height" align="left" class="subject_image"/>[% END %]</a>[% INCLUDE inc/topic_subject %]
+[% IF topic.show_text %]<div class="short_text_hot>[% IF topic.show_text==1 %][% topic.short_text | escape_subject %]&hellip;[% ELSE %][% topic.text | escape_subject %][% END %]</div>[% END %]
+[% INCLUDE inc/discuss %]</div>
+[% ELSE %]
+[% INCLUDE inc/topic_subject %]
+[% IF topic.show_text %]<div class="short_text_hot>[% IF topic.show_text==1 %][% topic.short_text | escape_subject %]&hellip;[% ELSE %][% topic.text | escape_subject %][% END %]</div>[% END %]
+[% INCLUDE inc/discuss %]
+[% END %]

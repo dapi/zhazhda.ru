@@ -1,0 +1,6 @@
+arrOptions = new Array(
+[% FOREACH user = result.list %]
+["$user.login","0"],
+
+[% END %]
+["",""]);

@@ -1,0 +1,12 @@
+<br style="clear: both"><a name=down></a>
+<div style="float: bottom">
+[% IF context.journal AND !no_journal_link %]
+
+<a href="/" class=a id=d>Другие темы..</a>
+[% IF context.next_topic %]
+&nbsp;
+<a title="Следующая свежая тема: $context.next_topic.subject" href="[% "/topics/${context.next_topic.id}.html#new" %]" class=a id=r style="color: red; font-weight: bold" target=_top>Следующая свежая тема:</a> ([% INCLUDE inc/topic_subject topic=context.next_topic %])
+[% END %]
+<br>
+[% END %]
+</body></html>

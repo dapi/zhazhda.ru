@@ -1,0 +1,153 @@
+[% INCLUDE inc/header %]
+<div class="page">
+
+<h2>TOP-10 популярных тем</h2>
+<table   class="list" cellpadding="0" width="100%">
+<tr><th>Тема</th><th>Комментариев</th><th>Просмотров</th></tr>
+[% FOREACH t = result.bt %]
+<tr>
+<tr><td class="t1" width="80%">[% INCLUDE inc/topic_subject topic=t %]</td><td>$t.comments</td><td>$t.views</td></tr>
+</tr>
+[% END %]
+</table>
+
+<h2>TOP-10 лучших тем</h2>
+<p>В 10-ке наиболее рейтингуемых тем минимальное количество рейтеров <b>$result.max_raters.9.raters</b>, а максимальное <b>$result.max_raters.0.raters</b>.</p>
+<table   class="list" cellpadding="0" width="100%">
+<tr><th>Тема</th><th>Рейтинг</th></tr>
+[% FOREACH t = result.btr5 %]
+<tr>
+<tr><td class="t1" width="90%">[% INCLUDE inc/topic_subject topic=t %]</td><td>$t.rating/$t.raters</td></tr>
+</tr>
+[% END %]
+</table>
+<!--
+<h2>TOP-10 худших тем</h2>
+<table   class="list" cellpadding="0" width="100%">
+<tr><th>Тема</th><th>Рейтинг</th></tr>
+[% FOREACH t = result.btr1 %]
+<tr>
+<tr><td class="t1" width="90%">[% INCLUDE inc/topic_subject topic=t %]</td><td>$t.rating</td></tr>
+</tr>
+[% END %]
+</table>
+-->
+<a id="ur"></a>
+
+<table  cellpadding="0"  width="100%">
+
+<tr><td width="50%">
+
+<h2>TOP-10 остужающих авторов</h2>
+<table   class="list" cellpadding="0" width="100%">
+<tr><th>Имя</th><th>Охлаждающих рейтингов</th></tr>
+[% FOREACH t = result.cold_raters %]
+<tr>
+<tr><td class="t1" width="90%">[% INCLUDE inc/user user=t.user %]</td><td>$t.count</td></tr>
+</tr>
+[% END %]
+</table>
+
+
+</td><td>
+
+<h2>TOP-10 горячящих авторов</h2>
+<table   class="list" cellpadding="0" width="100%">
+<tr><th>Имя</th><th>Горячащих рейтингов</th></tr>
+[% FOREACH t = result.hot_raters %]
+<tr>
+<tr><td class="t1" width="90%">[% INCLUDE inc/user user=t.user %]</td><td>$t.count</td></tr>
+</tr>
+[% END %]
+</table>
+
+
+</td></tr>
+</table>
+
+
+<table  cellpadding="0"  width="100%">
+
+<tr><td width="50%">
+
+<h2>TOP-10 продуктивных авторов</h2>
+<p>Больше всех тем.</p>
+<table   class="list" cellpadding="0" width="100%">
+<tr><th>Имя</th><th>Тем</th></tr>
+[% FOREACH u = result.pt %]
+<tr>
+<tr><td class="t1">[% INCLUDE inc/user user=u %]</td><td>$u.topics</td></tr>
+</tr>
+[% END %]
+</table>
+
+</td><td>
+
+<h2>TOP-10 болтливых авторов</h2>
+<p>Больше всех комментариев.</p>
+<table   class="list" cellpadding="0" width="100%">
+<tr><th>Имя</th><th>Комментариев</th></tr>
+[% FOREACH u = result.pc %]
+<tr>
+<tr><td class="t1">[% INCLUDE inc/user user=u %]</td><td>$u.comments</td></tr>
+</tr>
+[% END %]
+</table>
+
+</td></tr>
+
+<td >
+<h2>TOP-10 публичных персон</h2>
+<p>Подписи под фотографиями.</p>
+<table   class="list" cellpadding="0" width="100%">
+<tr><th>Имя</th><th>Подписей</th></tr>
+[% FOREACH u = result.persons %]
+<tr>
+<tr><td class="t1">[% INCLUDE inc/user user=u.user %]</td><td>$u.count</td></tr>
+</tr>
+[% END %]
+</table>
+</td><td >
+
+
+<h2>TOP-10 черного списка</h2>
+<table   class="list" cellpadding="0" width="100%">
+<tr><th>Имя</th><th>Занесен в ЧС</th></tr>
+[% FOREACH u = result.black %]
+<tr>
+<tr><td class="t1">[% INCLUDE inc/user user=u %]</td><td>$u.blacked</td></tr>
+</tr>
+[% END %]
+</table>
+
+</td></tr>
+
+
+
+</table>
+
+
+
+<h2>TOP-10 переходов</h2>
+[% IF context.access.admin %]<a class="admin" href="/stats/click/">Полный счетчик переходов</a>[% END %]
+<table   class="list" cellpadding="0" width="100%">
+<tr><th>Ссылка</th><th>Переходов</th></tr>
+[% FOREACH c = result.click %]
+<tr>
+<tr><td class="t1">$c.host</td><td>$c.sum</td></tr>
+</tr>
+[% END %]
+</table>
+
+[% IF context.user.is_admin %]
+<h2>Количество SMS-подписчиков</h2>
+<table class="list" cellpadding="0">
+[% FOREACH r = result.sms %]
+<tr><th>[% IF r.sms_event_type==1 %]На все события[% ELSE %]Только на лучшие[% END %]</th><td>$r.count человек</td></tr>
+[% END %]
+</table>
+[% END %]
+
+
+</div>
+[% INCLUDE inc/footer %]

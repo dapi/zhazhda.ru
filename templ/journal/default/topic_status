@@ -1,0 +1,13 @@
+[% IF result.topic.journal_id %]
+<div style="float: left;"><a class="a l" href="/topics/${result.topic.id}.html">Посмотреть тему</a></div>
+[% ELSE %]
+<div style="float: left;"><a class="a l"href="/draft/">Вернуться в черновик</a></div>
+[% END %]
+<div style="float: right;">[% INCLUDE inc/down %]</div>
+<br/>
+
+
+<div style="padding: 10px 10px 10px 10px">
+[% IF result.topic.is_removed %]<div class="error"><b>Тема удалена</b></div>[% END %]
+[% UNLESS result.topic.journal_id %]<div class="error"><b>Тема в черновике</b></div>[% END %]
+</div>

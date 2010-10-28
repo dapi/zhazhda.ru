@@ -1,0 +1,19 @@
+[% INCLUDE inc/header %]
+
+<h1>Всего фото на модерирование: $context.all (выводим по 50 штук)</h1>
+
+<form method="post" action="/moderate/">
+<input name=list value="[% FOREACH f = result.list %]$f.id,[% END %]" type="hidden">
+<table width="100%" class="list">
+[% FOREACH file = result.list %]
+<tr><td width="80">[% PROCESS journal/default/show_gallery_image  %]</td>
+<td width="500">
+Модерацию прошла: <input name=is_moderated_$file.id type=checkbox checked><br/>
+Положить в галерею: <input name=put_in_gallery_$file.id type=checkbox>
+</td></tr>
+[% END %]
+</table>
+<input name=OK type="submit" value="Применить установки и показать следующие..">
+</form>
+
+[% INCLUDE inc/footer %]

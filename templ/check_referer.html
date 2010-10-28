@@ -1,0 +1,13 @@
+[% INCLUDE inc/header %]
+
+<h1 style="color: red">Внимание! Похоже кто-то пытается за вас сделать какое-то действие.</h1>
+<p>Возможно Ваш компьютер заражен вирусом перенаправляющим веб-запросы на другой сервер.</p>
+<div style="color: white">referer: $context.referer_uri</div>
+
+<p>$context.check_referer</p>
+<p>Если не уверены, переходите на главную страницу сайта.</p>
+<p><a href="$set.uri.xurl">Да, сделать это!</a></p>
+<p><a href="/">Нет, перейти на главную страница сайта.</a></p>
+
+[% INCLUDE inc/footer gallery=context.gallery no_journal_link=1 %]
+

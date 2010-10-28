@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+<atom:link href="$result.link" rel="self" type="application/rss+xml" />
+ <title>[% result.title | unicode_escape %]</title>
+    <link>$result.link</link>
+    <description>[% result.description  | unicode_escape %]</description>
+    <language>ru-ru</language>
+    <copyright>Copyright 2008. Danil Pismenny. ORIONET.</copyright>
+<ttl>600</ttl>
+<itunes:explicit>No</itunes:explicit>
+<itunes:summary></itunes:summary>
+<itunes:subtitle></itunes:subtitle>
+<itunes:author>[% result.author | unicode_escape %]</itunes:author>
+<itunes:owner>
+<itunes:email>only.for.spammers@zhazhda.ru</itunes:email>
+<itunes:name>[% result.author | unicode_escape %]</itunes:name>
+</itunes:owner>
+<itunes:image href="$result.image" />
+
+
+[% FOREACH item = result.items %]
+
+    <item>
+<guid isPermaLink="true">http://zhazhda.ru/topics/${item.topic_id}.html#music${item.file_id}</guid>
+      <title>#${item.file_id} [% item.login | unicode_escape %]: [% ( item.media_artist || item.title ) | unicode_escape %] / [% ( item.media_title || item.media_track ) | unicode_escape %]</title>
+<description>[% item.text | unicode_escape %]</description>
+      <link>http://zhazhda.ru/topics/${item.topic_id}.html</link>
+[% IF item.type=='music' %]
+      <enclosure url="http://zhazhda.ru/files/topics/${item.topic_id}/[% item.file | uri_escape %]" length="${item.src_size}" type="audio/mpeg"/>
+[% ELSE %]
+      <enclosure url="http://zhazhda.ru/files/topics/${item.topic_id}/[% item.file | uri_escape %]" length="${item.src_size}" type="video/mpeg"/>
+[% END %]
+      <pubDate>[% item.ts | http_date %]</pubDate>
+
+<itunes:explicit>No</itunes:explicit>
+<itunes:subtitle></itunes:subtitle>
+<itunes:author>[% ( item.media_artist || item.title ) | unicode_escape %]</itunes:author>
+<itunes:summary></itunes:summary>
+<itunes:keywords></itunes:keywords>
+[%# "<itunes:duration>6:09</itunes:duration>" %]
+
+    </item>
+
+[% END %]
+    
+  </channel>
+    </rss>

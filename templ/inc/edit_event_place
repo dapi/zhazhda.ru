@@ -1,0 +1,9 @@
+
+<select name=place_id onchange="javascript:if (this.value=""='other') { showElement('event_place'); } else { hideElement('event_place'); }">
+<option value="">не выбрано</option>
+[% FOREACH p = context.places %]
+<option value="$p.id" [% IF context.fields.place_id==p.id %]selected[% END %]>$p.name</option>
+[% END %]
+<option value="other">другое -&gt;</option>
+</select>
+<input id="event_place" [% IF context.fields.place_id %] style="display:none" [% END %] name=event_place value="[% HTML.escape(context.fields.event_place) %]"  type="text" size=20/><br/>

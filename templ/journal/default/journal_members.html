@@ -1,0 +1,27 @@
+[% INCLUDE inc/header %]
+<script type="text/javascript" src="/js/ajaxsn.js"></script>
+
+<div class="journal">
+<h1>Избранные журнала $context.journal.name</h1>
+
+<table class="list">
+<tr><th>Ник</th><th>Время занесения</th><th>---</th></tr>
+[% FOREACH m = result.members %]
+<tr><td>[% INCLUDE inc/user user=m %]</td><td>$m.timestamp</td><td><a href="/del_member?jid=$context.journal.id&user_id=$m.user_id" class="admin">Удалить</a></td></tr>
+[% END %]
+</table>
+<br/>
+<form method="get" action="/add_member" name="mess">
+<input name="jid" value="$context.journal.id" type="hidden"/>
+<table  class="form" align="left">
+<tr><td>Избранный:</td><td><input name="talker" value="$context.no_such_talker" class="u" type="text" size="15" onkeypress="checkmail()" onkeyup="checkmail()" onblur="checkmail()"/> <input id="hidden1" type="hidden" name="txtUserValue"/>
+ <input style="display: none" name="txtIgnore"></td>
+<td><input name="ok" value="Добавить" type="submit"/></td>
+</tr>
+</table>
+</form>
+
+
+</div>
+
+[% INCLUDE inc/footer right='journal/default/right.topic' %]

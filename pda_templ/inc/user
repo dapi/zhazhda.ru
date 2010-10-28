@@ -1,0 +1,5 @@
+<span class=u>$topic.login</span>
+<!--
+[% user_id = user.user_id || user.id %]
+<a href='/user/[% user.login | uri_escape %]/' target=_top [% IF no_online OR context.online.ids.${user_id} %]style="color: red"[% ELSE %]style="color: black"[% END %]>$user.login</a>
+[% hidden=0 %]-->

@@ -1,0 +1,24 @@
+<html>
+<head>
+<link rel="StyleSheet" href="${set.uri.mirror}css/banners.css" type="text/css">
+</head>
+<body>
+
+<img  src="${set.uri.pic}zhazhdalogo.gif" width="148" height="84"></a>
+
+<table>
+<tr><th align="right">Файл:</th><td>$result.banner.file, $result.banner.type (${result.banner.width}x${result.banner.height})</td></tr>
+<!--<tr><th>Дата загрузки:</th><td>$result.banner.create_time</td></tr>-->
+<tr><th align="right">Дата начала показа:</th><td>$result.banner.date_from</td></tr>
+<tr><th align="right">Дата окончания:</th><td>$result.banner.date_to</td></tr>
+<tr><th align="right">Последний раз:</th><td>$result.banner.last_time</td></tr>
+<tr><th align="right">Размер:</th><td>$result.banner.size байт</td></tr>
+<tr><th align="right">Показов:</th><td>$result.banner.counter</td></tr>
+<!--<tr><th>Ранг:</th><td>$result.banner.rank</td></tr>
+<tr><th>Ранker:</th><td>$result.banner.ranker</td></tr>-->
+</table>
+
+[% INCLUDE banner.inc.html banner=result.banner %]
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+[% INCLUDE inc/header %]
+<h1>Афиша</h1>
+[% FOREACH topic = result.topics.all %]
+[% INCLUDE journal/default/topic %]
+[% END %]
+
+[% INCLUDE inc/footer %]

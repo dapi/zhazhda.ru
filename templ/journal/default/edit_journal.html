@@ -1,0 +1,48 @@
+[% INCLUDE inc/header %]
+
+<div class="journal">
+<h1>Изменения профиля журнала $context.fields.name</h1>
+
+[% IF context.errors %]
+<div class="error"><p><b>Форма заполнена неверно:</b></p><ul>
+[% IF context.errors.mobile %]<li>Номер телефона введен неверно.<br/>Необходимо вводить полный федеральный номер, например +7-123-456-78-90;</li>[% END %]
+[% IF context.errors.mobile2 %]<li>Сервер не смог отправить на указанный Вами номер мобильного телефона SMS&ndash;сообщение. Проверьте правильнось написания номера или обратитесь к администратору &#8212; <a href="mailto:admin@zhazhda.ru">admin@zhazhda.ru</a>;</li>[% END %]
+[% IF context.errors.mobile_exists %]<li>Указанный Вами номер мобильного телефона уже используется другим пользователем. Обратитесь к администратору &#8212; <a href="mailto:admin@zhazhda.ru">admin@zhazhda.ru</a>;</li>[% END %]
+[% IF context.errors.email %]<li>Указан неверный email-адрес;</li>[% END %]
+</div>
+[% END %]
+
+
+<form method="post" action="/edit_journal">
+<input name=jid value="$result.id" type="hidden">
+<input name=charset value="русский" type="hidden">
+<table width="580"  class="form" align="left">
+
+[% INCLUDE inc/row_field name='name' text='Название' style='width:100%' %]
+[% INCLUDE inc/row_text_field name='description' text='Описание' comment='Описание журнала'  style='width:100%' %]
+<tr><td colspan="2"><br/></td></tr>
+[% INCLUDE inc/row_select name='comment_list_mode' text='Комментарии в темах' comment='Способ отображение комментариев в теме, по умолчанию.' list=context.comment_list_modes %]
+[% INCLUDE inc/row_select name='topic_list_mode' text='Список тем' comment='Способ отображение списка тем.' list=context.topic_list_modes %]
+[% INCLUDE inc/row_select name='issues_type' text='Периодиченость выпусков' list=context.issue_types %]
+[% INCLUDE inc/row_field name='min_raters' text='Минимальное количество рейтингантов' comment='Сколько человек должны прорейтинговать тему, чтобы этот рейтинг учитывался.' style='width:100%' %]
+[% INCLUDE inc/row_field name='days_to_list' text='Количество дней на главной' comment='Сколько дней из прошлого выпуска показывать в текущем.' style='width:100%' %]
+[% INCLUDE inc/row_field name='top_days_to_list' text='Количество дней горячих тем на главной' comment='Сколько дней горячих тем из прошлого выпуска показывать в текущем.' style='width:100%' %]
+<tr><td colspan="2"><br/></td></tr>
+[% INCLUDE inc/row_text_field name='respect_links' text='Ссылки друзей' comment='Список ссылок на дружеские сайте. Вида:<br/>http://www.aaa.ru наши друзья AAA'  style='width:100%' %]
+<tr><td colspan="2"><br/></td></tr>
+<!--[% INCLUDE inc/row_radio_group name='access' text='Тип журнала' list=context.access_list %]-->
+<tr><th><i>Управление доступом:</i></th><td></td></tr>
+[% INCLUDE inc/row_select name='access_journal' text='Журнал могут читать' list=context.access_list_journal %]
+[% INCLUDE inc/row_select name='access_topic' text='Темы создают' list=context.access_list_topic %]
+[% INCLUDE inc/row_select name='access_comment' text='Комментируют' list=context.access_list_comment %]
+<tr><td colspan="2"><br/></td></tr>
+[% INCLUDE inc/row_checkbox name='access_topic_status' text='Ставить фото и текст' %]
+<tr><td colspan="2"><br/></td></tr>
+<tr><td></td><td colspan="2" style="padding-top: 10px"><input  type="submit" value="Сохранить изменения" type="submit"></td></tr>
+</table>
+
+</form>
+
+</div>
+
+[% INCLUDE inc/footer right='journal/default/right.topic' %]

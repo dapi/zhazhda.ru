@@ -1,0 +1,5 @@
+[% UNLESS field %][% field=name %][% END %]
+[% IF fields.${field} %][% value = fields.$field %][% END %]
+[% IF context.fields.${field} %][% value = context.fields.$field %][% END %]
+<tr><th [% IF context.bad_fields.${field} %]class="bad"[% END %]>$text[% IF comment %]<br/><small style="color: #999">$comment</small>[% END %]</th>
+<td  [% IF context.bad_fields.${field} %]class="bad"[% END %]><input name=$name [% IF class %]class="$class"[% END %] [% IF style %]style="$style"[% END %] type=checkbox [% IF value %]checked[% END %]></td></tr>

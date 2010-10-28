@@ -1,0 +1,19 @@
+<div class="show_rating">
+[% IF item.raters OR 1 %]
+<div class="stars" title="Средняя оценка: $item.rating[% IF item.user_rate %]. Ваша оценка: $item.user_rate.rating[% END %]">
+
+[% FOREACH i = [1..5] %][% i2 = i - '0.5' %][% IF item.rating>=i %]<img src="/pic/icon/starf.gif" alt="*" />[% ELSIF item.rating>=i2   %]<img src="/pic/icon/star5.gif" alt="-"/>[% ELSE %]<img src="/pic/icon/stare.gif" alt="o"/>[% END %][% END %]
+</div>
+
+[% IF thanks %]
+<div class="raters">$thanks</div>
+[% ELSIF item.raters %]
+<div class="raters">Голосов $item.raters</div>
+[% ELSE %]
+<div class="raters">Голосов нет</div>
+[% END %]
+
+[% ELSE %]
+[% END %]
+
+</div>

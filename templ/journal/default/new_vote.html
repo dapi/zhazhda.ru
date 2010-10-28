@@ -1,0 +1,10 @@
+[% INCLUDE inc/header %]
+
+[% INCLUDE journal/default/select_topic_type path='/new_topic?' topic_type='vote' user=context.user %]
+
+[% INCLUDE journal/default/vote_form action="/post_topic" %]
+
+[% INCLUDE inc/footer right='journal/default/right.topic' %]
+
+
+

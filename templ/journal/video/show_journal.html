@@ -1,0 +1,65 @@
+[% INCLUDE inc/header %]
+<h1>Видео ролики ($result.count)</h1>
+
+
+[% PROCESS pages %]
+
+
+[% FOREACH v=result.videos.reverse %]
+[% url="/topics/${v.topic_id}.html" %]
+[% IF v.comment_id %][% url="${url}#m$v.comment_id" %][% END %]
+
+<div style="float: left; width: 270px; height: 105px; border-bottom: #aaa dashed 1px; border-top: #aaa dashed 1px; padding-bottom: 5px; padding-top: 10px;">
+<div style="float: left;"><a href="$v.local_link">
+
+<div style="z-index: 1; position: relative"><img class="video_thumb" src="$v.image_src" width="$v.image_width" height="$v.image_height"/></div>
+<div style="z-index: 2; position: relative; left: [% v.image_width / 2 - 13 %]px; top: -[% v.image_height - v.image_height / 2 + 16 + 3 %]px;"><img src="/pic/play.png" width="32" height="32" border="0"/></div>
+
+</a>
+
+</div>
+<div style="float: left; padding-left: 7px; width: 110px;">$v.title</div>
+<br class="cb"/>
+</div>
+[% END %]
+
+<br class="cb"/>
+
+[% PROCESS pages %]
+
+<br/>
+[% IF 0 %]
+<ul>
+[% FOREACH topic = result.videos %]
+<div style="padding-bottom: 10px">[% INCLUDE inc/topic_subject %][% INCLUDE inc/topic_ext %]
+<div style="padding-top: 5px; vertical-align: top;">
+[% FOREACH file = topic.music_files %]
+<div style="padding-top: 3px"><object type="application/x-shockwave-flash" data="/pic/musicplayer.swf?&song_url=/files/topics/${file.topic_id}/[% file.file | uri_escape %]" width="17" height="17">
+<param name="movie" value="/pic/button/musicplayer.swf?&song_url=/files/topics/${file.topic_id}/[% file.file | uri_escape %]" />
+<img src="noflash.gif" width="17" height="17" alt="" />
+</object><span style="vertical-align: top">&nbsp;<a href="/files/topics/${file.topic_id}/[% file.file | uri_escape %]" title="$file.media_artist / ${file.title}. [% IF file.length_secs %][% file.length_secs | seconds %][% END %]">[% IF file.title %]$file.media_artist / $file.title[% ELSE %][% file.name | right_cut %][% END %] ([% file.size | filesize %])</a></span>
+</div>
+
+[% END %]
+</div>
+[% INCLUDE inc/discuss %]
+
+</div>
+[% END %]
+</ul>
+[% END %]
+
+
+[% UNLESS right %][% right='journal/default/right.topic' %][% END %]
+[% INCLUDE inc/footer  %]
+
+[% BLOCK pages %]
+<div style="padding-bottom: 10px; padding-top: 10px">
+Страницы:
+[% FOREACH page = [1..result.pages] %]
+[% IF loop.index %],[% END %]
+[% IF page==result.page %]<b>$page</b>[% ELSE %]<a href="/video/?page=$page">$page</a>[% END %]
+[% END %]
+</div>
+
+[% END %]

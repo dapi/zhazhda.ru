@@ -1,0 +1,43 @@
+
+
+[% IF context.nav.size %]
+
+<div class="nav">
+[% FOREACH n = context.nav %]
+
+
+<ul><li>
+
+[% IF loop.last %]
+
+[% IF n.type=='journal' %]
+<b>$context.journal.name</b
+[% ELSIF n.type=='topic' %]
+<b>$context.topic.subject</b>
+[% ELSIF n.type=='talker' %]
+<b>$context.talker.login</b>
+[% ELSE %]
+<b>[% n.nav || n.menu %]</b>
+[% END %]
+
+
+[% ELSE %]
+
+[% IF n.type=='journal' %]
+<a href="/journal/$context.journal.link/">$context.journal.name</a>
+[% ELSIF n.type=='topic' %]
+<a href="/journal/$context.journal.link/${context.topic.id}.html">$context.topic.subject</a>
+[% ELSE %]
+<a href="${n.path}">[% n.nav || n.menu %]</a>
+[% END %]
+
+
+[% END %]
+
+</li></ul>
+
+[% END %]
+
+</div>
+
+[% END %]

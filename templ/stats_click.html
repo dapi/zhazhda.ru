@@ -1,0 +1,10 @@
+[% INCLUDE inc/header %]
+<div class="page">
+<h1>Счётчик переходов</h1>
+<table class="list"  cellpaddin=0 >
+[% FOREACH c = result.all %]
+<tr><td>$c.host</td><td>$c.sum</td></tr>
+[% END %]
+</table>
+</div>
+[% INCLUDE inc/footer %]

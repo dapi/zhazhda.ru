@@ -1,0 +1,21 @@
+[% UNLESS field %][% field=name %][% END %]
+[% UNLESS value %]
+[% IF context.fields %][% fields = context.fields %][% END %]
+[% value = fields.$field %]
+
+[% END %]
+<tr><th  [% IF context.bad_fields.${field} %]class="bad"[% END %]>$text[% IF comment %]<br/><small style="color: #999">$comment</small>[% END %]</th>
+<td [% IF context.bad_fields.${field} OR (other AND context.bad_fields.${other}) %]class="bad"[% END %] >
+<select name="$name" [% IF multiple %]MULTIPLE[% END %] [% IF size %]size="$size"[% END %] [% IF other %] onchange="javascript:if (this.value=='') { showElement('${other}_id'); } else { hideElement('${other}_id'); }"[% END %]>
+[% IF (no_select==1 AND !fields.$field) OR no_select==2 %]
+<option value="no">не выбрано</option>
+[% END %]
+[% FOREACH o = list %]
+<option value="$o.id" [% IF o.id==value %]selected[% END %]  [% IF o.style %]style="$o.style"[% END %]>$o.name</option>
+[% END %]
+[% IF other %]
+<option value="">другое -&gt;</option>
+[% END %]
+</select>
+[% IF other %]<input id=${other}_id [% IF fields.${field} %] style="display:none" [% END %] name=$other value="[% HTML.escape(fields.$other) %]"  type="text" size=[% other_size || 20 %]/>[% END %]
+</td></tr>

@@ -1,0 +1,14 @@
+<br/>
+<div class="ah"><a href="/podcast/">Музыкальные Podcast-ы</a> <a href="http://zhazhda.ru/podcast/rss.xml"><img src="/pic/icon/rss.gif"  width="16" height="16" alt=""/></a></div>
+<div class="t"><a href="/topics/61352.html">Что такое Podcast?</a></div>
+[%# show_topic %]
+[% UNLESS 1 %]
+<div class="podcast_news">
+[% FOREACH item = context.podcast_news %]
+<div class="item">
+<div><a href="http://zhazhda.ru/files/topics/${item.topic_id}/[% item.file | uri_escape %]">[% ( item.media_artist || item.title ) %] / [% ( item.media_title || item.media_track ) %]</a></div>
+<div class="desc"><b>$item.login</b>, [% item.ts | date_time %] <span class="filesize"> ([% item.size | filesize %])</span></div>
+</div>
+[% END %]
+</div>
+[% END %]

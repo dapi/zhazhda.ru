@@ -1,0 +1,7 @@
+[% m = context.menu.${name} %]
+<div class="[% class || m.class || 'menu' %]">
+[% IF m %]
+<a href="[% IF m.use_journal %]/$context.journal.link[% END %][% m.path %][% IF journal %]?jid=[% context.journal.id || 1 %][% END %]" [% IF m.title %]title="[% m.title %]"[% END %] [% IF context.active==name %]id="a"[% END %] [% IF color %]style='color: $color'[% END %]>[% m.menu %]</a>
+[% ELSE %]<b>?$name?</b>[% END %]
+</div>[% color='' class='' %]
+[% journal='' %]

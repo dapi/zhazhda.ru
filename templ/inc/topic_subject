@@ -1,0 +1,3 @@
+[% UNLESS subject %][% subject = topic.subject %][% END %]
+<a title="Просмотров $topic.views, рейтинг $topic.rating, голосов $topic.raters"  href="[% url || "/topics/${topic.id}.html#new" %]" class="[% class || 'topic' %] [% IF topic.is_new %] new[% END %]" [% IF topic.is_hide %] style="color:#cccccc" [% ELSIF topic.is_red OR topic.is_new %] style="color:red" [% END %] >[% IF topic.topic_type=='event' OR topic.topic_type=='gallery' %]<span class="event_place">$topic.event_place / </span>[% END %][% IF topic.is_bold %]<b>[% subject | escape_subject %]</b>[% ELSE %][% subject | escape_subject %][% END %]</a>
+

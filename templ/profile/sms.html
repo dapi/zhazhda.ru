@@ -1,0 +1,30 @@
+[% USE HTML %]
+[% INCLUDE inc/header %]
+<h1>Управление SMS подпиской</h1>
+
+<p><i>Вы можете получать информацию о событиях в Чебоксарах на свой мобильный телефон по SMS.</i></p>
+
+[% IF context.user.mobile_checked %]
+[% fields = context.fields %]
+
+<form method="post" action="/sms/edit">
+<table width="580"  class="form" align="left">
+<tr><th>Номер вашего телефона:</th><td><b>[% context.user.mobile | mobile %]</b> <a href="/profile/edit_form">изменить</a></td></tr>
+[% INCLUDE inc/row_select name='sms_event_type' text='Анонсы на SMS ' list=[{name=>'выключено. Ничего не рассылать.',id=>'0'},
+{name=>'рассылать о всех известных событиях в городе',id=>'1'},
+{name=>'рассылать только о самых значимых',id=>'2'}] %]
+<tr><td></td><td colspan="2" style="padding-top: 10px"><input  name="submit" value="Сохранить изменения" type="submit"/></td></tr>
+</table>
+</form>
+
+[% ELSE %]
+<h2 style="color: red">Вы не можете пользоваться SMS подпиской, так как номер вашего мобильного телефона не подтвержден. </h2>
+<a href="/profile/">Изменить номер и/или подтвердить.</a>
+[% END %]
+<br/>
+<div style="padding-top: 20px">
+<i>SMS-анонсы рассылаются по мере поступления, но не чаще одного раза в день. Обычно это случается 3-4 раза в неделю.</i>
+</div>
+<div>По вопросам SMS рассылки обращайтесь - <a href="mailto:danil@orionet.ru">danil@orionet.ru</a> (Данил Письменный)</div>
+<div><a href="http://www.zhazhda.ru/topics/65204.html">Правила оформления SMS-анонсов для промоутеров.</a></div>
+[% INCLUDE inc/footer %]

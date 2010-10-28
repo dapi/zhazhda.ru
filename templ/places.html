@@ -1,0 +1,38 @@
+[% INCLUDE inc/header %]
+
+
+[% INCLUDE inc/header_city url='/places/' title='Места города' %]
+
+<table   cellpadding="0" width="100%"><tr>
+[% FOREACH c = context.categories %]
+<td [% UNLESS loop.last %]style="padding-right: 7px"[% END %]><a class="a" href="#c$c.id">$c.name ($c.places.size)</a></td>
+[% END %]
+</tr></table>
+<br/>
+<table   cellpadding="0" class="list" width="100%">
+[% FOREACH c = context.categories %]
+
+[% IF c.places.size %]
+
+<tr><th><a id="c"${c.id}></a><h2>$c.name</h2></th><td align="right" >[% IF loop.index %][% INCLUDE inc/up %][% END %]</td></tr>
+
+[% FOREACH p = c.places %]
+<tr><td><a name="p$p.id"></a><div>$p.name</div>[% IF p.address %]<small style="color: gray">$p.address<small>[% END %]</td><td>[% PROCESS control %]</td></tr>
+[% END %]
+
+[% IF context.access.places OR context.access.admin %]
+<tr><td colspan="2"><a href="/places/edit_form?category_id=$c.id" class="admin">Добавить..</a></td></tr>
+[% END %]
+[% END %]
+[% END %]
+</table>
+
+[% INCLUDE inc/footer %]
+
+
+[% BLOCK control %]
+[% IF context.access.places OR context.access.admin %]
+<a href="/places/delete?id=$p.id" class="admin" title="Удалить место">dd</a>,
+<a href="/places/edit_form?id=$p.id" class="admin" title="Изменить">e</a>
+[% END %]
+[% END %]

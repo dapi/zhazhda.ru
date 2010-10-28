@@ -1,0 +1,4 @@
+[% IF topic.raters>1 %]
+[% IF topic.rating>=4 %]<img  src="/pic/icon/up_red.gif" width="13" height="10" title="Рейтинг $topic.rating, голосов: $topic.raters" alt=""/>[% ELSIF topic.rating<3 %]<img  src="/pic/icon/down_blue.gif" width="13" height="10" title="Рейтинг $topic.rating, голосов: $topic.raters" alt=""/>[% END %]
+[% END %]
+

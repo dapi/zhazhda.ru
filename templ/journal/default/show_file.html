@@ -1,0 +1,167 @@
+[% INCLUDE inc/header %]
+
+<div class="anav" style="float: left;"><img src="/pic/icon/back_glyth.gif" width="13" height="10"  alt=""/>&nbsp;<a href="/">На главную</a></div>
+<div class="anav" style="float: right;"><img src="/pic/icon/down_glyth.gif" width="13" height="10"  alt=""/>&nbsp;<a href="#down">Вниз</a></div>
+<br/>
+
+[% PROCESS journal/default/topic_text topic=result.topic show_subject_link=1 no_comment=1 %]
+
+
+[% IF result.type=='image' %]
+<table  width="100%" cellpadding="0" class="fotopage">
+<tr><td colspan="3" align="center" style="padding: 0px 15px 0px 15px;">&nbsp;</td></tr>
+<tr><td align="center" colspan="3" id="photo">
+
+[% IF result.next %]
+<a href="/holder/${result.next.id}.html#photo" title='Перейти на следующую..'><img src="$set.uri.pic${result.uri}"  alt="" width="$result.media_width" height="$result.media_height" /></a>
+[% ELSIF result.start %]
+<a href="/holder/${result.start.id}.html#photo" title='Начать просмотр с начала..'><img src="$set.uri.pic${result.uri}" alt="" width="$result.media_width" height="$result.media_height" /></a>
+[% ELSE %]
+<img src="$set.uri.pic${result.uri}" width="$result.media_width" height="$result.media_height" alt="" />
+[% END %]
+
+</td></tr>
+<tr>
+<td align="left" style="padding: 15px 10px 15px 15px; white-space: nowrap;"  width="120">
+[% IF result.prev %]
+<img src="/pic/icon/back_glyth.gif" width="13" height="10"  alt="" />
+<a href="/holder/${result.prev.id}.html#photo" class="album_text">предыдущая ($result.prev_count)</a>
+[% ELSIF result.last %]
+<img src="/pic/icon/back_glyth.gif" width="13" height="10"  alt="" />
+<a href="/holder/${result.last.id}.html#photo" class="album_text">последняя</a>
+[% END %]
+</td>
+<td align="center" style="padding: 0x 5px 15px 5px; color: #eee" width="*" class="image_title">
+<i>$result.title</i><br/>
+<div class="photo_topic_subject" style="padding-top: 5px;">Из темы: 
+<a class="album_text"  href="/topics/${result.topic.id}.html#new">[% result.topic.subject | escape_subject %]</a><br/>
+[% INCLUDE inc/rating rate=1 item=result %]
+[% IF context.access.admin AND result.raters_users.size %]
+<div><ul>
+[% FOREACH user = result.raters_users %]
+<li>[% INCLUDE inc/user %] - $user.rating</li>
+[% END %]
+</ul></div>
+[% END %]
+<div>$result.timestamp</div>
+</div>
+</td>
+<td align="right" style="padding: 15px 15px 15px 5px; white-space: nowrap;"  width="120">
+[% IF result.next %]
+<a href="/holder/${result.next.id}.html#photo" class="album_text">следующая ($result.next_count)</a>
+<img src="/pic/icon/forward_glyth.gif" width="13" height="10"  alt="" />
+[% ELSIF result.start %]
+
+<a href="/holder/${result.start.id}.html#photo" class="album_text">с начала</a>
+<img src="/pic/icon/forward_glyth.gif" width="13" height="10"  alt="" />
+[% END %]
+</td>
+</tr>
+</table>
+
+<table  width="100%" cellpadding="0">
+<tr>
+<td style="padding: 10px 5px 10px 15px; " class="album_text2"  align="left">
+[% IF context.access.admin OR context.user.id==result.user_id %]
+<a class="album_text2" href="$set.uri.pic${result.src_uri}">Исходник ([% result.src_size | filesize %])</a>
+[% END %]
+</td>
+<td style="padding: 10px 5px 10px 5px; " class="album_text2"  align="center">
+<!--
+TODO
+[% IF result.is_in_gallery %]
+Фото находится в <a href="/gallery/">Галерее Жажды</a>
+[% END %]
+-->
+[% IF context.access.gallery || result.topic.access.can_edit %]
+&nbsp;
+<span class="control">[
+[% IF result.topic.access.can_edit %]
+<a href="/topic_image?topic_id=$result.topic.id&amp;id=${result.id}" class="control">Фото темы</a>
+[% END %],
+[% IF result.is_in_gallery %]<a title="Убрать из галлереи" href="/remove_gallery?id=${result.id}" class="control">g-</a>[% ELSE %]<a href="/put_gallery?id=${result.id}" title="Поместить в галлерею" class="control">g+</a>[% END %],
+[% IF result.is_moderated %]
+<a href="/remove_moderated?id=${result.id}" title="Убрать прохождение модерирования" class="control">m-</a>[% ELSE %]
+<a title="Прошла модерирование" href="/set_moderated?id=${result.id}" class="control">m+</a>/<a title="Отметить как промодерированны все фото в этой теме" href="/set_moderated?id=${result.id}&topic_id=${result.topic.id}" class="control">ma+</a>
+[% END %]
+[% IF result.topic.access.can_edit %], <a href="/edit_file?id=$result.id#photo" title="Изменить описание">e</a>
+, <a href="/remove_file?id=$result.id" title="Удалить фото" onclick="return confirm('Действительно удалить файл?');">dd</a>
+
+<!--
+[% IF result.topic.image_id==result.id %]
+, <a href="/remove_file?id=$result.id" title="Удалить фото" onclick="return confirm('Действительно удалить файл?');">-p</a>[% ELSE %]+p[% END %]
+[% END %]
+-->
+]</span>
+[% END %]
+
+</td>
+<td style="padding: 10px 15px 10px 5px; " class="album_text2"  align="right">Просмотров: $result.views</td>
+</tr>
+
+
+[% IF result.persons.size || context.user %]
+<tr>
+<td colspan="3" style="background: white; padding: 10px 20px 10px 15px; border-bottom: 1px dotted gray;  border-top: 1px dotted gray" class="album_text2" >
+<b>На этом фото:</b>&nbsp;
+[% PROCESS persons %]
+
+[% IF context.user && !result.on_the_photo %]
+<span style="padding-left: 3px"><a href="${set.uri.home}holder/${result.id}.html?me=1#photo">Я, тоже, есть!</a></span>
+[% END %]
+
+</td></tr>
+[% END %]
+</table>
+[% END %]
+
+<!--
+<div class="anav"  style="padding-top: 20px; padding-bottom: 10px">
+<img src="/pic/icon/back_glyth.gif" width="13" height="10" />&nbsp;<a href="/${context.journal.link}${result.topic.id}.html#new">Все комментарии к теме..</a></div>
+</div>
+-->
+
+[% IF result.comments_tree.size %]<div class="anav" style="padding-top: 10px; padding-bottom: 10px"><a class="a l" href="/topics/${result.topic.id}.html#new">Все комментарии к теме..</a></div>[% END %]
+
+
+[% IF result.topic.comment_list_mode==2 %]
+[% PROCESS journal/default/comments_list childs=result.comments_tree no_file_id=result.id %]
+[% ELSE %]
+[% PROCESS journal/default/comments_tree childs=result.comments_tree no_file_id=result.id %]
+[% END %]
+
+
+[% IF context.user AND !result.comments_tree.size %]
+<div style="padding-bottom: 15px; padding-top: 15px" class="anav"><a href="javascript:toggleCommentForm('')" class="c o">Комментировать это фото..</a></div>
+<div id="a"></div>
+[% ELSE %]<br/>
+[% END %]
+
+
+
+<div class="anav" style="padding-top: 5px; padding-bottom: 10px">
+<div style="float:left"><a class="a l" href="/topics/${result.topic.id}.html#new">Все комментарии к теме..</a></div>
+</div>
+<br/>
+
+<a id="down"></a>
+
+[% INCLUDE journal/default/comment_form tid=result.topic_id file_id=result.id%]
+
+
+
+
+
+[% BLOCK persons %]
+
+[% IF result.persons.size %]
+[% FOREACH p = result.persons %]
+<span>[% INCLUDE inc/user user=p %][% IF context.access.moderator OR context.user.id==p.id %] [<a href="${set.uri.home}holder/${result.id}.html?delete_persone=$p.id#photo" title="Удалить из списка" class="admin">удалить</a>][% END %],
+
+</span>
+[% END %]
+[% END %]
+
+[% END %]
+
+[% INCLUDE inc/footer right='journal/default/right.topic' %]

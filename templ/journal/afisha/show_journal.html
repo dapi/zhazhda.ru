@@ -1,0 +1,24 @@
+[% INCLUDE inc/header %]
+<h1>Афиша</h1>
+<div class="afisha">
+<div class="afisha_topics">
+[% FOREACH topic = result.topics.all %]
+<div class="topic_box">
+[% INCLUDE journal/default/topic_image image_mode=1 %]
+<div style="display: inline">
+<div class="event_place">$topic.event_place / [% topic.event_date | date_afisha %] в $topic.event_time</div>
+<div><a title="Просмотров $topic.views, рейтинг $topic.rating, голосов $topic.raters"  href="[% url || "/topics/${topic.id}.html#new" %]" [% IF topic.is_new %] id="new" [% END %] class="[% class || 'topic' %]" [% IF topic.is_hide %] style="color:#cccccc" [% ELSIF topic.is_red %] style="color:red" [% END %]>
+    [% UNLESS topic.is_moderated %]<b>[-]</b>[% END %]
+    [% IF topic.is_bold %]<b>[% topic.subject | escape_subject %]</b>[% ELSE %][% topic.subject | escape_subject %][% END %]</a></div>
+[% INCLUDE inc/discuss %]
+</div>
+
+</div>
+[% END %]
+
+</div>
+</div>
+
+
+[% INCLUDE inc/footer gallery=context.gallery no_journal_link=1 %]
+

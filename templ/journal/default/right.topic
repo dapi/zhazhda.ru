@@ -1,0 +1,73 @@
+[% IF result.files.music.size %]
+
+[% t = result.topic.create_time | timestamp %]
+[% player_uri="http://zhazhda.ru/js/xspf_player.swf?playlist_url=http://zhazhda.ru/files/topics/$result.topic.id/playlist.xspf%3F$t?autoload=true&repeat_playlist=true" %]
+
+[% IF !context.user OR context.user.autoplay %]
+[% player_uri="$player_uri&autoplay=true" %]
+[% END %]
+
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" width="300" height="170" id="xspf_player" align="middle">
+<param name="allowScriptAccess" value="sameDomain" />
+<param name="movie" value="$player_uri" />
+<param name="quality" value="high" />
+<param name="bgcolor" value="#666666" />
+<embed src="$player_uri" quality="high" bgcolor="#666666" width="300" height="170" name="xspf_player" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+</object>
+
+<p>Нажал правую кнопку - скачал песню.</p>
+
+[% IF context.user %]
+[% IF context.user.autoplay %]
+<p><a href="/profile/edit_form">Отключить</a> автоматическое включение музыки в профайле</p>
+[% ELSE %]
+<p><a href="/profile/edit_form">Включить</a> автоматический старт музыки в профайле</p>
+[% END %]
+[% ELSIF !context.user %]
+<p>Чтобы иметь возможность отключать автоматический запуск музыки - зарегистрируйтесь.</p>
+[% END %]
+
+[% END %]
+
+[% IF result.files.rated.size %]
+
+[% FOREACH file = result.files.rated %]
+<div class="gallery_box">
+[% PROCESS journal/default/show_gallery_image show_desc=1 %]
+</div>
+[% END %]
+
+<br class="cb"/>
+
+[% END %]
+
+<div class="gallery_other">
+[% PROCESS thumbs list = result.files.other %]
+</div>
+
+
+<br class="cb"/>
+
+[% IF result.topic.access.can_upload %]<a title="Подргузить в тему фото, музыку или видео" href="/topics/${result.topic.id}.html?file=1#file">Подгрузить файл..</a>[% END %]
+
+
+[% BLOCK b %]
+<div class="file_box>
+<img  src="/pic/icon/movie.gif" width="13" height="11" >&nbsp;<a class="file" href="$set.uri.pic$file.uri" title="$file.media_artist / ${file.title}. [% IF file.length_secs %][% file.length_secs | seconds %][% END %]">[% IF file.title %]$file.title[% ELSE %][% file.name | right_cut %][% END %]<span class="filesize"> ([% file.size | filesize %])</span></a>
+</div>
+<div class="file_box>
+<img  src="/pic/icon/download.gif" width="13" height="13" >&nbsp;<a class="file" href="$set.uri.pic$file.uri" title="$file.media_artist / ${file.title}. [% IF file.length_secs %][% file.length_secs | seconds %][% END %]">[% IF file.title %]$file.title[% ELSE %][% file.name | right_cut %][% END %]<span class="filesize"> ([% file.size | filesize %])</span></a>
+</div>
+[% END %]
+
+
+
+
+[% BLOCK thumbs %]
+
+[% FOREACH file = list %]
+<div class="gthumb"><a title="[% file.title | escape_subject %]" href="/holder/[% file.link_id || file.id %].html#photo"><img  alt="" src="${set.uri.pic}${file.path}[% file.thumb_file | uri_escape %]" width="$file.thumb_width" height="$file.thumb_height" [% IF file.is_in_gallery %]style="border-color: #999"[% END %] class="gallery"/></a></div>
+
+[% END %]
+
+[% END %]

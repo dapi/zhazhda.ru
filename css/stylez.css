@@ -1,0 +1,1328 @@
+/*@import url(topic.css); */
+
+body    {
+        margin: 0px;
+        padding: 0px;
+/*        width: 100%;
+        height: 100%; */
+background: white;
+position: absolute; width: 100%; 
+height: auto; 
+min-width: 1000px;
+}
+
+body,td,th {
+        font-family: Verdana;
+        font-size: 11px;
+        color: #000000;
+}
+
+th{  text-align: left; }
+
+p { text-align: justify; }
+
+br.cb { clear: both } 
+
+form { padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px }
+
+h1 { text-align: left;
+     padding: 0px 0px 0px 0px; margin: 17px 0px 17px 0px;
+  font: bold 18px 'Trebuchet MS';
+     color: #222;
+}
+
+
+
+
+
+h2 { 
+  font: bold 16px 'Trebuchet MS'; padding: 0px 0px 0px 0px; margin: 20px 0px 10px 0px; }
+
+
+
+#logo { left: -3px; }
+
+
+
+input {  font: normal 12px Verdana; padding: 2px 5px 2px 5px;  }
+input[type='text'] {  font: normal 12px Verdana; padding: 2px 5px 2px 5px;  }
+input[type='submit'] { font: normal 12px Arial; padding: 2px 5px 2px 5px; }
+input[type='reset'] { font: normal 12px Arial; padding: 2px 5px 2px 5px; }
+textarea {  font: normal 12px Verdana; padding: 2px 5px 2px 5px;  }
+
+input.rate { font: normal 12px Arial; padding: 0px 2px 0px 2px; }
+
+form.login * { font: normal 11px Verdana; background-color: #ffffff; width: 110px; padding: 0px 0px 0px 0px }
+
+
+
+select { font: normal 12px Verdana; }
+/* текущий журнал в списке */
+option#s {  color: red; font-weight: bold }
+
+.radio { padding-bottom: 5px; margin-bottom: 10px; background: #eee }
+.radio_title { color: #666; padding-bottom: 3px; }
+.radio_comment { padding-left: 25px; }
+
+.filter {  }
+.filter * { }
+
+
+#tooltip {
+    background: #FCF5E1;
+    border: 1px solid #000000;
+    text-align: justify;
+    font: 11px Tahoma;
+    margin:0px;
+    padding: 5px 5px;
+    position:absolute;
+    visibility:hidden
+}
+
+.info { color: #006600; }
+
+
+
+a { color: #0032a3; }
+a:visited { color: #0032a3;}
+a:active { color: #0032a3;}
+a:hover { color: #c00000;}
+
+.b { font: normal 11px Verdana;  }
+
+a.b { font: normal 11px Verdana; color: green}
+a.b:visited { color: green;}
+a.b:hover { color: red}
+
+
+a.a { font: normal 11px Verdana;}
+a#a { font-weight: bold } /* Все активные меню выделяем жирным */
+
+a.tu {      white-space: nowrap;
+        background: url('/pic/icon/tu.gif') no-repeat 00px 6px;
+        margin-left: 4px;
+        padding-left: 20px;
+ }
+
+a.td {      white-space: nowrap;
+        background: url('/pic/icon/td.gif') no-repeat 00px 6px;
+        margin-left: 4px;
+        padding-left: 20px;
+ }
+a.tr {      white-space: nowrap;
+        background: url('/pic/icon/tr.gif') no-repeat 0px 4px;
+        margin-left: 0px;
+        padding-left: 10px;
+ }
+a.tl {      white-space: nowrap;
+        background: url('/pic/icon/tl.gif') no-repeat 00px 6px;
+        margin-left: 4px;
+        padding-left: 20px;
+ }
+
+
+.topic_type { padding: 10px 5px 10px 10px; background: #f0f0f0; border-bottom: 1px solid green; border-top: 1px solid green; }
+.topic_type a { font-size: 14px; color: #333; }
+.topic_type a:hover { color: red; }
+
+.selected { background: green; color: white;font-size: 14px; font-weight: bold }
+
+.biggreen { font-size: 14px; color: green; font-weight: bold; }
+
+/* создать топик */
+
+a.a .t {      white-space: nowrap;
+             background: url('/pic/icon/review.gif') no-repeat 0px 1px;
+  color: red;
+             padding-left: 20px;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-right: 0px; }
+
+/* редактировать */
+a.a .e {
+             white-space: nowrap;
+             background: url('/pic/icon/e.gif') no-repeat 0px 2px;
+             padding-left: 15px;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-right: 0px;
+ }
+
+/* назад или влево */
+a.a .l {
+             white-space: nowrap;
+             background: url('/pic/icon/back_glyth.gif') no-repeat 0px 4px;
+             padding-left: 17px;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-right: 0px;
+ }
+
+/* вперед или вправо */
+a.a .r {
+             white-space: nowrap;
+             background: url('/pic/icon/forward_glyth.gif') no-repeat 0px 4px;
+             padding-left: 17px;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-right: 0px;
+ }
+
+/* вниз */
+a.a .d {
+             white-space: nowrap;
+             background: url('/pic/icon/down_glyth.gif') no-repeat 0px 4px;
+             padding-left: 14px;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-right: 0px;
+ }
+
+/* вверх */
+a.a .u {
+             white-space: nowrap;
+             background: url('/pic/icon/up_glyth.gif') no-repeat 0px 4px;
+             padding-left: 14px;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-right: 0px;
+ }
+
+
+a.h1 {  color: #222; text-decoration: none }
+a.h1:visited {  color: #222; text-decoration: none }
+a.h1:hover {  color: #222; text-decoration: underline }
+
+/* Коментирование и прочие явовские зеленые ссылки */
+/* #008b00 */
+a.c , a.c:visited { color: gray; font: normal 12px Arial; }
+
+/* Тоже только админские */
+a.ac,a.ac:visited { font: normal 11px Verdana; color: #008b00 }
+
+
+
+.z {  color: red; font-weight: bold;
+font: normal 14px 'Trebuchet MS'; }
+
+
+
+
+/* Левая сторона */
+/* background: #efefef */
+/*td#left * {  font: normal 11px Verdana; border-right: 1px dashed #e0e0e0;   }*/
+
+div.private_block {
+padding: 0px 0px 0px 0px;
+font: normal 11px Verdana; text-align: left;
+border-bottom: 1px dotted #aaa;
+margin-bottom: 20px;
+ }
+
+div.login_block {
+padding: 3px 0px 5px 18px;
+font: normal 11px Verdana; text-align: left;
+margin-bottom: 10px;
+ }
+
+
+
+div.b { padding: 0px 0px 10px 0px;}
+
+div.block { font: normal 11px Verdana; padding: 0px 0px 15px 0px; text-align: left;}
+
+
+
+
+/* список комментариев */
+table.list_topics tr td { padding-bottom: 8px; padding-top: 4px; border-bottom: 1px dotted #ccc; }
+table.list_topics tr td.t0 { padding-right: 20px; border-bottom: 1px dotted #ccc; }
+table.list_topics tr td.t11 { padding-right: 0px; border-bottom: 1px dotted #ccc; }
+
+table.list_topics tr td.t1 { padding-right: 15px; border-bottom: 1px dotted #ccc; }
+table.list_topics tr td.t21 { padding-right: 0px; border-bottom: 1px dotted #ccc; }
+
+.lt { border-top: 1px dashed red }
+
+.day { font-size: 14px; color: #999; padding: 15px 0px 10px 0px;
+float: right;
+margin: 20px 0px 0px 0px; }
+
+
+.event_box { 
+padding-bottom: 10px;
+
+ }
+
+.topic_box { 
+padding-bottom: 10px;
+ }
+
+.topic_box .comments {  display: inline; }
+.topic_box .comments a:hover {  color: black; }
+.topic_box .su { padding-top: 3px;}
+
+
+.topic_images { background: black; padding-left: 10px; padding-top: 20px; padding-bottom: 30px; height: auto; }
+.topic_images .topic { display: block; color: #ccc; padding-bottom: 15px; }
+
+.topic_images a.comments:hover { color: white }
+.topic_images a.uf:hover {  color: white; }
+.image_title { font-size: 10px; color: gray; }
+
+.topic_images .comments {  display: inline; }
+.topic_images .comments a:hover {  color: white; }
+.topic_images .su { padding-top: 7px;}
+
+.gallery_subject {  padding-bottom: 7px; padding-top: 3px; text-align: left; }
+
+
+.topic_list { clear: both; }
+
+.top_topics { padding-top: 0px; clear: both;}
+
+.top_topics .topic_box { width: 270px; display: block; 
+  float: left; 
+  padding-right: 10px; padding-bottom: 35px; }
+
+.afisha_topics a.topic { font: normal 22px 'Trebuchet MS';
+  color: black;
+  text-decoration: none;}
+
+.afisha_topics .topic_box { padding-top: 0px; padding-bottom: 30px; clear: both;}
+
+.afisha_topics .event_place { font-size: 16px; color: gray; }
+
+
+.afisha_topics .comments { font-style: italic; padding-top: 3px; font: normal 12px 'Trebuchet MS'; }
+
+
+
+
+/* ячека отображения топика в списке */
+.tc { padding-top: 8px; padding-bottom: 6px; border-bottom: 1px dotted #ccc; 
+clear: both}
+
+
+
+.podcast_news { font: normal 11px Verdana; 
+text-align: left;
+/*border: 2px solid #cc9; */
+color: white;
+padding-top: 10px;
+padding-bottom: 25px}
+
+.podcast_news .filesize { font-size: 9px; color: #999; }
+
+
+.podcast_news a { color: #ccc }
+.podcast_news a:hover { color: red }
+
+
+
+.podcast_news .item { padding-bottom: 10px; 
+background: url('/pic/icon/music.gif') no-repeat 0px 0px;
+padding-left: 17px;
+}
+
+.podcast_news .desc { font-size: 9px; color: gray; padding-top: 5px; }
+
+
+
+
+
+.afisha { font: normal 11px Verdana; 
+text-align: left;
+/*border: 2px solid #cc9; */
+color: white;}
+
+.afisha .t { 
+font-size: 12px;
+padding-top: 5px; padding-bottom: 10px; color: gray;}
+.afisha .t#today { color: red; }
+
+.afisha .e { font-size: 9px; color: #999 }
+.afisha .p { padding-bottom: 4px;  }
+.afisha .p a { 
+font: normal 14px 'Trebuchet MS';
+color: #ccc; }
+.afisha a:hover { color: red }
+.afisha .a { 
+/*        background: url('/pic/icon/go.gif') no-repeat 0px 4px;
+        margin-left: 0px;
+        padding-left: 10px; */
+  padding-bottom: 10px;
+ }
+
+.afisha .e .comments { 
+color: #999 }
+
+.ah { font: normal 18px 'Trebuchet MS'; color: #ccc;
+padding-top: 10px; padding-bottom: 5px;}
+
+.online_block { padding-left: 15px; line-height: 20px; color: #333; 
+padding-top: 10px; padding-bottom: 10px; }
+.online_block .n { padding-left: 2px; font: normal 12px 'Trebuchet MS'; padding-bottom: 10px; }
+.online_block a {  color: red; padding-right: 5px; } 
+.online_block a:hover {  color: red; } 
+
+
+.nw { white-space: nowrap; }
+
+div.text_block { font: normal 11px Verdana; padding: 0px 0px 10px 18px; text-align: left;}
+div.job_block { border: 1px dashed gray; background: #eee; font: normal 11px Verdana; padding: 3px 0px 10px 18px; text-align: left;}
+div.ad_block { text-align: center; padding: 25px 0px 25px 0px; }
+div.yandex_block { padding-top: 10px; padding-bottom: 10px; }
+
+div.miss_block { background: #fee; padding: 0px 0px 0px 0px; margin-bottom: 5px; margin-top: 10px;
+border: 1px dotted red }
+
+/* левый баннер */
+div.ad_banner { padding: 12px 0px 12px 0px; }
+
+div.info_block { font: normal 11px Verdana; color: #333; text-align: left;
+                 padding: 10px 15px 12px 18px; margin-bottom: 15px; background: #e0e0e0}
+
+div.umenu { padding: 1px 0px 1px 0px }
+div.umenu a { font: normal 11px Verdana; color: #0032a3; }
+div.umenu a:visited { color: #0032a3;}
+div.umenu a:active { color: #0032a3;}
+div.umenu a:hover { color: red;}
+
+
+div.menu { padding: 1px 0px 1px 18px }
+div.menu a { font: normal 11px Verdana; color: #0032a3; }
+div.menu a:visited { color: #0032a3;}
+div.menu a:active { color: #0032a3;}
+div.menu a:hover { color: red;}
+
+.bold, .bold * { font-weight: bold; font-size: 14px; }
+
+div.b { padding: 0px 0px 10px 0px;}
+
+.new_topic_menu { 
+width: auto;
+padding: 10px 10px 10px 17px;
+margin-bottom: 10px;
+}
+
+.new_topic_menu .link { 
+font-weight: bold;
+color: green; 
+font: normal 14px 'Trebuchet MS';
+padding-bottom: 3px;
+}
+
+.new_topic_menu .link a { color: red }
+.new_topic_menu .link a:hover { color: black }
+.new_topic_menu .link#a a { color: green; }
+.new_topic_menu .desc { 
+padding-top: 5px; 
+color: #333; font-style: italic;
+font: 10px Arial; }
+
+
+a.newmail { background: url('/pic/icon/nm.gif') no-repeat 3px 5px;
+padding: 1px 0px 1px 18px; color: red }
+
+div.nm_menu { background: url('/pic/icon/nm.gif') no-repeat 3px 5px;
+padding: 1px 0px 1px 18px; }
+
+div.nm_menu a {
+font: normal 11px Verdana; color: red; font-weight: bold;}
+div.nm_menu a:visited { color: red;}
+div.nm_menu a:active { color: red;}
+div.nm_menu a:hover { color: red;}
+
+
+.exit { padding: 1px 0px 1px 18px }
+.exit a { color: #767676;  }
+.exit a:visited { color: #767676;  }
+.exit a:hover { color: black; }
+
+
+/* Приватное меню */
+div.private { padding: 1px 0px 1px 0px }
+div.private a { font: normal 11px Verdana; color: gray; }
+div.private a:visited { color: gray;}
+div.private a:active { color: gray;}
+div.private a:hover { color: red;}
+
+
+div.pages { font: normal 11px Verdana; padding-bottom: 10px; }
+
+
+td.pmail { padding-left: 0px; text-align: left; }
+
+
+
+/* Личная переписка */
+
+td.talker { padding-top: 0px; padding-right: 15px; vertical-align: top }
+td.mail { color: green; padding-bottom: 10px; font-size: 13px; }
+td.out_mail { padding-bottom: 10px; font-size: 13px; }
+td.new_mail { color: red; padding-bottom: 10px; font-size: 13px; }
+td.time { font-size: 10px; color: gray; padding-top: 2px; }
+
+
+
+
+
+
+/* Списки */
+
+
+ul {
+	list-style: none;
+  padding-top: 5px;
+	margin-left: 0;
+	padding-left: 1em;
+	text-indent: -1em;
+	}
+
+ul .header { padding-bottom: 8px; padding-top: 10px; }
+
+ul li { padding-top: 1px; padding-bottom: 1px }
+
+ul li:before {
+	content: "\00BB \0020";
+	}
+
+/* Список номинантов голосования */
+
+ul.votes li { padding-bottom: 5px }
+
+/* Выбор города и журнала */
+.sel { font: normal 11px Verdana; }
+.sel * { font: normal 11px Verdana; }
+
+.ws { color: #000; font: bold 10px Tahoma; }
+a.ws { color: #000; font: bold 10px Tahoma }
+a.ws:visited { color: #000 }
+a.ws:hover { color: red }
+a.ws#s { color: red }
+
+div.mmenu { display: block;
+ padding-right: 20px;
+            font-family: "Trebuchet MS"; font-weight: normal;
+            float: left; font-size: 14px; color: #999 }
+
+div.mmenu a { color: #0032a3; }
+div.mmenu a#s { font-weight: bold; }
+div.mmenu a:visited { color: #0032a3;}
+div.mmenu a:active { color: #0032a3;}
+div.mmenu a:hover { color: red;}
+
+.mmenu_block {
+    height: 20px;
+    padding-top: 45px; margin-bottom: 15px;
+    clear: both;
+}
+
+
+.s a { color: #009 }
+.s1 a { color: #009 }
+.s2 a { color: #009; font-weight: bold; }
+
+
+
+
+/* Навигационное меню с верху */
+
+.nav {  font: normal 11px Verdana;
+	color: #669;
+	padding: 0px;
+        margin-top: 0px;
+
+	}
+
+.nav b {color: #0032a3;}
+
+.nav ul {
+	margin-left: 0;
+	padding-left: 0;
+	display: inline;
+	border: none;
+	}
+
+.nav li {
+	margin-left: 0;
+	padding-left: 2px;
+	border: none;
+	list-style: none;
+	display: inline;
+	}
+
+
+
+
+.aaa___aa {border-right: 1px solid #ccc;background: #efefef }
+
+
+
+
+
+/* Таблицы */
+
+table.list th { padding: 4px 0px 4px 30px; text-align: left; color: #999; font: normal 11px Verdana;
+                 border-bottom: 1px dashed #ccc; }
+table.list td { padding: 4px 0px 4px 30px; border-bottom: 1px dashed #ccc; }
+table.list th:first-child { padding: 4px 0px 4px 0px; }
+table.list td:first-child { padding: 4px 0px 4px 0px;}
+
+
+
+/* Блок контроля топика */
+
+.topic_control {
+  font: normal 9px Verdana;
+  padding-top: 10px;
+}
+
+.topic_contorl ul { 
+color: #333;
+padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px }
+
+.topic_control a {
+  font: normal 9px Verdana;
+  text-decoration: none;
+  color: red;
+  /*        background: #f0f0f0;
+     #        border-left: 1px solid #ccc;
+     padding: 2px 3px 2px 3px;*/
+}
+.topic_control a#reverse { color: white; background: red; }
+
+.closed { 
+        background: url('/pic/icon/tr.gif') no-repeat 00px 6px;
+        margin-left: 4px;
+ }
+
+.open { 
+        background: url('/pic/icon/td.gif') no-repeat 00px 6px;
+        margin-left: 4px;
+ }
+
+
+.control a {  font: normal 9px Verdana;
+  text-decoration: none;
+  color: red;
+  }
+.control a:hover {  font: normal 9px Verdana;
+  text-decoration: none;
+  color: red;
+  }
+
+/* .control a:last-child { border-right: 1px solid #ccc; } */
+
+.topic_control a:hover {
+  color: white;
+  background: red;
+  text-decoration: underline
+}
+
+
+
+/* Календарь */
+
+
+/* Форма. Регистрационная и тп. */
+
+table.form th { font: normal 12px Verdana; color: #666; padding-right: 10px; text-align: right; padding-bottom: 2px; text-align: left}
+table.form td { padding-bottom: 2px}
+table.form th.bad { color: #990000 }
+table.form .bad input { color: #990000; border: 2px solid red; }
+table.form .bad select { color: #990000; border: 2px solid red; }
+table.form .bad textarea { color: #990000; border: 2px solid red; }
+table.form input[type='text'] { font: normal 12px Verdana; }
+table.form td.title { font: bold 12px Arial; padding-bottom: 22px; }
+table.form td.error { color: #330000; padding: 10px; font: normal 12px Verdana;border: 1px solid red; background: #fff0f0; }
+
+.youtube { width: 425px }
+.youtube_link { padding-top: 5px; text-align: right; font: normal 11px Verdana; }
+
+
+/* discuss вывод ссылки на обсуждение/коментариование темы,
+количестко комментариев, в том числе новых */
+
+.new { color: red; }
+
+
+
+/* ERROR */
+.error { color: #990000 }
+
+
+
+/* USERPICK */
+
+a.u { font-size: 12px;
+/*        font: normal 8.25pt 'Trebuchet MS'; */
+             font-family: "Trebuchet MS";
+             color: #666;
+             white-space: nowrap;
+             background: url('/pic/icon/ug.png') no-repeat 0px 3px;
+             padding-left: 11px;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-right: 0px;
+        text-decoration: none;
+        border-bottom: 1px dashed #333;
+ }
+a.uonline { font-size: 12px;
+/*        font: normal 8.25pt 'Trebuchet MS'; */
+             font-family: "Trebuchet MS";
+             color: #666;
+             white-space: nowrap;
+             background: url('/pic/icon/u.png') no-repeat 0px 3px;
+             padding-left: 11px;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-right: 0px;
+        text-decoration: none;
+        border-bottom: 1px dashed #333;
+ }
+a.u:hover {  color: black; border-bottom: 1px solid black; }
+a.uonline:hover {  color: black; border-bottom: 1px solid black; }
+
+
+/* USERPICK drugoisport.ru */
+
+a.ud { font-size: 12px;
+/*        font: normal 8.25pt 'Trebuchet MS'; */
+             font-family: "Trebuchet MS";
+             color: #666;
+             white-space: nowrap;
+             background: url('/pic/icon/udg.gif') no-repeat 0px 3px;
+             padding-left: 13px;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-right: 0px;
+        text-decoration: none;
+        border-bottom: 1px dashed #333;
+ }
+a.ud:hover {  color: black; border-bottom: 1px solid black; }
+a.ud#online0 { background: url('/pic/icon/ud0.gif') no-repeat 0px 3px; }
+a.ud#online1 { background: url('/pic/icon/ud1.gif') no-repeat 0px 3px; }
+a.ud#h {  color: #999 }
+
+
+/* USERPIC fotocor */
+
+a.uf { font-size: 12px;
+/*        font: normal 8.25pt 'Trebuchet MS'; */
+             font-family: "Trebuchet MS";
+             color: #666;
+             white-space: nowrap;
+             background: url('/pic/icon/photic.gif') no-repeat 0px 2px;
+             padding-left: 14px;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-right: 0px;
+        text-decoration: none;
+        border-bottom: 1px dashed #333;
+ }
+a.ufonline { font-size: 12px;
+/*        font: normal 8.25pt 'Trebuchet MS'; */
+             font-family: "Trebuchet MS";
+             color: #666;
+             white-space: nowrap;
+             background: url('/pic/icon/photiconline.gif') no-repeat 0px 2px;
+             padding-left: 14px;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-right: 0px;
+        text-decoration: none;
+        border-bottom: 1px dashed #333;
+ }
+a.uf:hover {  color: black; border-bottom: 1px solid black; }
+a.ufonline:hover {  color: black; border-bottom: 1px solid black; }
+
+.topic_fotos a.u { color: white; }
+.topic_fotos a.uf { color: white; }
+
+
+/* Поле для ввода юзерпика */
+
+input.u { background: url(/pic/icon/user2.png) no-repeat 2px 3px; padding-left: 18px; }
+
+
+img.avatar { margin-bottom: 5px; border: 1px solid black }
+img.avatar:hover { margin-bottom: 5px; border: 1px solid red }
+
+
+/* Главная ячейка */
+
+/* td.main { padding-left: 20px; padding-right: 30px } */
+
+/* JOURNAL NAME */
+
+a.journal_name { font: normal 11px Verdana;
+white-space: nowrap;
+        margin-left: 2px;
+}
+
+
+a.journal_name_c { font: normal 11px Verdana;
+font-weight: bold;
+white-space: nowrap;
+        margin-left: 2px;
+}
+
+
+a.j { font: normal 11px Verdana;
+      background: url('/pic/icon/j.gif') no-repeat 0px 2px;
+     padding-left: 16px;
+white-space: nowrap;
+        margin-left: 2px;
+}
+
+h1.journal { margin: 10px 0px 30px 0px; padding: 0px 0px 0px 0px }
+
+div.journal { padding-top: 0px }
+
+.topic_page { padding-top: 0px }
+.topic_text_page { padding-top: 10px; padding-bottom: 5px }
+
+
+div.cats {
+padding-bottom: 15px;
+}
+
+table.cats td.t	{padding-left: 0px; padding-bottom: 10px; color: #ccc; font-weight: bold;}
+table.cats td	{font: normal 11px Verdana; padding-left: 5px; padding-top: 2px; padding-bottom: 2px; vertical-align: top}
+table.cats th	{font: normal 11px Verdana;padding:2px 10px 2px 0; line-height:1.2em; background:url('/pic/dots.gif') repeat-x bottom right; vertical-align: bottom;}
+table.cats th span	{background-color:white; padding-right: 5px;}
+
+
+
+
+table.content td.t	{padding-left: 0px; padding-bottom: 10px; color: #ccc; font-family: Verdana, Arial, 'Geneva CY', sans-serif; font-weight: bold;}
+table.content td	{padding-left: 10px; padding-top: 2px; padding-bottom: 2px; vertical-align: top}
+table.content th	{padding:2px 10px 2px 0; line-height:1.2em; background:url('/pic/dots.gif') repeat-x bottom right; vertical-align: bottom}
+table.content th span	{background-color:white; padding-right:2px;}
+
+
+
+
+
+/* комментить, открыть */
+
+
+.add_comment {  }
+.comment_form { padding-bottom: 15px;  }
+
+
+/* Цитирование */
+.quote { padding-left: 15px; padding-top: 5px; padding-bottom: 5px;
+  margin-bottom: 3px;   margin-top: 10px;
+  color: #666;
+  background: #eee; }
+
+
+/* Название темы на страице темы*/
+
+.subject { font-family: Verdana; font-size: 18px;
+  font-weight: bold;  }
+
+a.small_event { font-family: Verdana; font-size: 12px;    color:black;  }
+a.small_event:hover { color: #0032a3; }
+
+a.topic_subject { font-family: Verdana; font-size: 18px;
+                  color:black; font-weight: bold;  }
+
+a.topic_subject:hover { color: #0032a3; }
+
+.subject_place { font-family: Verdana; font-size: 18px;
+  color:#006600; font-weight: bold;  }
+
+.event_subject {  
+font: normal 9px "Arial"; 
+color: white;
+background: green;
+padding: 2px 4px 2px 4px;
+margin-bottom: 10px;
+display: inline;
+}
+
+.event_place { color:#006600 }
+.topic_images .event_place { color:#999 }
+
+.today {  background: red; }
+.cool {  background: red; }
+.past {  background: gray; }
+
+
+
+.topic_text      {
+vertical-align: top; 
+           font: normal 13px 'Trebuchet MS';
+           padding-left: 10px;
+           padding-top: 0px; padding-bottom: 20px;
+           }
+
+.topic_when { padding-top: 3px; color: #666; font: normal 8px Verdana; padding-bottom: 10px; }
+
+.topic_date { padding-top: 3px; color: #aaa; font-size: 10px;  }
+
+
+
+/* Картинка темы, в списке тем */
+.subject_image { margin-top: 5px; margin-right: 10px; margin-bottom: 5px; float: left; }
+.hot_subject_image { margin-top: 3px; margin-right: 20px; margin-bottom: 5px }
+
+
+/* тема топика в списке */
+a.topic { font: normal 16px 'Trebuchet MS';
+          color: black;
+        text-decoration: none;
+        /* border-bottom: 1px dotted gray; */}
+
+a.topic:hover { text-decoration: underline;}
+
+a.topic .rating { color: gray }
+
+
+/* тема топика в чероновике */
+
+a.draft_topic { font: normal 14px 'Trebuchet MS';
+          color: black;
+        text-decoration: underline;
+        /* border-bottom: 1px dotted gray; */}
+
+
+a.hot_topic { font: normal 16px 'Trebuchet MS';
+          color: black;
+        text-decoration: none;
+  }
+
+a.hot_topic:hover { color: #333; text-decoration: underline; }
+
+
+/* Топики на странице подписки */
+
+a.s_topic { font: normal 14px 'Trebuchet MS';
+          color: black;
+        text-decoration: none;
+        border-bottom: 1px dotted red; }
+
+
+a.s_topic:hover { text-decoration: underline;}
+
+
+
+/*a.topic#new:hover { border-bottom: 1px dotted red } */
+
+/* ссылка из текста */
+a.topic#l { font-weight: bold;text-decoration: underline;
+             background: url('/pic/icon/u1.png') no-repeat 0px 3px;
+             padding-left: 11px;
+        margin-left: 0px;
+        margin-right: 4px;
+        padding-right: 2px;
+
+ }
+
+a.topic#ld { font-weight: bold;text-decoration: underline;
+             background: url('/pic/icon/ud1.gif') no-repeat 0px 4px;
+             padding-left: 13px;
+        margin-left: 0px;
+        margin-right: 4px;
+        padding-right: 2px;
+
+ }
+
+
+/* пиктограмма у темы */
+img.i { padding-left: 3px; padding-right: 1px }
+
+.right  a {  color: #eee }
+
+/* ячейка в таблице */
+.filesize { font-size: 12px; color: #666; }
+.file { font-size: 14px; color: #eee }
+.file:visited { color: gray }
+.file:hover { color: red }
+
+
+
+#leftbar {
+height: 100%;
+width: 160px;  
+padding-left: 0px; padding-right: 0px;
+padding-top: 20px;
+float: left;
+}
+
+#header { 
+width: 580px;
+
+ }
+
+#header .flash { width: 468px; float: left;  }
+#header .hmenu { width: 110px; float: left; }
+
+#mainbar { 
+position: relative;
+padding-top: 20px;
+float: left;
+width: 580px; 
+height: auto;
+padding-left: 35px; padding-right: 40px;
+}
+
+#rightbar {  
+position: absolute;
+min-width: 190px;
+left: 810px;
+top: 0px;
+right: 0px;
+height: auto;
+min-height: 100%;
+color: white;
+padding-right: 10px;
+padding-left: 30px; padding-top: 20px; padding-bottom: 20px;
+background: black url(/pic/smoke_bg.jpg) no-repeat 30px 0px;
+}
+
+#rightbar a { color: #ccc }
+#rightbar a:hover { color: red }
+
+
+
+.ap { font-size: 10px; 
+font-style: italic;
+padding-bottom: 10px;
+font-weight: normal; color: #666 }
+.ap a {  color: #666 }
+
+
+.gallery_list { padding-top: 10px; }
+.gallery_list h2 { 
+font: bold 14px 'Trebuchet MS';
+color: #ccc; clear: both }
+
+.file_box { font-size: 14px; padding-bottom: 5px; }
+
+.gallery_box { padding-bottom: 10px; width: 130px; }
+
+.gbox .desc { font-size: 9px;
+padding-top: 8px;
+color: gray;
+font-style: italic;
+}
+
+.gbox { padding-top: 10px; padding-bottom: 10px; width: 130px;  }
+
+.gallery_other { width: auto; padding-right: 5px;}
+
+.gthumb { padding-bottom: 10px; padding-right: 10px; float: left; }
+
+
+.gallery_box a { color: gray; }
+
+/* непосредственно акртинка в галлерее */
+img.gallery { border: 1px solid #333 }
+img.gallery:hover { border: 1px solid red }
+
+
+img.b_gallery { border: 1px solid black; padding: 3px 3px 3px 3px }
+img.b_gallery:hover { border: 1px solid red }
+
+
+
+/* укороченный текст темы при выводе её в списке */
+
+.short_text { padding-top: 5px; padding-bottom: 3px;
+  color: #666;
+  font-size: 11px;
+  text-decoration: none; }
+
+
+/* Блок топика в пользовательском журнале */
+
+.uj {padding-bottom: 20px; font-size: 16px; font-weight: bold; }
+
+/* Количество коментариев */
+
+
+
+.comments { padding-top: 10px;
+color: #aaa;
+font-size: 10px;
+/*text-decoration: none; */}
+
+.uj .comments { padding-top: 0px }
+
+.comments a { color: #aaa; text-decoration: none;  }
+.comments a:hover { color: black; text-decoration: underline; }
+
+.e .comments { display: inline; color: #666;  }
+.e .comments a { font-size: 9px; color: #666; text-decoration: underline;  }
+
+
+.go_comments { white-space: nowrap; }
+
+.go_comments a:hover { color: black;}
+
+
+
+.new_answers {  color: green; font-weight: bold }
+
+.comments_tree { padding-top: 10px;}
+
+
+
+/* Вспомогательый навигационные ссылки. Серыее вперед-назад */
+/* Выбор города и тп */
+
+a.anav  {
+         color: #626262;
+         font: normal 12px Verdana;
+        padding-bottom: 10px; /* в шаблоне темы */
+}
+
+
+.anav { margin: 0px 0px 0px 0px; font: normal 11px Verdana;}
+/*.anav a {
+         color: #626262;
+         line-height: 18px;
+}
+.anav a:hover { color: black }
+
+*/
+
+.anav select { font: normal 10px Verdana }
+
+
+
+.issues { padding-top: 20px; }
+h2.issue { font-size: 11px;  }
+.issue { font-size: 11px; }
+issue#s { font-weight: bold }
+
+.fotopage {  border: none; background-color: black; }
+.fotopage td {  background-color: black; }
+
+
+
+.message_when {
+  padding-top: 3px;
+           color: #666;
+           font: normal 8px Verdana;
+           }
+
+
+.message_avatar { padding: 0px 5px 5px 5px; vertical-align: top; }
+
+.message_body { padding: 0px 5px 0px 5px; border-left: 1px solid #ccc; font-size: 13px; vertical-align: top;}
+.message_body_owner { padding: 0px 5px 0px 5px; border-left: 2px solid #ccc; background: #f0f0f0;font-size: 13px;vertical-align: top; }
+.message_body_answer { padding: 0px 5px 0px 5px; border-left: 2px solid #0a0; background: #f0fff0; font-size: 13px;vertical-align: top;}
+
+
+.message_avatar2 { border-top: 1px solid #999;
+border-bottom: 1px solid #999;
+border-left: 1px solid #999;
+ padding: 0px 0px 0px 0px; vertical-align: top; }
+
+.message_body2 { padding: 5px 5px 5px 5px; border: 1px solid #ccc; font-size: 13px;  }
+.message_body_owner2 { padding: 5px 5px 5px 5px; border: 1px solid #ccc; background: #f0f0f0; font-size: 13px;  }
+.message_body_answer2 { padding: 5px 5px 5px 5px; border: 1px solid #0a0; background: #f0fff0; font-size: 13px; }
+
+
+
+/* блок оценки автора, под аватаром в теме */
+
+.av { margin-top: 20px; padding-bottom: 15px  }
+
+/* блок оценки темы */
+.tv {
+  padding-top: 8px; padding-bottom: 7px;
+  padding-left: 0px;
+/*  border-bottom: 1px dotted #ccc; */
+  border-top: 1px solid #ccc;
+}
+
+/* оценочные ссылки */
+.l { padding-bottom: 5px}
+.l a { font: normal 10px Verdana; color: #00a600;}
+.l a:hover { color: black;}
+
+/* обратные оценочные ссылки */
+.le { white-space: nowrap; padding-bottom: 5px}
+.le a { font: normal 10px Verdana; color: #006600;}
+.le a:hover { color: black;}
+
+
+.av .a { font: normal 10px Verdana; color: gray; padding-bottom: 3px }
+
+.av .l { padding-bottom: 5px; }
+.tv .l { padding-left: 15px; }
+
+
+
+img { border-color: black; border: none; }
+img#hover { border-color: red }
+
+.right_dir { padding-bottom: 10px; }
+
+.photo_topic_subject { font: normal 11px Verdana; color: gray }
+
+.album_text { font: normal 11px Verdana; color: gray }
+.album_text:visited { color: gray }
+.album_text:hover { color: white }
+
+.album_text2 { font: normal 11px Verdana; color: gray; }
+.album_text2:visited { color: gray }
+.album_text2:hover { color: black }
+
+
+
+/* Дата темы */
+
+.date {
+    font: normal 10px Arial;
+    text-transform: uppercase;
+    color: #a91620;
+    vertical-align: text-top;
+}
+
+.aaa { /* temp */
+    padding-top: 6px;
+}
+
+
+
+
+
+/* Главная страница */
+
+td.hot_head {
+        font: bold 14px 'Trebuchet MS';
+    vertical-align: top;
+        height: 40px;
+}
+td.hot_text {
+        font: normal 12px 'Trebuchet MS';
+    vertical-align: text-top;
+    margin: 0px;
+    padding: 0px;
+}
+td.hot_text img {
+        padding: 0px 0px;
+        margin: 0px 15px 0px 0px;
+        width: auto !important;
+    border: 1px solid #000000;
+}
+td.hot_comm {
+        font: normal 12px Arial;
+        text-align: right;
+}
+.news_img {
+        padding: 0px 15px 0px 0px;
+        margin: 20px;
+}
+
+
+
+
+/* list_dir */
+
+.ad h2 { padding-top: 25px; padding-top: 10px; }
+
+table.list_dir {font: normal 11px Verdana; }
+
+table.list_dir tr.file td { border-bottom: 1px dashed #ccc; padding-bottom: 7px; padding-top: 5px; padding-left: 10px; padding-right: 10px; }
+table.list_dir tr.file2 td { border-bottom: 1px dashed #ccc; padding-bottom: 5px; padding-top: 3px; padding-left: 10px; padding-right: 10px; }
+table.list_dir tr.file1 td { padding-top: 5px; padding-left: 10px; padding-right: 10px; }
+table.list_dir tr:first-child td { border-top: 1px dashed #ccc }
+
+
+.list_dir a { color: blue }
+.size { color: gray; font-size: 80%}
+a.dl { color: gray; font-weight: bold }
+a.dl:visited { color: gray;}
+a.dl:hover { color: black;}
+a.dl:active { color: gray;}
+
+
+tr.dir td { font-weight: bold; color: #999999; }
+
+
+a.podcast:hover {  color: red; }
+a.admin { color: red; font-size: 11px; }
+
+a.admin:hover { font-weight: bold; }
+
+
+
+
+/* drop down menu */
+
+  span.spanTextDropdown{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 150px;
+        z-index: 101;
+        background-color: #ffffff;
+        border: 1px solid #888888;
+        overflow: visible;
+        display: none;
+	font-family: Verdana;
+	font-size: 11px;
+	line-height:17px;
+	color:#333333;
+      }
+
+span.spanMatchText{ text-decoration: underline;
+  font-weight: bold;padding-left: 2px;}
+
+span.spanNormalElement{ background: #ffffff; }
+
+span.spanHighElement{ background: #000040;
+  color: white;
+  cursor: pointer; }
+
+span.noMatchData{ font-weight: bold;
+  color: #333333; }
+
+
+
+
+/* RATING */
+
+.show_rating { padding-top: 6px; text-align: right; }
+.raters { padding-top: 3px;font-size: 9px; color: #999 }
+
+#ratingWrapper { padding-top: 20px; }
+
+.icn_star_empty {
+	background: url(/pic/icon/stare.gif) no-repeat;
+	width: 13px;
+	height: 14px;
+}
+
+.icn_star_full {
+	background: url(/pic/icon/starf.gif) no-repeat;
+	width: 13px;
+	height: 14px;
+}
+
+
+.icn_star_blink {
+	background: url(/pic/icon/starb.gif) no-repeat;
+	width: 13px;
+	height: 14px;
+}
+
+
+.icn_star_half {
+	background: url(/pic/icon/star5.gif) no-repeat;
+	width: 13px;
+	height: 14px;
+}
+
+
+.video_thumb { padding: 2px; background: #333; border: #666 solid 1px };

@@ -1,0 +1,51 @@
+[% INCLUDE inc/header %]
+<link rel="StyleSheet" href="/css/banners.css" type="text/css">
+
+<h1>Баннерная система</h1>
+
+<table >
+
+<tr><td >
+
+[% FOREACH v = result.vars %]
+<h2>${v.width}x${v.height}</h2>
+<table  cellpadding="3"  class="t">
+<tr><th>ID</th><th>Файл</th><th>Показов</th></tr>
+[% FOREACH b = v.list %]
+<tr>
+<td style="color: gray"><small>#$b.id</small></td>
+<td><a href="${set.uri.home}banners/view?id=$b.id">[% IF b.is_active %]<b>$b.file</b>[% ELSE %]$b.file[% END %]</a></td>
+<td align="right"><small>$b.counter</small></td>
+</td>
+</tr>
+[% END %]
+</table>
+[% END %]
+
+</td><td style="vertical-align: top">
+
+<h2>Список площадок:</h2>
+
+<table  class="t" cellpadding="3">
+<tr><th>Площадка</th><th>Баннера</th></tr>
+[% FOREACH b = result.pos %]
+<tr><td >$b.name</td><td >[% IF b.banners %][% FOREACH a = b.banners %][% IF loop.index %], [% END %]<a href="${set.uri.home}banners/view?id=$a.id"><b>$a.file</b></a>[% END %][% ELSE %]<i style="color: gray">свободна</i>[% END %]</td></tr>
+[% END %]
+</table>
+
+</td></tr></table>
+<hr>
+<h2>Загрузить новый:</h2>
+<form action="${set.uri.home}banners/upload" method="post"  enctype="multipart/form-data">
+<table cellpadding="1" >
+<tr><td>Баннер для загузки</td><td><input name="file" type="file" size="30"/></td></tr>
+<!--<tr><td>Дата окончания показа:</td><td><input name=date_to type="text" size=12> вида (2006-12-01)</td></tr>
+<tr><td>Ранг:</td><td><input name=rank type="text" value=""1 size=3> от 1 до 100</td></tr>-->
+<tr><td>Ссылка (не для флешек)</td><td><input name="link" type="text" size="30"/></td></tr>
+<tr><td colspan="2">Комментарий:</td></tr>
+<tr><td colspan="2"><textarea id="comment" cols=50 rows=3 style="width:100%;"></textarea></td></tr>
+<tr><td><input name="ok" type="submit" value="/ Загрузить"/></td></tr>
+</table>
+</form>
+
+[% INCLUDE inc/footer %]

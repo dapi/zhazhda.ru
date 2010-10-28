@@ -1,0 +1,19 @@
+<td width="*"  rowspan="2" style="background: url(/pic/stakan/drugoi/fon.jpg);">
+
+<table width="100%"  cellpadding="0"  height="100%" bgcolor="#e0e0e0">
+<tr><td  height="175" style="background: url(/pic/stakan/drugoi/top.jpg) no-repeat; padding: 0px 20px 0px 40px"><img src=/pic/space.gif width="140" height="90"></td></tr>
+<tr><td height="100%" style="background: url(/pic/stakan/drugoi/medium.jpg) repeat-y; padding: 0px 20px 30px 40px; color: black" >
+
+<table  cellpadding="0"  class="files">
+[% FOREACH f = gallery %]
+[% INCLUDE journal/default/gallery_file file=f short_mode=1 %]
+[% END %]
+</table>
+
+
+</td></tr>
+[% IF context.right.footer %]<tr><td height="88" style="background: url(/pic/stakan/drugoi/bottom.jpg) no-repeat"><img src=/pic/space.gif width="200" height="88"></td></tr>[% END %]
+</table>
+
+
+</td>

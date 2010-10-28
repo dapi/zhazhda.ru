@@ -1,0 +1,15 @@
+<td width="*"  rowspan="2" style="background: url(/pic/drugoi/fon.jpg);">
+
+<table width="100%"  cellpadding="0"  height="100%">
+<tr><td  height="185" style="background: url(/pic/drugoi/top.jpg) no-repeat; padding: 135px 20px 0px 40px">
+[% IF result.topic.access.can_upload %]<a title="Подргузить в тему фото, музыку или видео" href="/topics/${result.topic.id}.html?file=1#file">Подгрузить файл..</a>[% END %]
+</td></tr> <!-- width max 321 -->
+<tr><td height="100%" style="background: url(/pic/drugoi/medium.jpg) repeat-y; padding: 0px 20px 30px 40px; color: [% context.right.text_color || 'white' %]" >
+<img src=/pic/space.gif width="140" height="10">
+[% INCLUDE journal/default/topic_files %]
+
+</td></tr>
+[% IF context.right.footer %]<tr><td height="88" style="background: url(/pic/drugoi/bottom.jpg) no-repeat"><img src=/pic/space.gif width="200" height="88"></td></tr>[% END %]
+</table>
+
+</td>

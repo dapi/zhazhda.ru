@@ -1,0 +1,13 @@
+[% USE HTML %]
+[% UNLESS field %][% field=name %][% END %]
+[% IF fields.${field} %][% value = fields.$field %][% END %]
+[% IF context.fields.${field} %][% value = context.fields.$field %][% END %]
+<tr><th [% IF context.bad_fields.${field} %]style="color: red"[% END %]  class="test">$text[% IF comment %]<br/><small style="color: #999">$comment</small>[% END %]</th>
+<td>
+[% FOREACH i = list %]
+<div class="radio">
+<div class="radio_title><input name=$field type=radio value="$i.id" [% IF value=""=i.id %]checked[% END %]> $i.name</div>
+[% IF i.desc %]<div class="radio_comment><small style="color: #999">$i.desc</small></div>[% END %]
+</div>
+[% END %]
+</td></tr>

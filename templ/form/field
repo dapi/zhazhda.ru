@@ -1,0 +1,5 @@
+[% UNLESS field %][% field=name %][% END %]
+[% value = field_value || form.fields.$field %]
+<tr><th [% IF form.bad_fields.${field} OR is_bad %]class="bad"[% END %]>$text[% IF comment %]<br/><small style="color: #999">$comment</small>[% END %]</th>
+<td [% IF form.bad_fields.${field} OR is_bad  %]class="bad"[% END %] [% IF comment %] style="padding-bottom: 20px"[% END %]><input name="$name" [% IF class %]class="$class"[% END %] [% IF style %]style="$style"[% END %] type="[% type || 'text' %]" size="[% size || 15 %]" [% IF maxlength %]maxlength="$maxlength"[% END %] value="[% value | escape %]"/>
+</td></tr>

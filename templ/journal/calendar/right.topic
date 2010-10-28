@@ -1,0 +1,28 @@
+<td width="*"  rowspan="2" bgcolor="[% right_color || 'black' %]">
+
+<table width="100%"  cellpadding="0"  height="100%">
+<tr><td height="195" style="background: url(/pic/$context.right.header) no-repeat; padding-left: 45px"><img src=/pic/space.gif width="165" height="20"><br/>[%# INCLUDE inc/player %]</td></tr> <!-- width max 321 -->
+<tr><td height="100%" style="background: url(/pic/$context.right.medium) repeat-y; padding-top: 5px; padding-left: 45px; color: [% context.right.text_color || 'white' %]" >
+
+[% IF result.topic.gallery_type %]
+<p>Включён режит <i>галлерея</i></p>
+[% ELSE %]
+[% IF result.dir %]
+
+<table  cellpadding="0"  class="files">
+[% FOREACH file = result.dir.files %]
+[% INCLUDE journal/default/gallery_file number=loop.index %]
+[% END %]
+</table>
+
+
+[% END %]
+
+[% END %]
+
+</td></tr>
+[% IF context.right.footer %]<tr><td height="88" style="background: url(/pic/$context.right.footer) no-repeat"><img src=/pic/space.gif width="200" height="88"></td></tr>[% END %]
+</table>
+
+
+</td>

@@ -1,0 +1,46 @@
+<script language="JavaScript">
+
+function ontrap(e,n){
+if (e) event=e;
+if ((event.keyCode==13)&&(event.ctrlKey)){
+      var submit = n.getElementsByTagName('input')[4];
+     submit.click();
+     submit.value="Улетело...";
+     submit.disabled="true";
+        }
+}
+var required = new Array("text", "textedit");
+var required_show = new Array("текст","текст");
+
+
+</script>
+
+<div style="display:none">
+<div class=comment_form id=comment_template>
+
+<form name=comment method=post action="/add_comment" >
+<table cellspacing="0" cellpadding="0" width="100%" style="padding-top: 10px; padding-bottom: 10px; background: #f0f0f0;">
+<tr>
+<td width="80" valign=top style="padding-right: 15px">
+[% INCLUDE inc/avatar user=context.user %]
+</td>
+<td width="*" valign=top colspan=2>
+
+<input id=pid name=parent_id value='' type=hidden> [%# должен идти первым %]
+<input name=file_id value="$file_id" type=hidden>
+<input name=jid value="$jid" type=hidden>
+<input name=tid value="$tid" type=hidden>
+<textarea name=text id=comment cols=70 rows=10 style='width:100%' onkeypress="return ctrl_enter(event, this.form, this.form.text);" onkeyup="EnableSubmits(this.form, this.form.text)"></textarea>
+
+</td></tr>
+<tr><td>&nbsp;</td><td><input type=submit name=ok value="Пусть знают!"> <small>(Ctrl+Enter)</small></td>
+<td align=right><input type=reset onclick='javascript:hideCommentForm(this)' value="Передумал.."></td></tr>
+</table>
+</form>
+
+<script  language="JavaScript1.2">
+DisableSubmits('comment');
+</script>
+
+</div>
+</div>

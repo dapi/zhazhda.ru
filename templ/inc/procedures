@@ -1,0 +1,28 @@
+
+[% BLOCK lm %]
+<tr>
+[% icon = context.menu.${name}.icon %]
+[% IF icon %]<td width="15" class="pmail"><img src="/pic/icon/$icon.img" width="$i"con.width height="$icon.height" ></td>[% ELSE %]<td width="15"></td>[% END %]
+[% IF context.menu.${name} %]
+
+
+[% IF context.active==name && context.submenu %]
+<td id="hassub"><a href="[% context.menu.${name}.link %]" [% IF context.menu.${name}.title %]title="[% context.menu.${name}.title %]"[% END %] [% IF context.active==name && !context.subactive %]id="a"[% END %]>[% context.menu.${name}.menu %]</a>
+
+[% FOREACH s = context.submenu %]
+<a class="submenu" href="[% s.link %]" [% IF s.title %]title="$s.title"[% END %]  [% IF context.subactive==s.name %]id="a"[% END %]>[% s.menu %]</a>
+[% END %]
+
+
+</td>
+
+[% ELSE %]
+<td><a href="[% context.menu.${name}.link %]" [% IF context.menu.${name}.title %]title="[% context.menu.${name}.title %]"[% END %] [% IF context.active==name %]id="a"[% END %]>[% context.menu.${name}.menu %]</a></td>
+
+[% END %]
+[% ELSE %]
+<td><b>?$name?</b></td>
+[% END %]
+
+</tr>
+[% END %]

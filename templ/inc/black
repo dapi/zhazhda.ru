@@ -1,0 +1,7 @@
+[% UNLESS context.user.id==uid %]
+[% IF context.blacklist.hash.${uid} %]
+<div class="le"><a href="/unblack?id=$uid" title="Удалить автора из Черного Списка."><img src="/pic/icon/unblack.gif" width="13" height="13"  alt="" /> из ЧС</a></div>
+[% ELSE %]
+<div class="l"><a href="/black?id=$uid" title="Занести автора в Черный Список. Вы больше не увидите его тем и комментариев. Черный список контролируется в профайле.."><img src="/pic/icon/black.gif" width="13" height="13" alt=""  /> в ЧС</a></div>
+[% END %]
+[% END %]

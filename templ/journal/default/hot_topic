@@ -1,0 +1,27 @@
+<div class="topic_box">
+
+[% IF topic.topic_type=='event' AND topic.place_category_id!=8 %]
+
+<div style="padding-bottom: 5px">[% INCLUDE inc/event %]&nbsp;[% INCLUDE inc/user user=topic %]</div>
+[% INCLUDE journal/default/topic_image image_mode=1 %]
+<div style="padding-top: 5px">[% INCLUDE inc/topic_subject class="hot_topic" %]</div>
+[% IF topic.show_text %]<div class="short_text>[% IF topic.show_text==1 %][% topic.short_text | escape_subject %]&hellip;[% ELSE %][% topic.text | escape_subject %][% END %]</div>[% END %]
+[% INCLUDE inc/discuss %]
+[% IF topic.igos_counter %]<br style="clear:both"/><div style="padding-top: 8px" title="Сюда идёт жаждовцев: $topic.igos_counter">
+[% FOREACH c = [1..topic.igos_counter] %]<img src="/pic/icon/ug.png" width="10" height="11"/>[% END %]
+<span class="l"><a class="a" id="u" href="/igo_topic?topic_id=$topic.id">И я иду!</a></span>
+</div>[% END %]
+
+[% ELSE %]
+
+[% INCLUDE journal/default/topic_image image_mode=1 %]
+<div style="padding-top: 5px">[% INCLUDE inc/user user=topic %]</div>
+<div style="padding-top: 5px">[% INCLUDE inc/topic_subject class="hot_topic" %]</div>
+[% IF topic.show_text %]<div class="short_text>[% IF topic.show_text==1 %][% topic.short_text | escape_subject %]&hellip;[% ELSE %][% topic.text | escape_subject %][% END %]</div>[% END %]
+[% INCLUDE inc/discuss %]
+
+[% END %]
+
+</div>
+
+

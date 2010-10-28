@@ -1,0 +1,16 @@
+[% image_mode=topic.image_mode %]
+<div class="topic_date>[% topic.create_time | date_time %]</div>
+<div style="padding-bottom: 10px" >[% INCLUDE inc/user user=topic %] [% INCLUDE inc/topic_subject class="hot_topic" %]</div>
+<div style="float: left">[% INCLUDE journal/default/topic_image %]</div>
+
+[% IF topic.show_text==1 || topic.short_text %]<div class="short_text>
+[% topic.short_text | escape_text %]
+[% # тормозило на темах: 61414, 61408, 61406, 61402, 61401, 61400, 61381, 61379, 61366, 61355, 61344 topic.text | escape_short_text %]
+</div>
+<br/>
+[% END %]
+<div style="float: right">
+
+[% INCLUDE inc/discuss_hot details=1 %]
+</div>
+<br/>

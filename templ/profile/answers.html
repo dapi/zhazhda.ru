@@ -1,0 +1,57 @@
+[% USE HTML %]
+[% INCLUDE inc/header %]
+
+<div class="journal">
+
+<h1>Подписка на темы.</h1>
+[% class="s_topic" %]
+[% IF result.answers.all.size %]
+<h2 style="color: red">Личные ответы:</h2>
+[% PROCESS answers list = result.answers.all %]
+[% ELSE %]
+<div class="info" style="padding-top: 15px">Ответов нет.</div>
+[% END %]
+
+[% IF result.subscribe.all.size %]
+<h2 style="color: red; padding-top: 10px">Ответы по подписке:</h2>
+[% PROCESS answers list = result.subscribe.all %]
+[% ELSE %]
+<!--<div class="info" style="padding-top: 15px">Нет новостей по подписке.</div>-->
+[% END %]
+
+[% class="topic" %]
+[% IF result.topics.all.size %]
+<h2 style="color: gray; padding-top: 10px">Темы в подписке:</h2>
+[% PROCESS answers list = result.topics.all %]
+[% ELSE %]
+<div class="info">Нет тем в подписке.</div>
+[% END %]
+
+
+</div>
+
+[% INCLUDE inc/footer %]
+
+
+[% BLOCK answers %]
+
+<table   cellpadding="0" class="list" width="100%">
+[% FOREACH t = list %]
+[% t.list_mode=0 %]
+[% j = result.journals.${t.journal_id} %]
+<tr><td class="t1"  width="60%">
+<!--<div style="padding-bottom: 3px">[% INCLUDE inc/journal journal=j %]</div>-->
+[% INCLUDE inc/user user=t %]
+[% INCLUDE inc/topic_subject topic=t %]</td>
+<td class="t1" width="35%">[% INCLUDE inc/discuss topic=t %]</td>
+<td class="t1">
+[% IF t.is_subscribed %]
+<span class="l"><a href="/unsubscribe?id=$t.id" title="Не получать больше извещения об обновлении этой темы"><img   src="/pic/icon/unsubscribe.gif" width="14" height="14" /></a></span>
+[% ELSE %]
+<span class="l"><a href="/subscribe?id=$t.id" title="В этом случае вам будет сообщаться об обновлении темы"><img  src="/pic/icon/subscribe.gif" width="14" height="14" /></a></span>
+[% END %]
+</td>
+</tr>
+[% END %]
+</table>
+[% END %]

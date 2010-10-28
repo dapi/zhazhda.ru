@@ -1,0 +1,4 @@
+[% user_id = user.user_id || user.id %]
+<a href="/user/[% user.login | uri_escape %]/" title="Тем $user.topics, комментариев $user.comments"  class="u[% IF user.is_fotocor %]f[% END %][% IF context.online.ids.${user_id} %]online[% END %]">$user.login</a>
+[%# context.online.ids.${user_id} %]
+[% hidden=0 %]
