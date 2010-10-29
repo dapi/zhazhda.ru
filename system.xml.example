@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="koi8-r"?>
+<xml>
+  <subsystem name="nz">
+
+    <directories>
+      <topic>/usr/local/www/mirror/zhazhda/files/topics/</topic>
+      <user>/usr/local/www/mirror/zhazhda/files/users</user>
+      <root>/home/danil/projects/nz/</root>
+      <pic>pic/</pic>
+      <template>/home/danil/projects/nz/templ/</template>
+      <template_pda>/home/danil/projects/nz/templ/pda/</template_pda>
+      <template_org>/home/danil/projects/nz/templ/</template_org>
+    </directories>
+
+    <logger module="dpl::Log::Log4perl">
+      <config>/home/danil/projects/nz/logger.conf</config>
+    </logger>
+
+    <timezone>Europe/Moscow</timezone>
+
+    <databases>
+      <database user="???" password="???" type="sql" quote_tables="1">
+        <datasource Warn="1" AutoCommit="1" >DBI:Pg:dbname=nz</datasource>
+        <dev_datasource Warn="1" AutoCommit="1" >DBI:Pg:dbname=nz</dev_datasource>
+      </database>
+
+      <database name="banner" user="???" password="???" type="sql" quote_tables="1">
+        <datasource Warn="1" AutoCommit="1" >DBI:Pg:dbname=nz</datasource>
+        <dev_datasource Warn="1" AutoCommit="1" >DBI:Pg:dbname=nz</dev_datasource>
+      </database>
+    </databases>
+
+
+    <filters>
+      <filter name="char" handler="dpl::Db::Filter::char"/>
+      <filter name="ip" handler="dpl::Db::Filter::ip"/>
+      <filter name="numeric" handler="dpl::Db::Filter::numeric"/>
+      <filter name="boolean" handler="dpl::Db::Filter::boolean"/>
+      <filter name="boollog" handler="dpl::Db::Filter::boollog"/>
+
+      <filter name="serializer" handler="dpl::Db::Filter::serialize">
+        <portable>0</portable>
+        <serializer>Data::Dumper</serializer>
+        <compress>0</compress>
+      </filter>
+
+      <filter name="datetime" handler="dpl::Db::Filter::date">
+        <from_sql>
+          <input locale="ru_RU.KOI8-R" timezone="Europe/Moscow"/><!--   shift="+180" shift не учавствует GMT, потому что при преобразовании str2time оно устанавливается в GMT -->
+          <output locale="ru_RU.KOI8-R" timezone="Europe/Moscow">object</output> <!-- %e %B %H:%M -->
+        </from_sql>
+        <to_sql>
+          <input>object</input>
+          <output locale="ru_RU.KOI8-R" timezone="Europe/Moscow">%Y%m%d%H%M%S</output>
+        </to_sql>
+      </filter>
+
+      <filter name="date" handler="dpl::Db::Filter::date">
+        <from_sql>
+          <input  locale="ru_RU.KOI8-R" timezone="Europe/Moscow" shift="+180"/>
+          <output locale="ru_RU.KOI8-R" timezone="Europe/Moscow">object</output>
+        </from_sql>
+        <to_sql>
+          <input>object</input>
+          <output>%Y-%m-%d</output>
+        </to_sql>
+      </filter>
+
+      <filter name="ym" handler="dpl::Db::Filter::date">
+        <from_sql>
+          <input locale="C"/>
+          <output locale="ru_RU.KOI8-R">object</output>
+        </from_sql>
+        <to_sql>
+          <input>object</input>
+          <output locale="ru_RU.KOI8-R">%y%m</output>
+        </to_sql>
+      </filter>
+
+
+      <filter name="time" handler="dpl::Db::Filter::date">
+        <from_sql>
+          <input locale="C"/>
+          <output locale="ru_RU.KOI8-R">object</output>
+        </from_sql>
+        <to_sql>
+          <input>object</input>
+          <output locale="ru_RU.KOI8-R">%T</output>
+        </to_sql>
+      </filter>
+
+      <filter name="timestamp" handler="dpl::Db::Filter::date">
+        <from_sql>
+          <input locale="C"/>
+          <output locale="ru_RU.KOI8-R">object</output>
+        </from_sql>
+        <to_sql>
+          <input>object</input>
+          <output locale="ru_RU.KOI8-R">%Y-%m-%d %H:%M:%S</output>
+        </to_sql>
+      </filter>
+    </filters>
+
+    <tables>
+
+
+      <table name="filesholder_dir" table="filesholder_dir">
+        <attributes>
+          <id name="id" type="numeric" increment="auto"/>
+          <attr name="name"  type="char" length="255" />
+          <attr name="path"  type="char" length="255" />
+
+          <attr name="timestamp"  type="timestamp" />
+
+          <attr name="files"  type="numeric"/>
+          <attr name="subdirs"  type="numeric"/>
+
+          <attr name="parent_id"  type="numeric"/>
+        </attributes>
+        <order>parent_id, name</order>
+      </table>
+
+      <table name="filesholder_file" table="filesholder_file">
+        <attributes>
+          <id name="id" type="numeric" increment="auto"/>
+          <attr name="file" type="char" length="255" />
+          <attr name="timestamp"  type="timestamp" />
+          <attr name="comment" type="char"/>
+          <attr name="dir_id"  type="numeric"/>
+          <attr name="size"  type="numeric"/>
+        </attributes>
+        <order>dir_id, file</order>
+      </table>
+
+      <table name="videos" table="videos">
+        <attributes>
+          <id name="id" type="numeric" increment="auto"/>
+          <attr name="link" type="char" length="255" />
+          <attr name="timestamp"  type="timestamp" />
+          <attr name="video_type" type="char"/>
+          <attr name="video_id" type="char"/>
+          <attr name="title" type="char"/>
+          <attr name="local_link" type="char"/>
+          <attr name="video_id" type="char"/>
+          <attr name="topic_id" type="numeric"/>
+          <attr name="comment_id"  type="numeric"/>
+
+
+          <attr name="image_src" type="char"/>
+          <attr name="image_width" type="numeric"/>
+          <attr name="image_height"  type="numeric"/>
+
+        </attributes>
+        <order>timestamp</order>
+      </table>
+
+
+
+      <table name="click_counter">
+        <attributes>
+          <attr name="host" type="varchar"/>
+          <attr name="path" type="varchar"/>
+          <attr name="query" type="varchar"/>
+          <attr name="referer" type="varchar"/>
+          <attr name="counter" type="char" length="255" />
+          <attr name="first_time"  type="timestamp"/>
+          <attr name="last_time" type="timestamp"/>
+        </attributes>
+        <order>url</order>
+      </table>
+
+
+      <table name="fuser" table="fuser">
+        <attributes>
+          <id name="id" type="numeric" increment="auto"/>
+          <attr name="login"  type="char" length="50" />
+          <attr name="timestamp" type="timestamp"/>
+          <attr name="change_time" type="timestamp"/>
+          <attr name="password"  type="char" length="50" />
+          <attr name="auto_password"  type="char" length="50" />
+          <attr name="name"  type="char" length="255" />
+          <attr name="sign"  type="char" length="255" />
+          <attr name="email"  type="char" length="120" />
+          <attr name="session" type="char" length="32"/>
+          <attr name="sessiontime" type="timestamp"/>
+          <attr name="lasttime" type="timestamp"/>
+          <attr name="mobile_changed" type="timestamp"/>
+          <attr name="email_changed" type="timestamp"/>
+          <attr name="mobile_checked" type="timestamp"/>
+          <attr name="email_checked" type="timestamp"/>
+          <attr name="mobile_code" type="char"/>
+          <attr name="email_code" type="char"/>
+          <attr name="mobile_tries" type="numeric"/>
+          <attr name="email_tries" type="numeric"/>
+          <attr name="last_ip" type="char"/>
+          <attr name="sign_ip" type="char"/>
+
+          <attr name="show_private" type="boolean"/>
+
+          <attr name="use_smile" type="boolean"/>
+          <attr name="autoplay" type="boolean"/>
+          <attr name="is_logged" type="boolean"/>
+          <attr name="is_admin" type="boolean"/>
+          <attr name="is_advisor" type="boolean"/>
+        </attributes>
+        <order>level desc, id</order>
+      </table>
+
+      <table name="city" table="city">
+        <attributes>
+          <id name="id" type="numeric" increment="auto"/>
+          <attr name="name" type="char"/>
+        </attributes>
+        <order>id</order>
+      </table>
+
+      <table name="topic_category" table="topic_category">
+        <attributes>
+          <id name="id" type="numeric" increment="auto"/>
+          <attr name="journal_id" type="numeric"/>
+          <attr name="name" type="char"/>
+          <attr name="description" type="char"/>
+        </attributes>
+        <order>id</order>
+      </table>
+
+      <table name="journal_issue" table="journal_issue">
+        <attributes>
+          <id name="id" type="numeric" increment="auto"/>
+          <attr name="journal_id" type="numeric"/>
+          <attr name="title" type="char"/>
+          <attr name="number" type="numeric"/>
+          <attr name="timestamp" type="timestamp"/>
+          <attr name="description" type="char"/>
+        </attributes>
+        <order>number desc</order>
+      </table>
+
+
+      <table name="friends" table="friends">
+        <attributes>
+          <attr name="user_id" type="numeric"/>
+          <attr name="friend_id" type="numeric"/>
+          <attr name="comment" type="char"/>
+          <attr name="timestamp" type="timestamp"/>
+        </attributes>
+      </table>
+
+      <table name="blacks" table="blacks">
+        <attributes>
+          <attr name="user_id" type="numeric"/>
+          <attr name="black_id" type="numeric"/>
+          <attr name="comment" type="char"/>
+          <attr name="timestamp" type="timestamp"/>
+        </attributes>
+      </table>
+
+
+
+      <table name="place" table="place">
+        <attributes>
+          <id name="id" type="numeric" increment="auto"/>
+          <attr name="name"  type="char" length="255" />
+          <attr name="address" type="char"/>
+          <attr name="comment" type="char"/>
+          <attr name="is_moderated" type="boolean"/>
+        </attributes>
+        <order>is_moderated, name, id</order>
+      </table>
+
+
+      <table name="place_category" table="place_category">
+        <attributes>
+          <id name="id" type="numeric" increment="auto"/>
+          <attr name="name"  type="char" length="255" />
+        </attributes>
+        <order>id</order>
+      </table>
+
+
+
+      <table name="journal" table="journal">
+        <attributes>
+          <id name="id" type="numeric" increment="auto"/>
+          <attr name="name" type="char"/>
+          <attr name="link" type="char"/>
+        </attributes>
+        <order>list_order</order>
+      </table>
+
+      <table name="topic_views" table="topic_views">
+        <attributes>
+          <attr name="user_id"  type="numeric" />
+          <attr name="topic_id"  type="numeric" />
+          <attr name="is_subscribed" type="boolean"/>
+        </attributes>
+      </table>
+
+
+      <table name="topic" table="topic">
+        <attributes>
+          <id name="id" type="numeric" increment="auto"/>
+          <attr name="timestamp" type="timestamp"/>
+          <attr name="journal_id"  type="numeric" />
+          <attr name="upload_access"  type="numeric" />
+
+          <attr name="subject"  type="char" length="50" />
+          <attr name="text" type="char"/>
+          <attr name="escaped_text" type="char"/>
+          <attr name="short_text" type="char" length="255"/>
+          <attr name="is_on_top" type="boolean"/>
+	  <attr name="has_igo" type="boolean"/>
+	  <attr name="videos_looked" type="boolean"/>
+	  <attr name="igos_counter" type="numeric"/>
+
+          <attr name="is_vote_open" type="boolean"/>
+          <attr name="user_id" type="numeric"/>
+        </attributes>
+      </table>
+
+      <table name="journal_topic" table="journal_topic">
+        <attributes>
+          <attr name="journal_id"  type="numeric" />
+          <attr name="topic_id"  type="numeric" />
+          <attr name="timestamp" type="timestamp"/>
+          <attr name="sticky_date" type="date"/>
+          <attr name="is_on_top" type="boolean"/>
+          <attr name="is_owner" type="boolean"/>
+          <attr name="is_red" type="boolean"/>
+          <attr name="is_bold" type="boolean"/>
+          <attr name="is_sticky" type="boolean"/>
+          <attr name="show_text" type="boolean"/>
+        </attributes>
+      </table>
+
+
+      <table name="topic_vote" table="topic_vote">
+        <attributes>
+          <id name="id" type="numeric"/>
+          <attr name="topic_id"  type="numeric" />
+          <attr name="name"  type="char" length="255" />
+          <attr name="comment" type="char"/>
+          <attr name="votes" type="numeric"/>
+        </attributes>
+        <order>id</order>
+      </table>
+
+      <table name="comment" table="comment">
+        <attributes>
+          <id name="id" type="numeric" increment="auto"/>
+          <attr name="create_time" type="timestamp"/>
+          <attr name="change_time" type="timestamp"/>
+          <attr name="topic_id"  type="numeric" />
+          <attr name="parent_id"  type="numeric" />
+          <attr name="text" type="char"/>
+          <attr name="user_id" type="numeric"/>
+          <attr name="parent_user_id" type="numeric"/>
+        </attributes>
+        <order>create_time desc</order>
+      </table>
+
+
+    </tables>
+
+
+
+    <user>
+      <access name="admin">
+        <user_attribute name="is_admin">1</user_attribute>
+      </access>
+      <access name="moderator">
+        <user_attribute name="is_admin">1</user_attribute>
+      </access>
+      <access name="show_private">
+        <user_attribute name="is_admin">1</user_attribute>
+      </access>
+      <access name="gallery">
+        <user_attribute name="is_admin">1</user_attribute>
+        <user_attribute name="is_fotocor">1</user_attribute>
+        <user_attribute name="login">voviki</user_attribute>
+        <user_attribute name="login">dapi</user_attribute>
+        <user_attribute name="login">Deux</user_attribute>
+        <user_attribute name="login">Lyalya</user_attribute>
+      </access>
+      <access name="banner">
+        <user_attribute name="banners_limit">true</user_attribute>
+        <user_attribute name="is_admin">1</user_attribute>
+        <user_attribute name="is_advisor">1</user_attribute>
+      </access>
+      <access name="banner_admin">
+        <user_attribute name="is_admin">1</user_attribute>
+        <user_attribute name="is_advisor">1</user_attribute>
+      </access>
+      <access name="advisor">
+        <user_attribute name="is_admin">1</user_attribute>
+        <user_attribute name="is_advisor">1</user_attribute>
+      </access>
+      <access name="files">
+        <user_attribute name="login">dapi</user_attribute>
+      </access>
+
+    </user>
+
+
+
+    <sites class="nz::Site">
+      <site default="1" home="http://www.zhazhda.ru/"/>
+      <site home="http://n.zhazhda.ru/"/>
+      <site home="http://apacheperl.orionet.ru:8001/nz/"/>
+      <site home="http://test.zhazhda.ru/"/>
+      <site home="http://zhazhda.orionet.ru/"/>
+      <site name="pda" home="http://pda.zhazhda.ru/"/>
+      <site name="pda" home="http://pda.zhazhda.dapi/"/>
+      <site name="pda" home="http://www.pda.zhazhda.ru/"/>
+      <site home="http://zhazhda.dapi/"/>
+      <site home="http://new.zhazhda.ru/"/>
+      <site home="http://zhazhda.ru/"/>
+      <site home="http://nz.zhazhda.ru/"/>
+      <site home="http://nz.dapi/"/>
+      <site home="http://drugoisport.ru/"/>
+      <site home="http://www.drugoisport.ru/"/>
+    </sites>
+
+
+
+    <site>
+      <folder path="pic/" template="DECLINE"/>
+      <folder path="js/" template="DECLINE"/>
+      <folder path="css/" template="DECLINE"/>
+<!--      <page path="" processor="home" template="home"/>-->
+
+      <page path="forget" processor="login" action="forget" template="no_login"/>
+      <page path="login" processor="login" action="login" template="global_redirect"/>
+      <page path="logout" processor="login" action="logout" template="global_redirect"/>
+      <page path="sign" processor="login" action="sign" template="sign"/>
+      <page path="sign/" processor="login" action="sign" template="sign"/>
+      
+      <page path="show_login" processor="user" action="show_login" template="show_login"/>
+
+      <page path="sub" processor="home" action="sub" template="subscribe"/>
+
+
+      <page path="reklama" processor="ad" template="ad"/>
+      <page path="reklama/" processor="ad" template="ad"/>
+
+      <page path="stats/" processor="home" action="stats" template="stats"/>
+      <page path="stats/click/" processor="home" action="stats_click" template="stats_click"/>
+
+      <page path="places" action="places" processor="home" template="places"/>
+      <page path="places/" action="places"  processor="home" template="places"/>
+
+      <page path="places/edit_form" access="places" action="edit_place_form"  processor="home" template="edit_place"/>
+      <page path="places/edit" access="places" action="edit_place"  processor="home" template="redirect"/>
+      <page path="places/delete" access="places" action="delete_place"  processor="home" template="delete_place"/>
+
+      <page path="edit_user" access="admin" action="edit_user" processor="home" template="redirect"/>
+
+      <page path="json/get_topic" action="json_get_topic" processor="home" template="json"/>
+
+      <page path="ad" processor="ad" template="ad"/>
+      <page path="ad/" processor="ad" template="ad"/>
+      <page path="ad/create_dir" processor="ad" action="create_dir" template="redirect"/>
+      <page path="ad/load_file" processor="ad" action="load_file" template="redirect"/>
+
+
+      <page path="draft/" access="*" processor="login" action="draft" template="draft"/>
+
+      <page path="profile/edit_form" access="*" processor="login" action="edit_form" template="edit_profile"/>
+      <page path="profile/change_password" access="*" processor="login" action="change_password" template="change_password"/>
+      <page path="profile/edit" access="*" processor="login" action="edit" template="redirect"/>
+      
+      <page path="sms/" access="*" processor="login" action="sms" template="sms"/>
+      <page path="sms/edit" access="*" processor="login" action="sms_edit" template="redirect"/>
+	    
+      <page path="profile/" access="*" processor="login" action="profile" template="profile"/>
+      <page path="profile/load_avatar" access="*" processor="login" action="load_avatar" template="redirect"/>
+      <page path="profile/mobile_code" access="*" processor="login" action="mobile_code" template="profile"/>
+      <page path="profile/sms" access="*" processor="login" action="send_mobile" template="profile"/>
+      <page path="profile/set_city" access="*" processor="login" action="set_city" template="redirect"/>
+
+      <page path="my_journals/" access="*" processor="login" action="my_journals" template="my_journals"/>
+
+      <!-- общая страница переписки -->
+      <page path="mail/" access="*" processor="mail" action="mail" template="mail"/>
+
+      <page path="mail_post" access="*" processor="mail" action="post" template="redirect"/>
+
+      <!-- переписка с кем-то /mail/dapi/ к примеру -->
+<!--      <folder path="mail/" access="*" processor="mail" action="exchange" template="exchange"/>-->
+
+      <folder path="user/" processor="user" action="home" template="user_home"/>
+      <folder path="avatar/" processor="user" action="avatar" template="avatar"/>
+
+      <page path="rating" access="*" processor="journal" action="rating" template="ajax_rating"/>
+      <page path="load_file" access="*" processor="journal" action="load_file" template="redirect"/>
+      <page path="add_comment" access="*" processor="journal" action="add_comment" template="redirect"/>
+      <page path="do_vote" access="*" processor="journal" action="do_vote" template="redirect"/>
+      <page path="load_file" access="*" processor="journal" action="load_file" template="redirect"/>
+
+      <page path="edit_topic_form" access="*" processor="journal" action="edit_topic_form" template="edit_topic"/>
+      <page path="edit_topic" access="*" processor="journal" action="edit_topic" template="redirect"/>
+      <page path="topic_to_draft" access="*" processor="journal" action="topic_to_draft" template="redirect"/>
+      <page path="rate_topic" access="*" processor="journal" action="rate_topic" template="redirect"/>
+      <page path="igo_topic" processor="journal" action="igo_topic" template="redirect"/>
+      <page path="igo_topic_no" access="*" processor="journal" action="igo_topic_no" template="redirect"/>
+      <page path="publish_topic" access="*" processor="journal" action="publish_topic" template="redirect"/>
+
+      <page path="change_charset" access="*" processor="journal" action="change_charset" template="redirect"/>
+      <page path="edit_journal_form" access="*" processor="journal" action="edit_journal_form" template="edit_journal"/>
+      <page path="edit_journal" access="*" processor="journal" action="edit_journal" template="redirect"/>
+      <page path="members" access="*" processor="journal" action="members" template="journal_members"/>
+      <page path="add_member" access="*" processor="journal" action="add_member" template="redirect"/>
+      <page path="del_member" access="*" processor="journal" action="del_member" template="redirect"/>
+
+      <page path="mark_as_read" access="*" processor="journal" action="mark_as_read" template="redirect"/>
+
+      <page path="new_topic" access="*" processor="journal" action="new_topic" template="new_topic"/>
+      <page path="post_topic" access="*" processor="journal" action="post_topic" template="redirect"/>
+
+      <page path="answers/" access="*" processor="login" action="answers" template="answers"/>
+      <page path="answers/archive" access="*" processor="login" action="answers_archive" template="answers_archive"/>
+
+      <page path="change_topic_status" access="*" processor="journal" action="change_topic_status" template="redirect"/>
+      <page path="topic_image" access="*" processor="journal" action="topic_image" template="redirect"/>
+      <page path="delete_topic" access="*" processor="journal" action="delete_topic" template="redirect"/>
+      <page path="delete_comment" access="*" processor="journal" action="delete_comment" template="redirect"/>
+      <page path="edit_comment" access="*" processor="journal" action="edit_comment" template="redirect"/>
+
+      <page path="black" access="*" processor="login" action="black" template="global_redirect"/>
+      <page path="unblack" access="*" processor="login" action="unblack" template="global_redirect"/>
+
+      <page path="subscribe" access="*" processor="journal" action="subscribe" template="redirect"/>
+      <page path="unsubscribe" access="*" processor="journal" action="unsubscribe" template="redirect"/>
+
+      <folder path="topics/" processor="journal" action="show_topic" template="show_topic"/>
+
+
+      <page path="journals/" processor="home" action="list_journals" template="list_journals"/>
+
+      <page path="go_journal" processor="home" action="go_journal" template="global_redirect"/>
+
+      <page path="gallery/" processor="home" action="gallery" template="gallery"/>
+
+      
+      <page path="users/" processor="home" action="users" template="users"/>
+      <page path="users/q" processor="home" action="users_ajax" template="users_ajax"/>
+      <page path="moderate/" processor="home" action="moderate" template="moderate"/>
+      <page path="events.atom" processor="home" action="events_atom" template="events_atom"/>
+
+      <folder path="holder/" processor="files" action="show_file" template="show_file"/>
+
+      <page path="put_gallery" processor="files" access="gallery" action="put_gallery" template="redirect"/>
+      <page path="remove_gallery"  processor="files" access="gallery" action="remove_gallery" template="redirect"/>
+
+      <page path="set_moderated" processor="files" access="gallery" action="set_moderated" template="redirect"/>
+      <page path="remove_moderated"  processor="files" access="gallery" action="remove_moderated" template="redirect"/>
+
+      <page path="podcast/" processor="journal" action="podcast" template="podcast"/>
+<!--      <page path="video/" processor="journal" action="video" template="video"/>-->
+      <page path="podcast/rss.xml" processor="journal" action="podcast_rss" template="podcast_rss"/>
+      
+
+      <page path="remove_file"  processor="files" access="*" action="remove_file" template="redirect"/>
+      <page path="edit_file"  processor="files" access="*" action="edit_file" template="edit_file"/>
+      <page path="edit_file_post"  processor="files" access="*" action="edit_file_post" template="redirect"/>
+
+
+      <page path="banners/" access="banner" processor="banner" template="banners"/>
+      <page path="banners/view" action="view" processor="banner" template="view_banner"/>
+      <page path="banners/upload" access="banner" action="upload" processor="banner" template="redirect"/>
+      <page path="banners/del" access="banner" action="del" processor="banner" template="redirect"/>
+      <page path="banners/activate" access="banner" action="activate" processor="banner" template="redirect"/>
+      <page path="banners/deactivate" access="banner" action="deactivate" processor="banner" template="redirect"/>
+
+      <page path="redir" action="redir" processor="home" template="global_redirect"/>
+
+      <page path="archive/" action="archive" processor="journal" template="archive"/>
+
+      <!-- ищет журнал и меняет action -->
+      <folder path="" container="journal" action="show_journal" template="show_journal"/>
+    </site>
+
+
+    <site name="pda">
+      <folder path="pic/" template="DECLINE"/>
+      <folder path="js/" template="DECLINE"/>
+      <folder path="css/" template="DECLINE"/>
+<!--      <page path="" processor="home" template="home"/>-->
+
+      <page path="forget" processor="login" action="forget" template="no_login"/>
+      <page path="login" processor="login" action="login" template="global_redirect"/>
+      <page path="logout" processor="login" action="logout" template="global_redirect"/>
+      <page path="sign" processor="login" action="sign" template="sign"/>
+      <page path="sign/" processor="login" action="sign" template="sign"/>
+
+      <page path="sub" processor="home" action="sub" template="subscribe"/>
+
+
+      <page path="reklama" processor="ad" template="ad"/>
+      <page path="reklama/" processor="ad" template="ad"/>
+
+      <page path="stats/" processor="home" action="stats" template="stats"/>
+      <page path="stats/click/" processor="home" action="stats_click" template="stats_click"/>
+
+      <page path="places" action="places" processor="home" template="places"/>
+      <page path="places/" action="places"  processor="home" template="places"/>
+
+      <page path="places/edit_form" access="places" action="edit_place_form"  processor="home" template="edit_place"/>
+      <page path="places/edit" access="places" action="edit_place"  processor="home" template="redirect"/>
+      <page path="places/delete" access="places" action="delete_place"  processor="home" template="delete_place"/>
+
+      <page path="edit_user" access="admin" action="edit_user" processor="home" template="redirect"/>
+
+      <page path="json/get_topic" action="json_get_topic" processor="home" template="json"/>
+
+      <page path="ad" processor="ad" template="ad"/>
+      <page path="ad/" processor="ad" template="ad"/>
+      <page path="ad/create_dir" processor="ad" action="create_dir" template="redirect"/>
+      <page path="ad/load_file" processor="ad" action="load_file" template="redirect"/>
+
+
+      <page path="draft/" access="*" processor="login" action="draft" template="draft"/>
+
+      <page path="profile/edit_form" access="*" processor="login" action="edit_form" template="edit_profile"/>
+      <page path="profile/change_password" access="*" processor="login" action="change_password" template="change_password"/>
+      <page path="profile/edit" access="*" processor="login" action="edit" template="redirect"/>
+      <page path="profile/" access="*" processor="login" action="profile" template="profile"/>
+      <page path="profile/load_avatar" access="*" processor="login" action="load_avatar" template="redirect"/>
+      <page path="profile/mobile_code" access="*" processor="login" action="mobile_code" template="profile"/>
+      <page path="profile/sms" access="*" processor="login" action="send_mobile" template="profile"/>
+      <page path="profile/set_city" access="*" processor="login" action="set_city" template="redirect"/>
+
+      <page path="my_journals/" access="*" processor="login" action="my_journals" template="my_journals"/>
+
+      <!-- общая страница переписки -->
+      <page path="mail/" access="*" processor="mail" action="mail" template="mail"/>
+
+      <page path="mail_post" access="*" processor="mail" action="post" template="redirect"/>
+
+      <!-- переписка с кем-то /mail/dapi/ к примеру -->
+<!--      <folder path="mail/" access="*" processor="mail" action="exchange" template="exchange"/>-->
+
+      <folder path="user/" processor="user" action="home" template="user_home"/>
+      <folder path="avatar/" processor="user" action="avatar" template="avatar"/>
+
+      <page path="rating" access="*" processor="journal" action="rating" template="ajax_rating"/>
+      <page path="load_file" access="*" processor="journal" action="load_file" template="redirect"/>
+      <page path="add_comment" access="*" processor="journal" action="add_comment" template="redirect"/>
+      <page path="do_vote" access="*" processor="journal" action="do_vote" template="redirect"/>
+      <page path="load_file" access="*" processor="journal" action="load_file" template="redirect"/>
+
+      <page path="edit_topic_form" access="*" processor="journal" action="edit_topic_form" template="edit_topic"/>
+      <page path="edit_topic" access="*" processor="journal" action="edit_topic" template="redirect"/>
+      <page path="topic_to_draft" access="*" processor="journal" action="topic_to_draft" template="redirect"/>
+      <page path="rate_topic" access="*" processor="journal" action="rate_topic" template="redirect"/>
+      <page path="publish_topic" access="*" processor="journal" action="publish_topic" template="redirect"/>
+
+      <page path="change_charset" access="*" processor="journal" action="change_charset" template="redirect"/>
+      <page path="edit_journal_form" access="*" processor="journal" action="edit_journal_form" template="edit_journal"/>
+      <page path="edit_journal" access="*" processor="journal" action="edit_journal" template="redirect"/>
+      <page path="members" access="*" processor="journal" action="members" template="journal_members"/>
+      <page path="add_member" access="*" processor="journal" action="add_member" template="redirect"/>
+      <page path="del_member" access="*" processor="journal" action="del_member" template="redirect"/>
+
+      <page path="mark_as_read" access="*" processor="journal" action="mark_as_read" template="redirect"/>
+
+      <page path="new_topic" access="*" processor="journal" action="new_topic" template="new_topic"/>
+      <page path="post_topic" access="*" processor="journal" action="post_topic" template="redirect"/>
+
+      <page path="answers/" access="*" processor="login" action="answers" template="answers"/>
+      <page path="answers/archive" access="*" processor="login" action="answers_archive" template="answers_archive"/>
+
+      <page path="change_topic_status" access="*" processor="journal" action="change_topic_status" template="redirect"/>
+      <page path="topic_image" access="*" processor="journal" action="topic_image" template="redirect"/>
+      <page path="delete_topic" access="*" processor="journal" action="delete_topic" template="redirect"/>
+      <page path="delete_comment" access="*" processor="journal" action="delete_comment" template="redirect"/>
+      <page path="edit_comment" access="*" processor="journal" action="edit_comment" template="redirect"/>
+
+      <page path="black" access="*" processor="login" action="black" template="global_redirect"/>
+      <page path="unblack" access="*" processor="login" action="unblack" template="global_redirect"/>
+
+      <page path="subscribe" access="*" processor="journal" action="subscribe" template="redirect"/>
+      <page path="unsubscribe" access="*" processor="journal" action="unsubscribe" template="redirect"/>
+
+      <folder path="topics/" processor="journal" action="show_topic" template="show_topic"/>
+
+
+      <page path="journals/" processor="home" action="list_journals" template="list_journals"/>
+
+      <page path="go_journal" processor="home" action="go_journal" template="global_redirect"/>
+
+      <page path="gallery/" processor="home" action="gallery" template="gallery"/>
+
+      
+      <page path="users/" processor="home" action="users" template="users"/>
+      <page path="users/q" processor="home" action="users_ajax" template="users_ajax"/>
+      <page path="moderate/" processor="home" action="moderate" template="moderate"/>
+
+      <folder path="holder/" processor="files" action="show_file" template="show_file"/>
+
+      <page path="put_gallery" processor="files" access="gallery" action="put_gallery" template="redirect"/>
+      <page path="remove_gallery"  processor="files" access="gallery" action="remove_gallery" template="redirect"/>
+
+      <page path="set_moderated" processor="files" access="gallery" action="set_moderated" template="redirect"/>
+      <page path="remove_moderated"  processor="files" access="gallery" action="remove_moderated" template="redirect"/>
+
+      <page path="podcast/" processor="journal" action="podcast" template="podcast"/>
+      <page path="podcast/rss.xml" processor="journal" action="podcast_rss" template="podcast_rss"/>
+
+      <page path="remove_file"  processor="files" access="*" action="remove_file" template="redirect"/>
+      <page path="edit_file"  processor="files" access="*" action="edit_file" template="edit_file"/>
+      <page path="edit_file_post"  processor="files" access="*" action="edit_file_post" template="redirect"/>
+
+
+      <page path="banners/" access="banner" processor="banner" template="banners"/>
+      <page path="banners/view" action="view" processor="banner" template="view_banner"/>
+      <page path="banners/upload" access="banner" action="upload" processor="banner" template="redirect"/>
+      <page path="banners/del" access="banner" action="del" processor="banner" template="redirect"/>
+      <page path="banners/activate" access="banner" action="activate" processor="banner" template="redirect"/>
+      <page path="banners/deactivate" access="banner" action="deactivate" processor="banner" template="redirect"/>
+
+      <page path="redir" action="redir" processor="home" template="global_redirect"/>
+
+      <page path="archive/" action="archive" processor="journal" template="archive"/>
+
+      <!-- ищет журнал и меняет action -->
+      <folder path="" container="journal" action="show_journal" template="show_journal"/>
+    </site>
+
+
+    <processors>
+      <processor name="banner" class="nz::Banner"/>
+      <processor name="home" class="nz::Home"/>
+      <processor name="files" class="nz::Files"/>
+      <processor name="ad" class="nz::Ad"/>
+      <processor name="user" class="nz::User"/>
+      <processor name="mail" class="nz::Mail"/>
+      <processor name="drugoi" class="nz::Journal::Drugoi"/>
+      <processor name="journal" class="nz::Journal::Default"/>
+      <processor name="afisha" class="nz::Journal::Afisha"/>
+      <processor name="foto" class="nz::Journal::Foto"/>
+      <processor name="video" class="nz::Journal::Video"/>
+      <processor name="awards" class="nz::Journal::Awards"/>
+      <processor name="login" class="dpl::Web::Forum::Processor::Login"/>
+    </processors>
+
+    <processors site="pda">
+      <processor name="home" class="nz::Home"/>
+      <processor name="files" class="nz::Files"/>
+      <processor name="ad" class="nz::Ad"/>
+      <processor name="user" class="nz::User"/>
+      <processor name="mail" class="nz::Mail"/>
+      <processor name="journal" class="nz::Journal::Default"/>
+      <processor name="login" class="dpl::Web::Forum::Processor::Login"/>
+    </processors>
+
+
+    <templates>
+      <mail name="forgotten" view="tt2"><file>mail/forgotten.txt</file></mail>
+
+      <template name="ajax_rating"  view="tt2" cache="0" maxage="0"><file>ajax_rating.html</file></template>
+      <template name="json"  view="tt2" cache="0" maxage="0"><file>json.html</file></template>
+
+      <template name="check_referer"  view="tt2" cache="0" maxage="0"><file>check_referer.html</file></template>
+
+      <template name="subscribe"  view="tt2" cache="0" maxage="0"><file>subscribe.html</file></template>
+<!--      <template name="video"  view="tt2" cache="0" maxage="0"><file>journal/default/video.html</file></template>-->
+      <template name="podcast"  view="tt2" cache="0" maxage="0"><file>journal/default/podcast.html</file></template>
+      <template name="afisha"  view="tt2" cache="0" maxage="0"><file>afisha.html</file></template>
+      <template name="podcast_rss"  view="tt2.xml" cache="0" maxage="0"><file>podcast_rss.xml</file></template>
+        <template name="events_atom"  view="tt2.xml" cache="0" maxage="0"><file>events.atom</file></template>
+        <template name="feed_rss"  view="tt2.xml" cache="0" maxage="0"><file>feed_rss.xml</file></template>
+      <template name="view_banner"  view="tt2" cache="0" maxage="0"><file>banners/view.html</file></template>
+      <template name="banners"  view="tt2" cache="0" maxage="0"><file>banners/list.html</file></template>
+      <template name="banners_archive"  view="tt2" cache="0" maxage="0"><file>banners/archive.html</file></template>
+
+      <template name="edit_place"  view="tt2" cache="0" maxage="0"><file>edit_place.html</file></template>
+      <template name="delete_place"  view="tt2" cache="0" maxage="0"><file>delete_place.html</file></template>
+
+      <template name="places"  view="tt2" cache="0" maxage="0"><file>places.html</file></template>
+
+      <template name="ad"  view="tt2" cache="0" maxage="0"><file>ad.html</file></template>
+      <template name="partner"  view="tt2" cache="0" maxage="0"><file>partner.html</file></template>
+
+      <template name="home"  view="tt2" cache="0" maxage="0"><file>home.html</file></template>
+      <template name="splash"  view="tt2" cache="0" maxage="0"><file>splash.html</file></template>
+      <template name="stats"  view="tt2" cache="0" maxage="0"><file>stats.html</file></template>
+      <template name="stats_click"  view="tt2" cache="0" maxage="0"><file>stats_click.html</file></template>
+      <template name="gallery"  view="tt2" cache="0" maxage="0"><file>gallery.html</file></template>
+      <template name="foto"  view="tt2" cache="0" maxage="0"><file>foto.html</file></template>
+      <template name="users"  view="tt2" cache="0" maxage="0"><file>users.html</file></template>
+      <template name="users_ajax"  view="tt2t" cache="0" maxage="0"><file>users_ajax.html</file></template>
+      <template name="moderate"  view="tt2" cache="0" maxage="0"><file>moderate.html</file></template>
+
+      <template name="edit_profile"  view="tt2" cache="0" maxage="0"><file>profile/edit.html</file></template>
+      <template name="answers"  view="tt2" cache="0" maxage="0"><file>profile/answers.html</file></template>
+      <template name="answers_archive"  view="tt2" cache="0" maxage="0"><file>profile/answers_archive.html</file></template>
+      <template name="profile"  view="tt2" cache="0" maxage="0"><file>profile/profile.html</file></template>
+      <template name="sms"  view="tt2" cache="0" maxage="0"><file>profile/sms.html</file></template>
+      <template name="change_password"  view="tt2" cache="0" maxage="0"><file>profile/change_password.html</file></template>
+      <template name="draft"  view="tt2" cache="0" maxage="0"><file>profile/draft.html</file></template>
+
+      <template name="user_home"  view="tt2" cache="0" maxage="0"><file>user/home.html</file></template>
+      <template name="user_profile"  view="tt2" cache="0" maxage="0"><file>user/profile.html</file></template>
+      <template name="user_podcast"  view="tt2" cache="0" maxage="0"><file>user/podcast.html</file></template>
+      <template name="user_foto"  view="tt2" cache="0" maxage="0"><file>user/foto.html</file></template>
+      <template name="avatar"  view="tt2" cache="0" maxage="0"><file>user/avatar.html</file></template>
+      <template name="mobile_code"  view="tt2" cache="0" maxage="0"><file>profile/mobile_code.html</file></template>
+
+      <template name="sign"  view="tt2" cache="0" maxage="0"><file>sign.html</file></template>
+      <template name="show_login"  view="tt2" cache="0" maxage="0"><file>show_login.html</file></template>
+      <template name="no_access"  view="tt2" cache="0" maxage="0"><file>no_access.html</file></template>
+      <template name="no_login"  view="tt2" cache="0" maxage="0"><file>no_login.html</file></template>
+      <template name="signed"  view="tt2" cache="0" maxage="0"><file>signed.html</file></template>
+
+      <template name="show_file"  view="tt2" cache="0" maxage="0"><file>journal/default/show_file.html</file></template>
+      <template name="edit_file"  view="tt2" cache="0" maxage="0"><file>journal/default/edit_file.html</file></template>
+      <template name="new_topic"  view="tt2" cache="0" maxage="0"><file>journal/default/new_topic.html</file></template>
+      <template name="show_topic"  view="tt2" cache="0" maxage="0"><file>journal/default/show_topic.html</file></template>
+      <template name="show_draft_topic"  view="tt2" cache="0" maxage="0"><file>journal/default/show_draft_topic.html</file></template>
+      <template name="edit_topic"  view="tt2" cache="0" maxage="0"><file>journal/default/edit_topic.html</file></template>
+      <template name="edit_event"  view="tt2" cache="0" maxage="0"><file>journal/default/edit_event.html</file></template>
+      <template name="topic_journal_settings"  view="tt2" cache="0" maxage="0"><file>journal/default/topic_journal_settings.html</file></template>
+
+      <template name="move_topic"  view="tt2" cache="0" maxage="0"><file>journal/default/move_topic.html</file></template>
+
+      <template name="show_journal"  view="tt2" cache="0" maxage="0"><file>journal/default/show_journal.html</file></template>
+      <template name="archive"  view="tt2" cache="0" maxage="0"><file>journal/default/archive.html</file></template>
+      <template name="edit_journal"  view="tt2" cache="0" maxage="0"><file>journal/default/edit_journal.html</file></template>
+
+      <template name="journal_members"  view="tt2" cache="0" maxage="0"><file>journal/default/journal_members.html</file></template>
+
+      <template name="list_journals"  view="tt2" cache="0" maxage="0"><file>list_journals.html</file></template>
+
+
+      <template name="mail"  view="tt2" cache="0" maxage="0"><file>user/mail.html</file></template>
+      <template name="exchange"  view="tt2" cache="0" maxage="0"><file>user/exchange.html</file></template>
+
+      <template name="my_journals"  view="tt2" cache="0" maxage="0"><file>profile/my_journals.html</file></template>
+
+      <!-- iframe с сообщениями -->
+      <template name="messages"  view="tt2" cache="0" maxage="0"><file>user/messages.html</file></template>
+
+      <template name="error"  view="tt2" cache="0" maxage="0"><file>error.html</file></template>
+<!--      <template name="redirect" view="internal" code="REDIRECT">${uri:home}${result}</template>-->
+      <template name="redirect" view="internal" code="REDIRECT">${result}</template>
+      <template name="global_redirect" view="internal" code="REDIRECT">${result}</template>
+      <template name="file"     type="file">${result}|/tmp/file.tmp</template>
+      <template name="NOT_FOUND" code="404" view="tt2"><file>notfound.html</file></template>
+      <template name="DECLINE" code="DECLINE"/>
+    </templates>
+
+
+
+    <templates site="pda">
+      <mail name="forgotten" view="tt2"><file>mail/forgotten.txt</file></mail>
+
+      <template name="ajax_rating"  view="tt2" cache="0" maxage="0"><file>ajax_rating.html</file></template>
+      <template name="json"  view="tt2" cache="0" maxage="0"><file>json.html</file></template>
+
+      <template name="check_referer"  view="tt2" cache="0" maxage="0"><file>check_referer.html</file></template>
+
+      <template name="subscribe"  view="tt2" cache="0" maxage="0"><file>subscribe.html</file></template>
+      <template name="podcast"  view="tt2" cache="0" maxage="0"><file>journal/default/podcast.html</file></template>
+      <template name="afisha"  view="tt2" cache="0" maxage="0"><file>afisha.html</file></template>
+      <template name="podcast_rss"  view="tt2.xml" cache="0" maxage="0"><file>podcast_rss.xml</file></template>
+      <template name="feed_rss"  view="tt2.xml" cache="0" maxage="0"><file>feed_rss.xml</file></template>
+      <template name="view_banner"  view="tt2" cache="0" maxage="0"><file>banners/view.html</file></template>
+      <template name="banners"  view="tt2" cache="0" maxage="0"><file>banners/list.html</file></template>
+      <template name="banners_archive"  view="tt2" cache="0" maxage="0"><file>banners/archive.html</file></template>
+
+      <template name="edit_place"  view="tt2" cache="0" maxage="0"><file>edit_place.html</file></template>
+      <template name="delete_place"  view="tt2" cache="0" maxage="0"><file>delete_place.html</file></template>
+
+      <template name="places"  view="tt2" cache="0" maxage="0"><file>places.html</file></template>
+
+      <template name="ad"  view="tt2" cache="0" maxage="0"><file>ad.html</file></template>
+      <template name="partner"  view="tt2" cache="0" maxage="0"><file>partner.html</file></template>
+
+      <template name="home"  view="tt2" cache="0" maxage="0"><file>home.html</file></template>
+      <template name="stats"  view="tt2" cache="0" maxage="0"><file>stats.html</file></template>
+      <template name="stats_click"  view="tt2" cache="0" maxage="0"><file>stats_click.html</file></template>
+      <template name="gallery"  view="tt2" cache="0" maxage="0"><file>gallery.html</file></template>
+      <template name="foto"  view="tt2" cache="0" maxage="0"><file>foto.html</file></template>
+      <template name="users"  view="tt2" cache="0" maxage="0"><file>users.html</file></template>
+      <template name="users_ajax"  view="tt2t" cache="0" maxage="0"><file>users_ajax.html</file></template>
+      <template name="moderate"  view="tt2" cache="0" maxage="0"><file>moderate.html</file></template>
+
+      <template name="edit_profile"  view="tt2" cache="0" maxage="0"><file>profile/edit.html</file></template>
+      <template name="answers"  view="tt2" cache="0" maxage="0"><file>profile/answers.html</file></template>
+      <template name="answers_archive"  view="tt2" cache="0" maxage="0"><file>profile/answers_archive.html</file></template>
+      <template name="profile"  view="tt2" cache="0" maxage="0"><file>profile/profile.html</file></template>
+      <template name="change_password"  view="tt2" cache="0" maxage="0"><file>profile/change_password.html</file></template>
+      <template name="draft"  view="tt2" cache="0" maxage="0"><file>profile/draft.html</file></template>
+
+      <template name="user_home"  view="tt2" cache="0" maxage="0"><file>user/home.html</file></template>
+      <template name="user_profile"  view="tt2" cache="0" maxage="0"><file>user/profile.html</file></template>
+      <template name="user_podcast"  view="tt2" cache="0" maxage="0"><file>user/podcast.html</file></template>
+      <template name="user_foto"  view="tt2" cache="0" maxage="0"><file>user/foto.html</file></template>
+      <template name="avatar"  view="tt2" cache="0" maxage="0"><file>user/avatar.html</file></template>
+      <template name="mobile_code"  view="tt2" cache="0" maxage="0"><file>profile/mobile_code.html</file></template>
+
+      <template name="sign"  view="tt2" cache="0" maxage="0"><file>sign.html</file></template>
+      <template name="no_access"  view="tt2" cache="0" maxage="0"><file>no_access.html</file></template>
+      <template name="no_login"  view="tt2" cache="0" maxage="0"><file>no_login.html</file></template>
+      <template name="signed"  view="tt2" cache="0" maxage="0"><file>signed.html</file></template>
+
+      <template name="show_file"  view="tt2" cache="0" maxage="0"><file>journal/default/show_file.html</file></template>
+      <template name="edit_file"  view="tt2" cache="0" maxage="0"><file>journal/default/edit_file.html</file></template>
+      <template name="new_topic"  view="tt2" cache="0" maxage="0"><file>journal/default/new_topic.html</file></template>
+      <template name="show_topic"  view="tt2" cache="0" maxage="0"><file>journal/default/show_topic.html</file></template>
+      <template name="show_draft_topic"  view="tt2" cache="0" maxage="0"><file>journal/default/show_draft_topic.html</file></template>
+      <template name="edit_topic"  view="tt2" cache="0" maxage="0"><file>journal/default/edit_topic.html</file></template>
+      <template name="edit_event"  view="tt2" cache="0" maxage="0"><file>journal/default/edit_event.html</file></template>
+      <template name="topic_journal_settings"  view="tt2" cache="0" maxage="0"><file>journal/default/topic_journal_settings.html</file></template>
+
+      <template name="move_topic"  view="tt2" cache="0" maxage="0"><file>journal/default/move_topic.html</file></template>
+
+      <template name="show_journal"  view="tt2" cache="0" maxage="0"><file>journal/default/show_journal.html</file></template>
+      <template name="archive"  view="tt2" cache="0" maxage="0"><file>journal/default/archive.html</file></template>
+      <template name="edit_journal"  view="tt2" cache="0" maxage="0"><file>journal/default/edit_journal.html</file></template>
+
+      <template name="journal_members"  view="tt2" cache="0" maxage="0"><file>journal/default/journal_members.html</file></template>
+
+      <template name="list_journals"  view="tt2" cache="0" maxage="0"><file>list_journals.html</file></template>
+
+
+      <template name="mail"  view="tt2" cache="0" maxage="0"><file>user/mail.html</file></template>
+      <template name="exchange"  view="tt2" cache="0" maxage="0"><file>user/exchange.html</file></template>
+
+      <template name="my_journals"  view="tt2" cache="0" maxage="0"><file>profile/my_journals.html</file></template>
+
+      <!-- iframe с сообщениями -->
+      <template name="messages"  view="tt2" cache="0" maxage="0"><file>user/messages.html</file></template>
+
+      <template name="error"  view="tt2" cache="0" maxage="0"><file>error.html</file></template>
+<!--      <template name="redirect" view="internal" code="REDIRECT">${uri:home}${result}</template>-->
+      <template name="redirect" view="internal" code="REDIRECT">${result}</template>
+      <template name="global_redirect" view="internal" code="REDIRECT">${result}</template>
+      <template name="file"     type="file">${result}|/tmp/file.tmp</template>
+      <template name="NOT_FOUND" code="404" view="tt2"><file>notfound.html</file></template>
+      <template name="DECLINE" code="DECLINE"/>
+    </templates>
+
+
+    <views>
+      <view name="internal" class="dpl::Web::View::Internal"/>
+      <view name="tt2" dir="/home/danil/projects/nz/templ/"
+        class="dpl::Web::View::TT2" nocache="1" maxage="1"> <!-- code="${result:code}|200" -->
+        <options>
+          <COMPILE_DIR>/tmp/ttc/</COMPILE_DIR>
+          <COMPILE_EXT>.ttc</COMPILE_EXT>
+          <INTERPOLATE>1</INTERPOLATE> <!-- Позволяет использовать $vasya вместо [% vasya %] -->
+          <POST_CHOMP>0</POST_CHOMP>
+          <PRE_CHOMP>0</PRE_CHOMP>
+          <RELATIVE>1</RELATIVE>
+          <ABSOLUTE>1</ABSOLUTE>
+          <TRIM>1</TRIM> <!--	# Удаляет CR/LF -->
+          <AUTO_RESET>0</AUTO_RESET>
+        </options>
+        <header>
+          <Content-Type>text/html; charset=koi8-r</Content-Type>
+          <Cache-control>max-age=0, private</Cache-control>
+          <Date if_not_empty="1">${view:date}</Date> <!-- Устанавливать это заголовок если он получился не пустой -->
+        </header>
+      </view>
+
+      <view name="tt2.xml" dir="/home/danil/projects/nz/templ/"
+        class="dpl::Web::View::TT2" nocache="1" maxage="1"> <!-- code="${result:code}|200" -->
+        <options>
+          <COMPILE_DIR>/tmp/ttc/</COMPILE_DIR>
+          <COMPILE_EXT>.ttc</COMPILE_EXT>
+          <INTERPOLATE>1</INTERPOLATE> <!-- Позволяет использовать $vasya вместо [% vasya %] -->
+          <POST_CHOMP>0</POST_CHOMP>
+          <PRE_CHOMP>0</PRE_CHOMP>
+          <RELATIVE>1</RELATIVE>
+          <ABSOLUTE>1</ABSOLUTE>
+          <TRIM>1</TRIM> <!--	# Удаляет CR/LF -->
+          <AUTO_RESET>0</AUTO_RESET>
+        </options>
+        <header>
+          <Content-Type>application/xml</Content-Type>
+          <Cache-control>max-age=0, private</Cache-control>
+          <Date if_not_empty="1">${view:date}</Date> <!-- Устанавливать это заголовок если он получился не пустой -->
+        </header>
+      </view>
+
+      <view name="tt2t" dir="/home/danil/projects/nz/templ/"
+        class="dpl::Web::View::TT2" nocache="1" maxage="1"> <!-- code="${result:code}|200" -->
+        <options>
+          <COMPILE_DIR>/tmp/ttc/</COMPILE_DIR>
+          <COMPILE_EXT>.ttc</COMPILE_EXT>
+          <INTERPOLATE>1</INTERPOLATE> <!-- Позволяет использовать $vasya вместо [% vasya %] -->
+          <POST_CHOMP>1</POST_CHOMP>
+          <PRE_CHOMP>1</PRE_CHOMP>
+          <RELATIVE>1</RELATIVE>
+          <ABSOLUTE>1</ABSOLUTE>
+          <TRIM>1</TRIM> <!--	# Удаляет CR/LF -->
+          <AUTO_RESET>0</AUTO_RESET>
+        </options>
+        <header>
+          <Content-Type>text/plain; charset=koi8-r</Content-Type>
+          <Cache-control>max-age=0, private</Cache-control>
+          <Date if_not_empty="1">${view:date}</Date> <!-- Устанавливать это заголовок если он получился не пустой -->
+        </header>
+      </view>
+
+    </views>
+
+  </subsystem>
+</xml>

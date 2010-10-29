@@ -1,0 +1,32 @@
+
+<littlesms>
+  login = ???
+  key = ???
+  useSSL = 1
+  balance = 100
+  telefon = ???
+</littlesms>
+
+<database>
+ datasource = DBI:Pg:dbname=nz
+ user = ???
+ password = ???
+
+ <attributes>
+    RaiseError = 1
+    AutoCommit = 0
+ </attributes>
+
+</database>
+
+
+<database2>
+ datasource = DBI:Pg:dbname=zhazhda
+ user = ???
+ password = ???
+
+ <attributes>
+    RaiseError = 1
+ </attributes>
+
+</database2>
