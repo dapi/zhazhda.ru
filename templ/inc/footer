@@ -21,16 +21,20 @@
 
 <br/>
 <div style="border-top: 1px dashed gray; padding-top: 10px">
-<div style="float: left; color: gray; width: 40%"><small>Сайт находится на стадии тестирования. В случае обнаружения ошибок, багов и прочих неприятностей, просим, без стеснения, <a href="mailto:admin@zhazhda.ru">сообщать</a>.</small></div>
+
+<div style="float: left; color: gray; width: 60%">
+<small>
+В случае обнаружения ошибок и прочих неприятностей, просим, без стеснения, <a href="mailto:admin@zhazhda.ru">сообщать</a>.
+<br/><br/>
+Исходтики сайта <a href="http://github.com/dapi/zhazhda.ru">доступны</a> под OpenSource.
+<br/><br/>
+Сделано без задней мысли <a href="http://dapi.ru/">Данилом Письменным</a>
+</small>
+</div>
+
 <div style="float: right">[% INCLUDE inc/up %]</div>
 </div>
 
-
-<div class="footer">
-Исходтики сайта <a href="http://github.com/dapi/zhazhda.ru">доступны под OpenSource</a>.
-</br>
-Сделано <a href="http://dapi.ru/">Данилом Письменным</a>
-</div>
 
 
 </div> <!-- close main block -->
