@@ -26,7 +26,11 @@
 </div>
 
 
-
+<div class="footer">
+Исходтики сайта <a href="http://github.com/dapi/zhazhda.ru">доступны под OpenSource</a>.
+</br>
+Сделано <a href="http://dapi.ru/">Данилом Письменным</a>
+</div>
 
 
 </div> <!-- close main block -->
@@ -46,23 +50,6 @@
 <br style="clear: both;"/>
 
 
-<table width="100%">
-<tr>
-<td  class="left" style="padding-left: 20px">[%# INCLUDE inc/loggers %]</td>
-<td height="1">
-
-
-<!-- ПАРТНЕРЫ НАЧАЛО -->
-<table   width="80%"  align="center">
-<tr>
-<td  align="center"><a href="/awards/" ><img src="/pic/friends/awards.gif" alt="" /></a></td>
-<td  align="center"><a href="http://software4.ru" ><img src="/pic/friends/kuba.gif" alt="" /></a></td>
-<td  align="center"><a href="http://ed.orionet.ru" ><img src="/pic/friends/estdesign.gif" alt="" /></a></td>
-<td  align="center"><a href="http://orionet.ru" ><img src="/pic/friends/orionet.gif" alt="" /></a></td>
-</tr>
-</table>
-<!-- ПАРТНЕРЫ КОНЕЦ -->
-</td></tr></table>
 <!--<p>your ip is: $set.uri.remote_ip</p>-->
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
@@ -72,7 +59,7 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 try {
 var pageTracker = _gat._getTracker("UA-8145521-2");
 pageTracker._trackPageview();
-} catch(err) {}</script>
+ } catch(err) {}</script>
 
 
 <!-- WebVisor -->
