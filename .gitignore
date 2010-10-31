@@ -33,5 +33,3 @@ META.yml
 system.xml
 utils/convert.conf
 utils/db.sh
-utils/db.sh
-utils/convert.conf
