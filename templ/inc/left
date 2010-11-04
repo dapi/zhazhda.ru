@@ -81,26 +81,13 @@
 </div>
 
 
-<div class="ad_block">
-<script type="text/javascript"><!--
-yandex_partner_id = 57335;
-yandex_site_bg_color = 'FFFFFF';
-yandex_site_charset = 'koi8-r';
-yandex_ad_format = 'direct';
-yandex_font_size = 1;
-yandex_direct_type = 'vertical';
-yandex_direct_border_type = 'ad';
-yandex_direct_limit = 3;
-yandex_direct_header_bg_color = 'FEEAC7';
-yandex_direct_bg_color = 'FFF9F0';
-yandex_direct_border_color = 'FBE5C0';
-yandex_direct_title_color = '0000CC';
-yandex_direct_url_color = '006600';
-yandex_direct_all_color = '0000CC';
-yandex_direct_text_color = '000000';
-yandex_direct_hover_color = '0066FF';
-document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/system/context.js"></sc'+'ript>');
-//--></script>
+<div class="ad_block_direct">
+
+<script type="text/javascript">
+var begun_auto_pad = 220094086;
+var begun_block_id = 220094863;
+</script>
+<script src="http://autocontext.begun.ru/autocontext2.js" type="text/javascript"></script>
 </div>
 
 

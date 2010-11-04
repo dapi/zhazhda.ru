@@ -373,6 +373,7 @@ padding-top: 10px; padding-bottom: 10px; }
 div.text_block { font: normal 11px Verdana; padding: 0px 0px 10px 18px; text-align: left;}
 div.job_block { border: 1px dashed gray; background: #eee; font: normal 11px Verdana; padding: 3px 0px 10px 18px; text-align: left;}
 div.ad_block { text-align: center; padding: 25px 0px 25px 0px; }
+div.ad_block_direct { text-align: center; padding: 25px 0px 25px 20px; }
 div.yandex_block { padding-top: 10px; padding-bottom: 10px; }
 
 div.miss_block { background: #fee; padding: 0px 0px 0px 0px; margin-bottom: 5px; margin-top: 10px;
