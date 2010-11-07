@@ -11,6 +11,9 @@
 
 Один нюанс &mdash; все файлы в кодировке koi8-r.
 
+
 ---
+
+Лицензия GPL.
 
 Написан в 2004 году на кухне Ивана Куделина в городе Чебоксары, by [Danil Pismenny](http://dapi.ru/) , в дизайне также принимал участие [Stas Bedunkevich](http://www.bedunkevich.com)
