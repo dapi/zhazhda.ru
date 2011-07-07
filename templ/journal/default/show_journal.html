@@ -31,11 +31,14 @@
 [% PROCESS list_galleries %]
 [% END %]
 
-[% IF context.banners.middle  %]
+[%# IF context.banners.middle  %]
 <div style="padding-top: 15px; padding-bottom: 0px">
-<center>[% INCLUDE inc/banner banner=context.banners.middle %]</center>
+<center>
+<div class="aydabanner" id="aydabanner_19" style="width: 468px; height: 60px"></div>
+[%# INCLUDE inc/banner banner=context.banners.middle %]
+</center>
 </div>
-[% END %]
+[%# END %]
 
 
 

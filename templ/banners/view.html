@@ -17,7 +17,7 @@
 <br/><br/>
 <table class="banner" >
 <tr><th align="right">Файл:</th><td><b>$result.file</b>, $result.type (${result.width}x${result.height}) [% UNLESS context.report %][% IF result.is_active %]<a href="${set.uri.home}banners/deactivate?banner_id=$result.id">отменить все площадки</a>[% ELSIF result.is_removed %]<b>удален</b>[% ELSE %]<a href="${set.uri.home}banners/del?id=$result.id">удалить</a>[% END %][% END %]</td></tr>
-<tr><th>Размер:</th><td>$result.size байт</td></tr>
+<tr><th>Размер:</th><td>$result.size байт <a href="[% result.uri %]">Download</a></td></tr>
 <tr><th>Владелец:</th><td>[% IF result.user %][% INCLUDE inc/user user=result.user %] (Баннеров установлено $result.user.banners из $result.user.banners_limit)[% ELSE %]не установлен[% END %]</td></tr>
 <tr><th>Дата начала показа:</th><td>[% result.date_from || 'не установлена' %]</td></tr>
 <tr><th>Дата окончания:</th><td>[% result.date_to || 'не установлена' %]</td></tr>

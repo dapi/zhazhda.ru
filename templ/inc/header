@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="koi8-r"?>
-<!DOCTYPE html 
+<!DOCTYPE html
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
 <head>
-<meta http-equiv="content-type" content="text/html; charset=koi8-r"/>
+  <meta http-equiv="content-type" content="text/html; charset=koi8-r"/>
+  <meta name='yandex-verification' content='4ce4c548d2fc4dad' />
 [% IF context.journal.id==7 %]
 <title>Другой Спорт[% IF context.title %]: $context.title[% END %]</title>
 <link rel="SHORTCUT ICON" href="/pic/drugoi.ico"/>
@@ -19,6 +20,7 @@
 <script type="text/javascript" src="http://zhazhda.ru/js/prototype-1.6.0.2.js?ver=1"></script>
 <script type="text/javascript" src="http://zhazhda.ru/js/tooltips.js"></script>
 <script type="text/javascript" src="http://zhazhda.ru/js/scripts.js?2"></script>
+<script type="text/javascript" src="http://rotator.aydamaster.ru/rotator.js"></script>
 
 <!--<base href="$set.uri.home"/>  target=_blank-->
 </head>
@@ -45,11 +47,12 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 <div id="mainbar">
 
 <div id="header">
-[% INCLUDE inc/banner position='top' %]
+  [% INCLUDE inc/banner position='top' %]
+[%# <div class="flash aydabanner" id="aydabanner_17" style="width: 468px; height: 60px"></div> %]
 <div class="hmenu">
 [% PROCESS inc/lm name='reklama' %]
 [% PROCESS inc/lm name='stats' %]
-[% PROCESS inc/lm name='search' %]
+[%# PROCESS inc/lm name='search' %]
 </div>
 </div>
 

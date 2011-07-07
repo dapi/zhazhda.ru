@@ -8,14 +8,14 @@
 <div style="padding-top: 15px; padding-bottom: 5px"><b>[% topic.event_date | date_afisha %] в $topic.event_time</b></div>
 <div class="subject">
 <span class="subject_place">$topic.event_place</span>
- / 
+ /
 <a class="topic_subject" [% IF topic.is_red %] style='color: red' [% END %] href="/topics/${topic.id}.html#new">[% topic.subject | escape_subject %]</a>
 </div>
 [% ELSIF topic.topic_type=='gallery' %]
 <div style="padding-top: 15px; padding-bottom: 5px"><b>Фотоотчёт: [% topic.event_date | date_afisha %] в $topic.event_time, $topic.event_name</b></div>
 <div class="subject">
 <span class="subject_place">$topic.event_place</span>
- / 
+ /
 <a class="topic_subject" [% IF topic.is_red %] style='color: red' [% END %] href="/topics/${topic.id}.html#new">[% topic.subject | escape_subject %]</a>
 </div>
 [% ELSE %]
@@ -35,7 +35,10 @@
 </div>
 
 </td>
-<td width="*"class="topic_text">[% topic.text | escape_text %]</td></tr>
+<td width="*"class="topic_text">[% topic.text | escape_text %]
+<br/>
+[% topic.gogle_text %]
+</td></tr>
 
 [% IF topic.has_igo %]<tr><td colspan="2">[% INCLUDE journal/default/igo_block %]</td></tr>[% END %]
 
@@ -110,26 +113,26 @@
 [% BLOCK journal_status %]
 
 <div>[% IF topic.journal_id==journal.id %]<b>$journal.name</b>[% ELSE %]$journal.name[% END %]: $journal.is_on_main
-[% IF journal.access.can_change_topic_status %] 
-[% IF journal.link %] 
+[% IF journal.access.can_change_topic_status %]
+[% IF journal.link %]
 [% PROCESS ct title='На главной' param='is_on_main' %]
 [% PROCESS ct title='Картинка' param='image_mode' %]
 [% PROCESS ct title='На верху' param='is_on_top' %]
 [% PROCESS ct title='Жирным' param='is_bold' %]
 [% PROCESS ct title='Красным' param='is_red' %]
-[% PROCESS ct title='Холодный' param='is_cold' %]                          
+[% PROCESS ct title='Холодный' param='is_cold' %]
 [% ELSE %]
 <div><a href="/publish_topic?jid=$journal.id&amp;id=$topic.id" title="Поместить тему в текущий выпуск">Опубликовать</a></div>
 [% END %]
 
 [% ELSIF journal.access.can_topic_on_top %]
 
-[% IF journal.link %] 
+[% IF journal.link %]
 [% PROCESS ct title='На верху' param='is_on_top' %]
 [% END %]
 
-[% END %]        
-                                                                                                                 
+[% END %]
+
 </div>
 
 [% END %]

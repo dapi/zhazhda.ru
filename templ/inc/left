@@ -52,7 +52,7 @@
 </div>
 
 <div id="in" style="padding-bottom: 10px">
-<a href="javascript:open_login()">Вдох</a>
+<a href="javascript:open_login()" rel="nofollow">Вдох</a>
 </div>
 
 [% UNLESS context.signing %]
@@ -65,12 +65,6 @@
 [% END %]
 [% END %]
 
-
-<div class="ad_block" style="padding-top: 0px">
-[% PROCESS banner place='left01' %]
-</div>
-
-
 <div class="online_block">
 <div class="n">На сайте ($context.online.list.size):</div>
 <div>
@@ -81,6 +75,13 @@
 </div>
 
 
+
+<div class="ad_block" style="padding-top: 0px">
+[% PROCESS banner place='left01' %]
+</div>
+
+
+<!--
 <div class="ad_block_direct">
 
 <script type="text/javascript">
@@ -89,7 +90,7 @@ var begun_block_id = 220094863;
 </script>
 <script src="http://autocontext.begun.ru/autocontext2.js" type="text/javascript"></script>
 </div>
-
+-->
 
 <br/>
 
@@ -108,7 +109,7 @@ var begun_block_id = 220094863;
 <div class="login_block">
 
 <!--
-<div style="padding-bottom: 5px"><a href="http://yandex.ru/"><img src="http://old-company.yandex.ru/i/50x23.gif" width="50" height="23"/></a></div>
+<div style="padding-bottom: 5px"><a href="http://yandex.ru/" ref="nofollow"><img src="http://old-company.yandex.ru/i/50x23.gif" width="50" height="23"/></a></div>
 <form name="web" method="get" class="login" action="http://yandex.ru/sitesearch">
 <input type="text" name="text" size="10" value="Искать на сайте"  onfocus="if (this.value=='Искать на сайте') this.value=''" onblur="if (this.value=='') this.value='Искать на сайте'" maxlength="160" /><br/>
 <input type="submit" value="Найти!" />
@@ -119,7 +120,7 @@ var begun_block_id = 220094863;
 <input type="hidden" name="referrer2" value="zhahzda.ru">
 </form>
 -->
-<a href="http://www.yandex.ru/advanced.html?site=zhazhda.ru">Поиск по сайту</a>
+<a href="http://www.yandex.ru/advanced.html?site=zhazhda.ru" rel="nofollow">Поиск по сайту</a>
 
 </div>
 

@@ -46,11 +46,15 @@ sms()->setBalanceControl( $config{littlesms}->{balance}, $config{littlesms}->{te
 
 dpl::System::Define('nz','/home/danil/projects/nz/system.xml');
 
+# $ENV{DOCUMENT_ROOT}="/home/danil/projects/nz";
+# "$ENV{DOCUMENT_ROOT}/edd5d18abd58ea8ce4272ba67cb2fec7/SAPE.pm" =~
+# /^(.+)$/; 
 
+require '/home/danil/projects/nz/edd5d18abd58ea8ce4272ba67cb2fec7/SAPE.pm';
 
-#setting('cities',SuperSelectAndFetchAll('select * from city'));
-#setting('categories',SuperSelectAndFetchAll('select * from category order by id'));
-#db()->Commit();
+# setting('cities',SuperSelectAndFetchAll('select * from city'));
+# setting('categories',SuperSelectAndFetchAll('select * from category
+# order by id')); db()->Commit();
 
 # Загружаю в хеш юзверей
 

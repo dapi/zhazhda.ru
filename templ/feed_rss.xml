@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <rss  version="2.0">
   <channel>
+<!-- 
+http://web.resource.org/rss/1.0/modules/event/ 
+http://blogs.oucs.ox.ac.uk/inapickle/2009/12/16/adding-event-times-and-location-to-rss-and-atom-feeds/
+-->
 <atom:link href="$result.link" rel="self" type="application/rss+xml" />
 <title>[% result.title | unicode_escape %]</title>
 <link>$result.link</link>

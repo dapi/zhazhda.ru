@@ -20,6 +20,44 @@ document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/syste
 //]]>
 </script>
 
+<!-- Yandex.Metrika informer -->
+<a href="http://metrika.yandex.ru/stat/?id=7856908&amp;from=informer"
+target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/7856908/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" /></a>
+<!-- /Yandex.Metrika informer -->
+
+<!-- Yandex.Metrika counter -->
+<div style="display:none;"><script type="text/javascript">
+(function(w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter7856908 = new Ya.Metrika({id:7856908, enableAll: true});
+        }
+        catch(e) { }
+    });
+})(window, 'yandex_metrika_callbacks');
+</script></div>
+<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+<noscript><div><img src="//mc.yandex.ru/watch/7856908"
+                    style="position:absolute; left:-9999px;" alt=""
+                    /></div>
+</noscript>
+<!-- /Yandex.Metrika counter -->
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24383622-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
 [% IF context.journal AND !no_journal_link %]
 <table cellpadding="0" cellspacing="0" style="padding-top: 20px" width="100%">
 <tr><td>
@@ -46,9 +84,12 @@ document.write('<sc'+'ript type="text/javascript" src="http://an.yandex.ru/syste
 <small>
 В случае обнаружения ошибок и прочих неприятностей, просим, без стеснения, <a href="mailto:admin@zhazhda.ru">сообщать</a>.
 <br/><br/>
-OpenSource исходтики сайта <a href="http://github.com/dapi/zhazhda.ru">на github</a>.
+OpenSource исходтики сайта <a href="http://github.com/dapi/zhazhda.ru"
+                              ref="nofollow">на github</a>.
 <br/><br/>
-Сделано без задней мысли <a href="http://dapi.ru/">Данилом Письменным</a> по бурной инициативе <a href="http://friendfeed.com/podlesny">Антона Подлесного</a>.
+Сделано без задней мысли <a href="http://dapi.ru/">Данилом
+  Письменным</a> по бурной
+инициативе <a href="http://friendfeed.com/podlesny" rel="nofollow">Антона Подлесного</a>.
 
 </small>
 </div>
@@ -93,7 +134,7 @@ pageTracker._trackPageview();
     var __visorInit = new Function('', 'if (typeof window["__visor"] != "undefined") __visor.init(14994);');
     setTimeout('document.getElementById("__visorCode").src="//c1.web-visor.com/c.js";',10);
 </script>
-<noscript><img src="//c1.web-visor.com/noscript?sid=14994" alt="" 
+<noscript><img src="//c1.web-visor.com/noscript?sid=14994" alt=""
 style="position:absolute;width:1px;height:1px;left:-999px;top:-999px;"></noscript>
 <!-- WebVisor -->
 </body></html>
